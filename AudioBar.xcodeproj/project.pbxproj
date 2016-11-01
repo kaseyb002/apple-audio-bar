@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		919364211DC8B1EE00510B7C /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 919364171DC8B1ED00510B7C /* AudioBar.framework */; };
-		919364261DC8B1EE00510B7C /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364251DC8B1EE00510B7C /* AudioBarTests.swift */; };
 		919364281DC8B1EE00510B7C /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9193641A1DC8B1ED00510B7C /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		919364321DC8B2D500510B7C /* AudioBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364311DC8B2D500510B7C /* AudioBar.swift */; };
+		919364341DC8B42400510B7C /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364331DC8B42400510B7C /* AudioBarTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,9 +28,9 @@
 		9193641A1DC8B1ED00510B7C /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		9193641B1DC8B1ED00510B7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		919364201DC8B1EE00510B7C /* AudioBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		919364251DC8B1EE00510B7C /* AudioBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
-		919364271DC8B1EE00510B7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		919364311DC8B2D500510B7C /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
+		919364331DC8B42400510B7C /* AudioBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
+		919364351DC8B42C00510B7C /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				919364191DC8B1ED00510B7C /* AudioBar */,
-				919364241DC8B1EE00510B7C /* AudioBarTests */,
 				919364181DC8B1ED00510B7C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,18 +74,11 @@
 			children = (
 				9193641A1DC8B1ED00510B7C /* AudioBar.h */,
 				919364311DC8B2D500510B7C /* AudioBar.swift */,
+				919364331DC8B42400510B7C /* AudioBarTests.swift */,
 				9193641B1DC8B1ED00510B7C /* Info.plist */,
+				919364351DC8B42C00510B7C /* Info-Tests.plist */,
 			);
 			path = AudioBar;
-			sourceTree = "<group>";
-		};
-		919364241DC8B1EE00510B7C /* AudioBarTests */ = {
-			isa = PBXGroup;
-			children = (
-				919364251DC8B1EE00510B7C /* AudioBarTests.swift */,
-				919364271DC8B1EE00510B7C /* Info.plist */,
-			);
-			path = AudioBarTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,7 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				919364261DC8B1EE00510B7C /* AudioBarTests.swift in Sources */,
+				919364341DC8B42400510B7C /* AudioBarTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = AudioBarTests/Info.plist;
+				INFOPLIST_FILE = "AudioBar/Info-Tests.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TBD.AudioBarTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -377,7 +369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = AudioBarTests/Info.plist;
+				INFOPLIST_FILE = "AudioBar/Info-Tests.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TBD.AudioBarTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
