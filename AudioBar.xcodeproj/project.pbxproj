@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */; };
 		919364211DC8B1EE00510B7C /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 919364171DC8B1ED00510B7C /* AudioBar.framework */; };
 		919364281DC8B1EE00510B7C /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9193641A1DC8B1ED00510B7C /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		919364321DC8B2D500510B7C /* AudioBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364311DC8B2D500510B7C /* AudioBarController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+LayoutConstraint.swift"; sourceTree = "<group>"; };
 		919364171DC8B1ED00510B7C /* AudioBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9193641A1DC8B1ED00510B7C /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		9193641B1DC8B1ED00510B7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */,
 				91D7EA791DCA3D39003CB81B /* AudioBarViewTests.swift */,
 				91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */,
+				0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */,
 				9193641B1DC8B1ED00510B7C /* Info.plist */,
 				919364351DC8B42C00510B7C /* Info-Tests.plist */,
 			);
@@ -210,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */,
 				91D7EA801DCA4924003CB81B /* XCTAssert+Type.swift in Sources */,
 				919364341DC8B42400510B7C /* AudioBarControllerTests.swift in Sources */,
 				91D7EA7A1DCA3D39003CB81B /* AudioBarViewTests.swift in Sources */,
