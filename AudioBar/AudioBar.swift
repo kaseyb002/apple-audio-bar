@@ -34,9 +34,7 @@ class AudioBar: UIView {
     init() {
         super.init(frame: .zero)
         initContentView()
-        playbackControlsView.addArrangedSubview(previousButton)
-        playbackControlsView.addArrangedSubview(playButton)
-        playbackControlsView.addArrangedSubview(nextButton)
+        initPlaybackControlsView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,6 +57,24 @@ class AudioBar: UIView {
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ]
+    }
+
+    private func initPlaybackControlsView() {
+        playbackControlsView.addArrangedSubview(previousButton)
+        playbackControlsView.addArrangedSubview(playButton)
+        playbackControlsView.addArrangedSubview(nextButton)
+        NSLayoutConstraint.activate(playBackButtonsConstraints)
+    }
+
+    private var playBackButtonsConstraints: [NSLayoutConstraint] {
+        return [
+            previousButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            previousButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            playButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            nextButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
         ]
     }
 

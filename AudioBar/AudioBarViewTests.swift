@@ -126,6 +126,16 @@ class AudioBarViewTests: XCTestCase {
         XCTAssertEqual(audioBar.previousButton.buttonType, .system)
     }
 
+    func testPreviousButtonHeightConstraint() {
+        let expectedConstraint = audioBar.previousButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar.previousButton)
+    }
+
+    func testPreviousButtonWidthConstraint() {
+        let expectedConstraint = audioBar.previousButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar.previousButton)
+    }
+
     // MARK: Play button
 
     func testPlayButtonType() {
@@ -136,6 +146,16 @@ class AudioBarViewTests: XCTestCase {
         XCTAssertEqual(audioBar.playButton.buttonType, .system)
     }
 
+    func testPlayButtonHeightConstraint() {
+        let expectedConstraint = audioBar.playButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar.playButton)
+    }
+
+    func testPlayButtonWidthConstraint() {
+        let expectedConstraint = audioBar.playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar.playButton)
+    }
+
     // MARK: Next button
 
     func testNextButtonType() {
@@ -144,6 +164,16 @@ class AudioBarViewTests: XCTestCase {
 
     func testNextButtonButtonType() {
         XCTAssertEqual(audioBar.nextButton.buttonType, .system)
+    }
+
+    func testNextButtonHeightConstraint() {
+        let expectedConstraint = audioBar.nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar.nextButton)
+    }
+
+    func testNextButtonWidthConstraint() {
+        let expectedConstraint = audioBar.nextButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar.nextButton)
     }
 
     // MARK: Remaining time formatter
