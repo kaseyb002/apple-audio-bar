@@ -41,6 +41,26 @@ class AudioBarViewTests: XCTestCase {
         XCTAssertFalse(audioBar.contentView.translatesAutoresizingMaskIntoConstraints)
     }
 
+    func testContentViewTopConstraint() {
+        let expectedConstraint = audioBar.contentView.topAnchor.constraint(equalTo: audioBar.topAnchor)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar)
+    }
+
+    func testContentViewLeadingConstraint() {
+        let expectedConstraint = audioBar.contentView.leadingAnchor.constraint(equalTo: audioBar.leadingAnchor)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar)
+    }
+
+    func testContentViewBottomConstraint() {
+        let expectedConstraint = audioBar.contentView.bottomAnchor.constraint(equalTo: audioBar.bottomAnchor)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar)
+    }
+
+    func testContentViewTrailingConstraint() {
+        let expectedConstraint = audioBar.contentView.trailingAnchor.constraint(equalTo: audioBar.trailingAnchor)
+        XCTAssertConstraint(expectedConstraint, inView: audioBar)
+    }
+
     // MARK: Route view
 
     func testRouteViewType() {

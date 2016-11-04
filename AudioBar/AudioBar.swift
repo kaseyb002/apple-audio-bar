@@ -33,12 +33,7 @@ class AudioBar: UIView {
 
     init() {
         super.init(frame: .zero)
-        addSubview(contentView)
-        contentView.addArrangedSubview(routeView)
-        contentView.addArrangedSubview(playbackControlsView)
-        contentView.addArrangedSubview(remainingTimeLabel)
-        contentView.distribution = .equalSpacing
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        initContentView()
         playbackControlsView.addArrangedSubview(previousButton)
         playbackControlsView.addArrangedSubview(playButton)
         playbackControlsView.addArrangedSubview(nextButton)
@@ -46,6 +41,25 @@ class AudioBar: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func initContentView() {
+        addSubview(contentView)
+        contentView.addArrangedSubview(routeView)
+        contentView.addArrangedSubview(playbackControlsView)
+        contentView.addArrangedSubview(remainingTimeLabel)
+        contentView.distribution = .equalSpacing
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(contentViewConstraints)
+    }
+
+    private var contentViewConstraints: [NSLayoutConstraint] {
+        return [
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ]
     }
 
 }
