@@ -13,6 +13,10 @@ class PlaybackControlsViewTests: XCTestCase {
         XCTAssert(playbackControlsView, directlyInheritsFrom: UIStackView.self)
     }
 
+    func testFrame() {
+        XCTAssertEqual(playbackControlsView.frame, .zero)
+    }
+
     func testArrangedSubviews() {
         let expectedArrangedSubviews = [playbackControlsView.previousButton, playbackControlsView.playButton, playbackControlsView.nextButton]
         XCTAssertEqual(playbackControlsView.arrangedSubviews, expectedArrangedSubviews)
