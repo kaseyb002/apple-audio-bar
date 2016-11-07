@@ -2,9 +2,9 @@ import UIKit
 
 class PlaybackControlsView: UIStackView {
 
-    let previousButton = UIButton(type: .system)
-    let playButton = UIButton(type: .system)
-    let nextButton = UIButton(type: .system)
+    let previousButton = PlaybackButton.make(for: .previous)
+    let playButton = PlaybackButton.make(for: .play)
+    let nextButton = PlaybackButton.make(for: .next)
 
     init() {
         super.init(frame: .zero)

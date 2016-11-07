@@ -25,61 +25,31 @@ class PlaybackControlsViewTests: XCTestCase {
     // MARK: Previous button
 
     func testPreviousButtonType() {
-        XCTAssert(playbackControlsView.previousButton, is: UIButton.self)
+        XCTAssert(playbackControlsView.previousButton, is: PlaybackButton.self)
     }
 
-    func testPreviousButtonButtonType() {
-        XCTAssertEqual(playbackControlsView.previousButton.buttonType, .system)
-    }
-
-    func testPreviousButtonHeightConstraint() {
-        let expectedConstraint = playbackControlsView.previousButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: playbackControlsView.previousButton)
-    }
-
-    func testPreviousButtonWidthConstraint() {
-        let expectedConstraint = playbackControlsView.previousButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: playbackControlsView.previousButton)
+    func testPreviousButtonPlaybackAction() {
+        XCTAssertEqual(playbackControlsView.previousButton.playbackAction, .previous)
     }
 
     // MARK: Play button
 
     func testPlayButtonType() {
-        XCTAssert(playbackControlsView.playButton, is: UIButton.self)
+        XCTAssert(playbackControlsView.playButton, is: PlaybackButton.self)
     }
 
-    func testPlayButtonButtonType() {
-        XCTAssertEqual(playbackControlsView.playButton.buttonType, .system)
-    }
-
-    func testPlayButtonHeightConstraint() {
-        let expectedConstraint = playbackControlsView.playButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: playbackControlsView.playButton)
-    }
-
-    func testPlayButtonWidthConstraint() {
-        let expectedConstraint = playbackControlsView.playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: playbackControlsView.playButton)
+    func testPlayButtonPlaybackAction() {
+        XCTAssertEqual(playbackControlsView.playButton.playbackAction, .play)
     }
 
     // MARK: Next button
 
     func testNextButtonType() {
-        XCTAssert(playbackControlsView.nextButton, is: UIButton.self)
+        XCTAssert(playbackControlsView.nextButton, is: PlaybackButton.self)
     }
 
-    func testNextButtonButtonType() {
-        XCTAssertEqual(playbackControlsView.nextButton.buttonType, .system)
-    }
-
-    func testNextButtonHeightConstraint() {
-        let expectedConstraint = playbackControlsView.nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: playbackControlsView.nextButton)
-    }
-
-    func testNextButtonWidthConstraint() {
-        let expectedConstraint = playbackControlsView.nextButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: playbackControlsView.nextButton)
+    func testNextButtonPlaybackAction() {
+        XCTAssertEqual(playbackControlsView.nextButton.playbackAction, .next)
     }
 
 }
