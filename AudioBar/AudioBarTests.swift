@@ -11,11 +11,7 @@ class AudioBarTests: XCTestCase {
     // MARK: Main
 
     func testType() {
-        XCTAssert(audioBar, directlyInheritsFrom: UIView.self)
-    }
-
-    func testSubviews() {
-        XCTAssertEqual(audioBar.subviews, [audioBar.contentView])
+        XCTAssert(audioBar, directlyInheritsFrom: UIStackView.self)
     }
 
     func testFrame() {
@@ -24,41 +20,13 @@ class AudioBarTests: XCTestCase {
 
     // MARK: Content view
 
-    func testContentViewType() {
-        XCTAssert(audioBar.contentView, is: UIStackView.self)
-    }
-
-    func testContentViewArrangedSubviews() {
+    func testArrangedSubviews() {
         let expectedArrangedSubviews = [audioBar.routeView, audioBar.playbackControlsView, audioBar.remainingTimeLabel]
-        XCTAssertEqual(audioBar.contentView.arrangedSubviews, expectedArrangedSubviews)
+        XCTAssertEqual(audioBar.arrangedSubviews, expectedArrangedSubviews)
     }
 
-    func testContentViewDistribution() {
-        XCTAssertEqual(audioBar.contentView.distribution, .equalSpacing)
-    }
-
-    func testContentViewIgnoresAutoresizingMask() {
-        XCTAssertFalse(audioBar.contentView.translatesAutoresizingMaskIntoConstraints)
-    }
-
-    func testContentViewTopConstraint() {
-        let expectedConstraint = audioBar.contentView.topAnchor.constraint(equalTo: audioBar.topAnchor)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar)
-    }
-
-    func testContentViewLeadingConstraint() {
-        let expectedConstraint = audioBar.contentView.leadingAnchor.constraint(equalTo: audioBar.leadingAnchor)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar)
-    }
-
-    func testContentViewBottomConstraint() {
-        let expectedConstraint = audioBar.contentView.bottomAnchor.constraint(equalTo: audioBar.bottomAnchor)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar)
-    }
-
-    func testContentViewTrailingConstraint() {
-        let expectedConstraint = audioBar.contentView.trailingAnchor.constraint(equalTo: audioBar.trailingAnchor)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar)
+    func testDistribution() {
+        XCTAssertEqual(audioBar.distribution, .equalSpacing)
     }
 
     // MARK: Route view
