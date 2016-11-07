@@ -5,16 +5,12 @@ class AudioBar: UIView {
 
     let contentView = UIStackView()
     let routeView = MPVolumeView(showsVolumeSlider: false)
+    let playbackControlsView = PlaybackControlsView()
     let remainingTimeLabel = RemainingTimeLabel()
-    let playbackControlsView = UIStackView()
-    let previousButton = UIButton(type: .system)
-    let playButton = UIButton(type: .system)
-    let nextButton = UIButton(type: .system)
 
     init() {
         super.init(frame: .zero)
         initContentView()
-        initPlaybackControlsView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,24 +33,6 @@ class AudioBar: UIView {
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ]
-    }
-
-    private func initPlaybackControlsView() {
-        playbackControlsView.addArrangedSubview(previousButton)
-        playbackControlsView.addArrangedSubview(playButton)
-        playbackControlsView.addArrangedSubview(nextButton)
-        NSLayoutConstraint.activate(playBackButtonsConstraints)
-    }
-
-    private var playBackButtonsConstraints: [NSLayoutConstraint] {
-        return [
-            previousButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            previousButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            playButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            nextButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
         ]
     }
 

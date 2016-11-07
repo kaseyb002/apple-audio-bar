@@ -80,72 +80,7 @@ class AudioBarTests: XCTestCase {
     // MARK: Playback controls view
 
     func testPlaybackControlsView() {
-        XCTAssert(audioBar.playbackControlsView, is: UIStackView.self)
-    }
-
-    func testPlaybackControlsViewArrangedSubviews() {
-        let expectedArrangedSubviews = [audioBar.previousButton, audioBar.playButton, audioBar.nextButton]
-        XCTAssertEqual(audioBar.playbackControlsView.arrangedSubviews, expectedArrangedSubviews)
-    }
-
-    // MARK: Previous button
-
-    func testPreviousButtonType() {
-        XCTAssert(audioBar.previousButton, is: UIButton.self)
-    }
-
-    func testPreviousButtonButtonType() {
-        XCTAssertEqual(audioBar.previousButton.buttonType, .system)
-    }
-
-    func testPreviousButtonHeightConstraint() {
-        let expectedConstraint = audioBar.previousButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar.previousButton)
-    }
-
-    func testPreviousButtonWidthConstraint() {
-        let expectedConstraint = audioBar.previousButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar.previousButton)
-    }
-
-    // MARK: Play button
-
-    func testPlayButtonType() {
-        XCTAssert(audioBar.playButton, is: UIButton.self)
-    }
-
-    func testPlayButtonButtonType() {
-        XCTAssertEqual(audioBar.playButton.buttonType, .system)
-    }
-
-    func testPlayButtonHeightConstraint() {
-        let expectedConstraint = audioBar.playButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar.playButton)
-    }
-
-    func testPlayButtonWidthConstraint() {
-        let expectedConstraint = audioBar.playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar.playButton)
-    }
-
-    // MARK: Next button
-
-    func testNextButtonType() {
-        XCTAssert(audioBar.nextButton, is: UIButton.self)
-    }
-
-    func testNextButtonButtonType() {
-        XCTAssertEqual(audioBar.nextButton.buttonType, .system)
-    }
-
-    func testNextButtonHeightConstraint() {
-        let expectedConstraint = audioBar.nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar.nextButton)
-    }
-
-    func testNextButtonWidthConstraint() {
-        let expectedConstraint = audioBar.nextButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
-        XCTAssertConstraint(expectedConstraint, inView: audioBar.nextButton)
+        XCTAssert(audioBar.playbackControlsView, is: PlaybackControlsView.self)
     }
 
 }
