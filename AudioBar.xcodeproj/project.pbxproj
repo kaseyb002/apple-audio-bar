@@ -12,6 +12,8 @@
 		919364281DC8B1EE00510B7C /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9193641A1DC8B1ED00510B7C /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		919364321DC8B2D500510B7C /* AudioBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364311DC8B2D500510B7C /* AudioBarController.swift */; };
 		919364341DC8B42400510B7C /* AudioBarControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364331DC8B42400510B7C /* AudioBarControllerTests.swift */; };
+		91A4303C1DD0B30D004D466E /* RemainingTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A4303B1DD0B30D004D466E /* RemainingTimeLabel.swift */; };
+		91A4303E1DD0C2C1004D466E /* RemainingTimeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A4303D1DD0C2C1004D466E /* RemainingTimeLabelTests.swift */; };
 		91D7EA7A1DCA3D39003CB81B /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7EA791DCA3D39003CB81B /* AudioBarTests.swift */; };
 		91D7EA7C1DCA3D5F003CB81B /* AudioBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */; };
 		91D7EA801DCA4924003CB81B /* XCTAssert+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */; };
@@ -36,6 +38,8 @@
 		919364311DC8B2D500510B7C /* AudioBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarController.swift; sourceTree = "<group>"; };
 		919364331DC8B42400510B7C /* AudioBarControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarControllerTests.swift; sourceTree = "<group>"; };
 		919364351DC8B42C00510B7C /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
+		91A4303B1DD0B30D004D466E /* RemainingTimeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeLabel.swift; sourceTree = "<group>"; };
+		91A4303D1DD0C2C1004D466E /* RemainingTimeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeLabelTests.swift; sourceTree = "<group>"; };
 		91D7EA791DCA3D39003CB81B /* AudioBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
 		91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
 		91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+Type.swift"; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				919364331DC8B42400510B7C /* AudioBarControllerTests.swift */,
 				91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */,
 				91D7EA791DCA3D39003CB81B /* AudioBarTests.swift */,
+				91A4303B1DD0B30D004D466E /* RemainingTimeLabel.swift */,
+				91A4303D1DD0C2C1004D466E /* RemainingTimeLabelTests.swift */,
 				91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */,
 				0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */,
 				9193641B1DC8B1ED00510B7C /* Info.plist */,
@@ -205,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91D7EA7C1DCA3D5F003CB81B /* AudioBar.swift in Sources */,
+				91A4303C1DD0B30D004D466E /* RemainingTimeLabel.swift in Sources */,
 				919364321DC8B2D500510B7C /* AudioBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */,
+				91A4303E1DD0C2C1004D466E /* RemainingTimeLabelTests.swift in Sources */,
 				91D7EA801DCA4924003CB81B /* XCTAssert+Type.swift in Sources */,
 				919364341DC8B42400510B7C /* AudioBarControllerTests.swift in Sources */,
 				91D7EA7A1DCA3D39003CB81B /* AudioBarTests.swift in Sources */,
