@@ -2,7 +2,7 @@ import XCTest
 import MediaPlayer
 @testable import AudioBar
 
-class AudioBarViewTests: XCTestCase {
+class AudioBarTests: XCTestCase {
 
     // MARK: System under test
 
