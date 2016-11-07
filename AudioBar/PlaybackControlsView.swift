@@ -19,18 +19,19 @@ class PlaybackControlsView: UIStackView {
         addArrangedSubview(previousButton)
         addArrangedSubview(playButton)
         addArrangedSubview(nextButton)
-        NSLayoutConstraint.activate(playBackButtonsConstraints)
+        NSLayoutConstraint.activate(constraintsForButtons)
     }
 
-    private var playBackButtonsConstraints: [NSLayoutConstraint] {
+    private var constraintsForButtons: [NSLayoutConstraint] {
+        let buttons = [previousButton, playButton, nextButton]
+        return buttons.flatMap(constraintsForButton)
+    }
+
+    private func constraintsForButton(button: UIButton) -> [NSLayoutConstraint] {
         return [
-            previousButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            previousButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            playButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            playButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            nextButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
+            button.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            button.widthAnchor.constraint(greaterThanOrEqualToConstant: 44)
         ]
     }
-    
+
 }
