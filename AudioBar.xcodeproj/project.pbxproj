@@ -8,16 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */; };
+		9121AB291DDC6C6F002C7993 /* PlayButtonWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9121AB281DDC6C6F002C7993 /* PlayButtonWidget.swift */; };
+		915FE58A1DD20716009344D5 /* RemainingTimeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FE5891DD20716009344D5 /* RemainingTimeWidget.swift */; };
+		915FE58C1DD20BC3009344D5 /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FE58B1DD20BC3009344D5 /* TimeFormatting.swift */; };
+		915FE58F1DD20CD8009344D5 /* TimeFormattingDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FE58D1DD20C38009344D5 /* TimeFormattingDouble.swift */; };
+		918ABD2E1DDC8017006FFE94 /* AudioBarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918ABD2D1DDC8017006FFE94 /* AudioBarWidget.swift */; };
+		918ABD331DDC8EF2006FFE94 /* AudioBarWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918ABD311DDC8EB3006FFE94 /* AudioBarWidgetTests.swift */; };
+		918ABD361DDC9135006FFE94 /* RemainingTimeWidgetDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918ABD341DDC9120006FFE94 /* RemainingTimeWidgetDouble.swift */; };
+		918ABD381DDC92BF006FFE94 /* PlayButtonWidgetDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918ABD371DDC92BF006FFE94 /* PlayButtonWidgetDouble.swift */; };
+		918ABD3B1DDC98B8006FFE94 /* PlayButtonWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918ABD391DDC9873006FFE94 /* PlayButtonWidgetTests.swift */; };
+		918ABD3D1DDCAD8B006FFE94 /* XCTAssert+Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918ABD3C1DDCAD8B006FFE94 /* XCTAssert+Objects.swift */; };
 		919364211DC8B1EE00510B7C /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 919364171DC8B1ED00510B7C /* AudioBar.framework */; };
 		919364281DC8B1EE00510B7C /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9193641A1DC8B1ED00510B7C /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		919364321DC8B2D500510B7C /* AudioBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364311DC8B2D500510B7C /* AudioBarController.swift */; };
 		919364341DC8B42400510B7C /* AudioBarControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919364331DC8B42400510B7C /* AudioBarControllerTests.swift */; };
-		91A4303C1DD0B30D004D466E /* RemainingTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A4303B1DD0B30D004D466E /* RemainingTimeLabel.swift */; };
-		91A4303E1DD0C2C1004D466E /* RemainingTimeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A4303D1DD0C2C1004D466E /* RemainingTimeLabelTests.swift */; };
-		91A430451DD0E039004D466E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A430441DD0E039004D466E /* PlaybackControlsView.swift */; };
-		91A430471DD0E044004D466E /* PlaybackControlsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A430461DD0E044004D466E /* PlaybackControlsViewTests.swift */; };
-		91A430491DD0E39B004D466E /* PlaybackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A430481DD0E39B004D466E /* PlaybackButton.swift */; };
-		91A4304B1DD0E3A5004D466E /* PlaybackButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A4304A1DD0E3A5004D466E /* PlaybackButtonTests.swift */; };
+		91A4303E1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A4303D1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift */; };
 		91D7EA7A1DCA3D39003CB81B /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7EA791DCA3D39003CB81B /* AudioBarTests.swift */; };
 		91D7EA7C1DCA3D5F003CB81B /* AudioBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */; };
 		91D7EA801DCA4924003CB81B /* XCTAssert+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */; };
@@ -33,8 +38,31 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9121AB101DDB7BBD002C7993 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+LayoutConstraint.swift"; sourceTree = "<group>"; };
+		9121AB281DDC6C6F002C7993 /* PlayButtonWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButtonWidget.swift; sourceTree = "<group>"; };
+		915FE5891DD20716009344D5 /* RemainingTimeWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeWidget.swift; sourceTree = "<group>"; };
+		915FE58B1DD20BC3009344D5 /* TimeFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
+		915FE58D1DD20C38009344D5 /* TimeFormattingDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormattingDouble.swift; sourceTree = "<group>"; };
+		918ABD2D1DDC8017006FFE94 /* AudioBarWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarWidget.swift; sourceTree = "<group>"; };
+		918ABD311DDC8EB3006FFE94 /* AudioBarWidgetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarWidgetTests.swift; sourceTree = "<group>"; };
+		918ABD341DDC9120006FFE94 /* RemainingTimeWidgetDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeWidgetDouble.swift; sourceTree = "<group>"; };
+		918ABD371DDC92BF006FFE94 /* PlayButtonWidgetDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButtonWidgetDouble.swift; sourceTree = "<group>"; };
+		918ABD391DDC9873006FFE94 /* PlayButtonWidgetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButtonWidgetTests.swift; sourceTree = "<group>"; };
+		918ABD3C1DDCAD8B006FFE94 /* XCTAssert+Objects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+Objects.swift"; sourceTree = "<group>"; };
 		919364171DC8B1ED00510B7C /* AudioBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9193641A1DC8B1ED00510B7C /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		9193641B1DC8B1ED00510B7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,12 +70,7 @@
 		919364311DC8B2D500510B7C /* AudioBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarController.swift; sourceTree = "<group>"; };
 		919364331DC8B42400510B7C /* AudioBarControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarControllerTests.swift; sourceTree = "<group>"; };
 		919364351DC8B42C00510B7C /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
-		91A4303B1DD0B30D004D466E /* RemainingTimeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeLabel.swift; sourceTree = "<group>"; };
-		91A4303D1DD0C2C1004D466E /* RemainingTimeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeLabelTests.swift; sourceTree = "<group>"; };
-		91A430441DD0E039004D466E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
-		91A430461DD0E044004D466E /* PlaybackControlsViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackControlsViewTests.swift; sourceTree = "<group>"; };
-		91A430481DD0E39B004D466E /* PlaybackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackButton.swift; sourceTree = "<group>"; };
-		91A4304A1DD0E3A5004D466E /* PlaybackButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackButtonTests.swift; sourceTree = "<group>"; };
+		91A4303D1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeWidgetTests.swift; sourceTree = "<group>"; };
 		91D7EA791DCA3D39003CB81B /* AudioBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
 		91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
 		91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+Type.swift"; sourceTree = "<group>"; };
@@ -72,6 +95,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9121AB2A1DDC6C75002C7993 /* Play Button */ = {
+			isa = PBXGroup;
+			children = (
+				9121AB281DDC6C6F002C7993 /* PlayButtonWidget.swift */,
+				918ABD371DDC92BF006FFE94 /* PlayButtonWidgetDouble.swift */,
+				918ABD391DDC9873006FFE94 /* PlayButtonWidgetTests.swift */,
+			);
+			name = "Play Button";
+			sourceTree = "<group>";
+		};
+		915FE5881DD20707009344D5 /* Remaining Time Label */ = {
+			isa = PBXGroup;
+			children = (
+				915FE5891DD20716009344D5 /* RemainingTimeWidget.swift */,
+				918ABD341DDC9120006FFE94 /* RemainingTimeWidgetDouble.swift */,
+				91A4303D1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift */,
+				915FE58B1DD20BC3009344D5 /* TimeFormatting.swift */,
+				915FE58D1DD20C38009344D5 /* TimeFormattingDouble.swift */,
+			);
+			name = "Remaining Time Label";
+			sourceTree = "<group>";
+		};
+		918ABD2C1DDC7FFF006FFE94 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				918ABD2D1DDC8017006FFE94 /* AudioBarWidget.swift */,
+				918ABD311DDC8EB3006FFE94 /* AudioBarWidgetTests.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		9193640D1DC8B1ED00510B7C = {
 			isa = PBXGroup;
 			children = (
@@ -97,14 +151,12 @@
 				919364331DC8B42400510B7C /* AudioBarControllerTests.swift */,
 				91D7EA7B1DCA3D5F003CB81B /* AudioBar.swift */,
 				91D7EA791DCA3D39003CB81B /* AudioBarTests.swift */,
-				91A4303B1DD0B30D004D466E /* RemainingTimeLabel.swift */,
-				91A4303D1DD0C2C1004D466E /* RemainingTimeLabelTests.swift */,
-				91A430441DD0E039004D466E /* PlaybackControlsView.swift */,
-				91A430461DD0E044004D466E /* PlaybackControlsViewTests.swift */,
-				91A430481DD0E39B004D466E /* PlaybackButton.swift */,
-				91A4304A1DD0E3A5004D466E /* PlaybackButtonTests.swift */,
+				918ABD2C1DDC7FFF006FFE94 /* View */,
+				915FE5881DD20707009344D5 /* Remaining Time Label */,
+				9121AB2A1DDC6C75002C7993 /* Play Button */,
 				91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */,
 				0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */,
+				918ABD3C1DDCAD8B006FFE94 /* XCTAssert+Objects.swift */,
 				9193641B1DC8B1ED00510B7C /* Info.plist */,
 				919364351DC8B42C00510B7C /* Info-Tests.plist */,
 			);
@@ -150,6 +202,7 @@
 				9193641C1DC8B1EE00510B7C /* Sources */,
 				9193641D1DC8B1EE00510B7C /* Frameworks */,
 				9193641E1DC8B1EE00510B7C /* Resources */,
+				9121AB101DDB7BBD002C7993 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -223,10 +276,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				91D7EA7C1DCA3D5F003CB81B /* AudioBar.swift in Sources */,
-				91A4303C1DD0B30D004D466E /* RemainingTimeLabel.swift in Sources */,
-				91A430491DD0E39B004D466E /* PlaybackButton.swift in Sources */,
+				915FE58A1DD20716009344D5 /* RemainingTimeWidget.swift in Sources */,
+				915FE58C1DD20BC3009344D5 /* TimeFormatting.swift in Sources */,
+				918ABD2E1DDC8017006FFE94 /* AudioBarWidget.swift in Sources */,
 				919364321DC8B2D500510B7C /* AudioBarController.swift in Sources */,
-				91A430451DD0E039004D466E /* PlaybackControlsView.swift in Sources */,
+				9121AB291DDC6C6F002C7993 /* PlayButtonWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,12 +289,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */,
-				91A430471DD0E044004D466E /* PlaybackControlsViewTests.swift in Sources */,
-				91A4303E1DD0C2C1004D466E /* RemainingTimeLabelTests.swift in Sources */,
-				91A4304B1DD0E3A5004D466E /* PlaybackButtonTests.swift in Sources */,
+				91A4303E1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift in Sources */,
 				91D7EA801DCA4924003CB81B /* XCTAssert+Type.swift in Sources */,
 				919364341DC8B42400510B7C /* AudioBarControllerTests.swift in Sources */,
+				918ABD361DDC9135006FFE94 /* RemainingTimeWidgetDouble.swift in Sources */,
+				915FE58F1DD20CD8009344D5 /* TimeFormattingDouble.swift in Sources */,
+				918ABD331DDC8EF2006FFE94 /* AudioBarWidgetTests.swift in Sources */,
+				918ABD3D1DDCAD8B006FFE94 /* XCTAssert+Objects.swift in Sources */,
+				918ABD381DDC92BF006FFE94 /* PlayButtonWidgetDouble.swift in Sources */,
 				91D7EA7A1DCA3D39003CB81B /* AudioBarTests.swift in Sources */,
+				918ABD3B1DDC98B8006FFE94 /* PlayButtonWidgetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

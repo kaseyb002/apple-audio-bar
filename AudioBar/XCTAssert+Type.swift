@@ -11,7 +11,7 @@ func XCTAssert<Type>(_ subject: Type, is expectedType: Any.Type, file: StaticStr
 
 func XCTAssert<Type: AnyObject>(_ subject: Type, directlyInheritsFrom superclass: Any.Type, file: StaticString = #file, line: UInt = #line) {
     guard let superclassMirror = Mirror(reflecting: subject).superclassMirror else {
-        XCTFail()
+        XCTFail(file: file, line: line)
         return
     }
     if superclassMirror.subjectType != superclass {
