@@ -1,6 +1,6 @@
 import UIKit
 
-enum AudioBarState {
+enum AudioBarPlaybackState {
 
     case playing(remainingTime: TimeInterval)
     case paused
@@ -9,19 +9,23 @@ enum AudioBarState {
 
 enum AudioBarAction {
 
-    case previous
-    case play
-    case pause
-    case next
+    case playPause
+    case seekForward
+    case seekBack
+
+}
+
+protocol AudioBarWidgetDelegate: class {
+
+    func audioBarWidget(audioBarWidget: AudioBarWidget, didSelectAction action: AudioBarAction)
 
 }
 
 protocol AudioBarWidget: class {
 
-    func setState(state: AudioBarState)
+    weak var delegate: AudioBarWidgetDelegate? { get set }
 
-    typealias OnAction = (AudioBarAction) -> Void
-    var onAction: OnAction? { get set }
+    func setPlaybackState(playbackState: AudioBarPlaybackState)
 
     var stackView: UIStackView { get }
 
@@ -29,11 +33,11 @@ protocol AudioBarWidget: class {
 
 class DefaultAudioBarWidget: AudioBarWidget, PlayButtonWidgetDelegate {
 
-    func setState(state: AudioBarState) {
+    weak var delegate: AudioBarWidgetDelegate?
+
+    func setPlaybackState(playbackState: AudioBarPlaybackState) {
         fatalError()
     }
-
-    var onAction: AudioBarWidget.OnAction? = { _ in fatalError() }
 
     let playButtonWidget: PlayButtonWidget
     let remainingTimeWidget: RemainingTimeWidget
