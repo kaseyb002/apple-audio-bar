@@ -13,3 +13,5 @@ extension RemainingTimeWidgetDouble {
     }
     
 }
+
+class DefaultRemainingTimeWidgetDouble: RemainingTimeWidgetDouble {}

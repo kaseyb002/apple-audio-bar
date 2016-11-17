@@ -1,7 +1,5 @@
 import UIKit
 
-enum PlayButtonState { case playing, paused }
-
 protocol PlayButtonWidgetDelegate: class {
 
     func playButtonDidReceiveTap(_ playButtonWidget: PlayButtonWidget)
@@ -10,24 +8,15 @@ protocol PlayButtonWidgetDelegate: class {
 
 protocol PlayButtonWidget: class {
 
-    func setState(_ state: PlayButtonState)
-
     weak var delegate: PlayButtonWidgetDelegate? { get set }
+
+    func setPlaying(_ playing: Bool)
 
     var button: UIButton { get }
 
 }
 
 class DefaultPlayButtonWidget: PlayButtonWidget {
-
-    func setState(_ state: PlayButtonState) {
-        switch state {
-        case .playing:
-            button.setTitle("pause", for: .normal)
-        case .paused:
-            button.setTitle("play", for: .normal)
-        }
-    }
 
     let button = UIButton(type: .system)
 
@@ -36,6 +25,11 @@ class DefaultPlayButtonWidget: PlayButtonWidget {
     init() {
         button.setTitle("play", for: .normal)
         button.addTarget(self, action: #selector(buttonDidReceiveTouchUpInside), for: .touchUpInside)
+    }
+
+    func setPlaying(_ playing: Bool) {
+        let title = playing ? "pause" : "play"
+        button.setTitle(title, for: .normal)
     }
 
     dynamic func buttonDidReceiveTouchUpInside() {

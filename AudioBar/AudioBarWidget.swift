@@ -1,13 +1,6 @@
 import UIKit
 
-enum AudioBarPlaybackState {
-
-    case playing(remainingTime: TimeInterval)
-    case paused
-
-}
-
-enum AudioBarAction {
+enum AudioBarWidgetAction {
 
     case playPause
     case seekForward
@@ -17,7 +10,7 @@ enum AudioBarAction {
 
 protocol AudioBarWidgetDelegate: class {
 
-    func audioBarWidget(audioBarWidget: AudioBarWidget, didSelectAction action: AudioBarAction)
+    func audioBarWidget(audioBarWidget: AudioBarWidget, didSelectAction action: AudioBarWidgetAction)
 
 }
 
@@ -25,9 +18,9 @@ protocol AudioBarWidget: class {
 
     weak var delegate: AudioBarWidgetDelegate? { get set }
 
-    func setPlaybackState(playbackState: AudioBarPlaybackState)
+    func configure(with presentable: AudioBarWidgetPresentable)
 
-    var stackView: UIStackView { get }
+    var view: UIView { get }
 
 }
 
@@ -35,17 +28,15 @@ class DefaultAudioBarWidget: AudioBarWidget, PlayButtonWidgetDelegate {
 
     weak var delegate: AudioBarWidgetDelegate?
 
-    func setPlaybackState(playbackState: AudioBarPlaybackState) {
-        fatalError()
-    }
-
     let playButtonWidget: PlayButtonWidget
+    let seekWidget: SeekWidget
     let remainingTimeWidget: RemainingTimeWidget
 
     var stackView = UIStackView()
 
-    init(playButtonWidget: PlayButtonWidget = DefaultPlayButtonWidget(), remainingTimeWidget: RemainingTimeWidget = DefaultRemainingTimeWidget()) {
+    init(playButtonWidget: PlayButtonWidget, seekWidget: SeekWidget, remainingTimeWidget: RemainingTimeWidget) {
         self.playButtonWidget = playButtonWidget
+        self.seekWidget = seekWidget
         self.remainingTimeWidget = remainingTimeWidget
         didInit()
     }
@@ -57,7 +48,16 @@ class DefaultAudioBarWidget: AudioBarWidget, PlayButtonWidgetDelegate {
     }
 
     func playButtonDidReceiveTap(_ playButtonWidget: PlayButtonWidget) {
+        delegate?.audioBarWidget(audioBarWidget: self, didSelectAction: .playPause)
+    }
 
+    func configure(with presentable: AudioBarWidgetPresentable) {
+        remainingTimeWidget.showRemainingTime(presentable.remainingTime)        
+        playButtonWidget.setPlaying(presentable.isPlaying)
+    }
+
+    var view: UIView {
+        return stackView
     }
     
 }

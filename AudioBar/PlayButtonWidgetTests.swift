@@ -2,7 +2,7 @@ import XCTest
 
 @testable import AudioBar
 
-class PlayButtonWidgetTests: XCTestCase {
+class DefaultPlayButtonWidgetTests: XCTestCase {
 
     // MARK: System under test
 
@@ -32,22 +32,24 @@ class PlayButtonWidgetTests: XCTestCase {
         XCTAssertEqual(playButtonWidget.button.title(for: .normal), "play")
     }
 
-    func testButtonTitleWhenStateChanges1() {
-        playButtonWidget.button.setTitle(nil, for: .normal)
-        playButtonWidget.setState(.playing)
-        XCTAssertEqual(playButtonWidget.button.title(for: .normal), "pause")
-    }
-
-    func testButtonTitleWhenStateChanges2() {
-        playButtonWidget.button.setTitle(nil, for: .normal)
-        playButtonWidget.setState(.paused)
-        XCTAssertEqual(playButtonWidget.button.title(for: .normal), "play")
-    }
-
     func testButtonAction() {
         let actions = playButtonWidget.button.actions(forTarget: playButtonWidget, forControlEvent: .touchUpInside)!
         let expectedAction = String(describing: #selector(DefaultPlayButtonWidget.buttonDidReceiveTouchUpInside))
         XCTAssertEqual(actions, [expectedAction])
+    }
+
+    // MARK: Set playing
+
+    func testSetPlayingUpdatesButtonTitle1() {
+        playButtonWidget.button.setTitle(nil, for: .normal)
+        playButtonWidget.setPlaying(true)
+        XCTAssertEqual(playButtonWidget.button.title(for: .normal), "pause")
+    }
+
+    func testSetPlayingUpdatesButtonTitle2() {
+        playButtonWidget.button.setTitle(nil, for: .normal)
+        playButtonWidget.setPlaying(false)
+        XCTAssertEqual(playButtonWidget.button.title(for: .normal), "play")
     }
 
     // MARK: Delegate

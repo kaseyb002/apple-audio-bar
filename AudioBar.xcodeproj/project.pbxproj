@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */; };
 		9121AB291DDC6C6F002C7993 /* PlayButtonWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9121AB281DDC6C6F002C7993 /* PlayButtonWidget.swift */; };
+		912CB5FE1DDDEACF003B7334 /* AudioBarWidgetPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CB5FD1DDDEACF003B7334 /* AudioBarWidgetPresentable.swift */; };
+		912CB6001DDDEAE4003B7334 /* AudioBarWidgetPresentableDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CB5FF1DDDEAE4003B7334 /* AudioBarWidgetPresentableDouble.swift */; };
+		912CB6021DDDED6E003B7334 /* XCTAssert+OptionalArrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CB6011DDDED6E003B7334 /* XCTAssert+OptionalArrays.swift */; };
+		912CB6041DDE088E003B7334 /* SeekWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CB6031DDE088E003B7334 /* SeekWidget.swift */; };
+		912CB6061DDE0A73003B7334 /* SeekWidgetDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CB6051DDE0A73003B7334 /* SeekWidgetDouble.swift */; };
 		915FE58A1DD20716009344D5 /* RemainingTimeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FE5891DD20716009344D5 /* RemainingTimeWidget.swift */; };
 		915FE58C1DD20BC3009344D5 /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FE58B1DD20BC3009344D5 /* TimeFormatting.swift */; };
 		915FE58F1DD20CD8009344D5 /* TimeFormattingDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FE58D1DD20C38009344D5 /* TimeFormattingDouble.swift */; };
@@ -51,6 +56,11 @@
 /* Begin PBXFileReference section */
 		0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+LayoutConstraint.swift"; sourceTree = "<group>"; };
 		9121AB281DDC6C6F002C7993 /* PlayButtonWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButtonWidget.swift; sourceTree = "<group>"; };
+		912CB5FD1DDDEACF003B7334 /* AudioBarWidgetPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarWidgetPresentable.swift; sourceTree = "<group>"; };
+		912CB5FF1DDDEAE4003B7334 /* AudioBarWidgetPresentableDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarWidgetPresentableDouble.swift; sourceTree = "<group>"; };
+		912CB6011DDDED6E003B7334 /* XCTAssert+OptionalArrays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTAssert+OptionalArrays.swift"; sourceTree = "<group>"; };
+		912CB6031DDE088E003B7334 /* SeekWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekWidget.swift; sourceTree = "<group>"; };
+		912CB6051DDE0A73003B7334 /* SeekWidgetDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekWidgetDouble.swift; sourceTree = "<group>"; };
 		915FE5891DD20716009344D5 /* RemainingTimeWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemainingTimeWidget.swift; sourceTree = "<group>"; };
 		915FE58B1DD20BC3009344D5 /* TimeFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
 		915FE58D1DD20C38009344D5 /* TimeFormattingDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormattingDouble.swift; sourceTree = "<group>"; };
@@ -113,17 +123,22 @@
 				919364311DC8B2D500510B7C /* AudioBarController.swift */,
 				918ABD2D1DDC8017006FFE94 /* AudioBarWidget.swift */,
 				918ABD311DDC8EB3006FFE94 /* AudioBarWidgetTests.swift */,
+				912CB5FD1DDDEACF003B7334 /* AudioBarWidgetPresentable.swift */,
+				912CB5FF1DDDEAE4003B7334 /* AudioBarWidgetPresentableDouble.swift */,
 				915FE5891DD20716009344D5 /* RemainingTimeWidget.swift */,
 				918ABD341DDC9120006FFE94 /* RemainingTimeWidgetDouble.swift */,
 				91A4303D1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift */,
 				9121AB281DDC6C6F002C7993 /* PlayButtonWidget.swift */,
 				918ABD371DDC92BF006FFE94 /* PlayButtonWidgetDouble.swift */,
 				918ABD391DDC9873006FFE94 /* PlayButtonWidgetTests.swift */,
+				912CB6031DDE088E003B7334 /* SeekWidget.swift */,
+				912CB6051DDE0A73003B7334 /* SeekWidgetDouble.swift */,
 				915FE58B1DD20BC3009344D5 /* TimeFormatting.swift */,
 				915FE58D1DD20C38009344D5 /* TimeFormattingDouble.swift */,
 				91D7EA7F1DCA4924003CB81B /* XCTAssert+Type.swift */,
 				0F539F051DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift */,
 				918ABD3C1DDCAD8B006FFE94 /* XCTAssert+Objects.swift */,
+				912CB6011DDDED6E003B7334 /* XCTAssert+OptionalArrays.swift */,
 				9193641B1DC8B1ED00510B7C /* Info.plist */,
 				919364351DC8B42C00510B7C /* Info-Tests.plist */,
 			);
@@ -242,10 +257,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912CB5FE1DDDEACF003B7334 /* AudioBarWidgetPresentable.swift in Sources */,
 				915FE58A1DD20716009344D5 /* RemainingTimeWidget.swift in Sources */,
 				915FE58C1DD20BC3009344D5 /* TimeFormatting.swift in Sources */,
+				912CB6001DDDEAE4003B7334 /* AudioBarWidgetPresentableDouble.swift in Sources */,
 				918ABD2E1DDC8017006FFE94 /* AudioBarWidget.swift in Sources */,
 				919364321DC8B2D500510B7C /* AudioBarController.swift in Sources */,
+				912CB6041DDE088E003B7334 /* SeekWidget.swift in Sources */,
 				9121AB291DDC6C6F002C7993 /* PlayButtonWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +275,8 @@
 				0F539F061DCC2F3F00A3884C /* XCTAssert+LayoutConstraint.swift in Sources */,
 				91A4303E1DD0C2C1004D466E /* RemainingTimeWidgetTests.swift in Sources */,
 				91D7EA801DCA4924003CB81B /* XCTAssert+Type.swift in Sources */,
+				912CB6021DDDED6E003B7334 /* XCTAssert+OptionalArrays.swift in Sources */,
+				912CB6061DDE0A73003B7334 /* SeekWidgetDouble.swift in Sources */,
 				918ABD361DDC9135006FFE94 /* RemainingTimeWidgetDouble.swift in Sources */,
 				915FE58F1DD20CD8009344D5 /* TimeFormattingDouble.swift in Sources */,
 				918ABD331DDC8EF2006FFE94 /* AudioBarWidgetTests.swift in Sources */,
