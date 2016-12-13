@@ -173,8 +173,10 @@ extension AudioBarModuleTests {
             playPauseButtonMode: .play,
             isPlayPauseButtonEnabled: false,
             areSeekButtonsHidden: true,
-            playbackTime: "")
-        )
+            playbackTime: "",
+            isSeekBackButtonEnabled: false,
+            isSeekForwardButtonEnabled: false
+        ))
     }
 
     func testViewWhenReadyToLoad() {
@@ -184,14 +186,23 @@ extension AudioBarModuleTests {
             playPauseButtonMode: .play,
             isPlayPauseButtonEnabled: true,
             areSeekButtonsHidden: true,
-            playbackTime: "")
-        )
+            playbackTime: "",
+            isSeekBackButtonEnabled: false,
+            isSeekForwardButtonEnabled: false
+        ))
     }
 
     func testViewWhenLoading() {
         let model = Model.waitingForDuration
         let view = Module.view(for: model)
-        XCTAssertEqual(view, View(playPauseButtonMode: .play, isPlayPauseButtonEnabled: false, areSeekButtonsHidden: true, playbackTime: "Loading"))
+        XCTAssertEqual(view, View(
+            playPauseButtonMode: .play,
+            isPlayPauseButtonEnabled: false,
+            areSeekButtonsHidden: true,
+            playbackTime: "Loading",
+            isSeekBackButtonEnabled: false,
+            isSeekForwardButtonEnabled: false
+        ))
     }
 
     func testPlayPauseButtonModeWhenPaused() {
@@ -204,6 +215,63 @@ extension AudioBarModuleTests {
         let model = Model.readyToPlay(.init(isPlaying: true))
         let view = Module.view(for: model)
         XCTAssertEqual(view.playPauseButtonMode, .pause)
+    }
+
+    func testSeekBackButtonEnabled() {
+        do {
+            let model = Model.waitingForURL
+            let view = Module.view(for: model)
+            XCTAssertFalse(view.isSeekBackButtonEnabled)
+        }
+        do {
+            let model = Model.readyToLoad(URL.foo)
+            let view = Module.view(for: model)
+            XCTAssertFalse(view.isSeekBackButtonEnabled)
+        }
+        do {
+            let model = Model.waitingForDuration
+            let view = Module.view(for: model)
+            XCTAssertFalse(view.isSeekBackButtonEnabled)
+        }
+        do {
+            do {
+                let model = Model.readyToPlay(.init(currentTime: 0))
+                let view = Module.view(for: model)
+                XCTAssertFalse(view.isSeekBackButtonEnabled)
+            }
+            do {
+                let model = Model.readyToPlay(.init(currentTime: 0.01))
+                let view = Module.view(for: model)
+                XCTAssertTrue(view.isSeekBackButtonEnabled)
+            }
+        }
+    }
+
+    func testSeekForwardButtonEnabled() {
+        do {
+            do {
+                let model = Model.readyToPlay(.init(duration: 1, currentTime: 0.99))
+                let view = Module.view(for: model)
+                XCTAssertTrue(view.isSeekForwardButtonEnabled)
+            }
+            do {
+                let model = Model.readyToPlay(.init(duration: 2, currentTime: 1.99))
+                let view = Module.view(for: model)
+                XCTAssertTrue(view.isSeekForwardButtonEnabled)
+            }
+        }
+        do {
+            do {
+                let model = Model.readyToPlay(.init(duration: 1, currentTime: 1))
+                let view = Module.view(for: model)
+                XCTAssertFalse(view.isSeekForwardButtonEnabled)
+            }
+            do {
+                let model = Model.readyToPlay(.init(duration: 2, currentTime: 2))
+                let view = Module.view(for: model)
+                XCTAssertFalse(view.isSeekForwardButtonEnabled)
+            }
+        }
     }
 
     //
@@ -243,7 +311,7 @@ extension Model.ReadyState {
         self.duration = duration
         self.currentTime = currentTime
     }
-    
+
 }
 
 //
@@ -279,7 +347,7 @@ extension URL {
     static var foo: URL {
         return URL(string: "foo")!
     }
-
+    
     static var bar: URL {
         return URL(string: "bar")!
     }

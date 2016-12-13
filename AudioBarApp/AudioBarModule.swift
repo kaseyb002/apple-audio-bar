@@ -78,6 +78,9 @@ struct AudioBarModule: ElmModule {
         let areSeekButtonsHidden: Bool
         let playbackTime: String
 
+        let isSeekBackButtonEnabled: Bool
+        let isSeekForwardButtonEnabled: Bool
+
     }
 
     //
@@ -145,21 +148,27 @@ struct AudioBarModule: ElmModule {
                 playPauseButtonMode: .play,
                 isPlayPauseButtonEnabled: false,
                 areSeekButtonsHidden: true,
-                playbackTime: ""
+                playbackTime: "",
+                isSeekBackButtonEnabled: false,
+                isSeekForwardButtonEnabled: false
             )
         case .readyToLoad:
             return View(
                 playPauseButtonMode: .play,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
-                playbackTime: ""
+                playbackTime: "",
+                isSeekBackButtonEnabled: false,
+                isSeekForwardButtonEnabled: false
             )
         case .waitingForDuration:
             return View(
                 playPauseButtonMode: .play,
                 isPlayPauseButtonEnabled: false,
                 areSeekButtonsHidden: true,
-                playbackTime: "Loading"
+                playbackTime: "Loading",
+                isSeekBackButtonEnabled: false,
+                isSeekForwardButtonEnabled: false
             )
         case .readyToPlay(let state):
 
@@ -175,7 +184,9 @@ struct AudioBarModule: ElmModule {
                 playPauseButtonMode: state.isPlaying ? .pause : .play,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: false,
-                playbackTime: remainingTimeText
+                playbackTime: remainingTimeText,
+                isSeekBackButtonEnabled: state.currentTime > 0,
+                isSeekForwardButtonEnabled: remainingTime > 0
             )
 
         }

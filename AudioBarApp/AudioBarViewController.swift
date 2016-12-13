@@ -62,7 +62,10 @@ extension AudioBarViewController: ElmDelegate {
         playPauseButton.isEnabled = view.isPlayPauseButtonEnabled
 
         seekBackButton.isHidden = view.areSeekButtonsHidden
+        seekBackButton.isEnabled = view.isSeekBackButtonEnabled
+
         seekForwardButton.isHidden = view.areSeekButtonsHidden
+        seekForwardButton.isEnabled = view.isSeekForwardButtonEnabled
 
         timeLabel.text = view.playbackTime
 
