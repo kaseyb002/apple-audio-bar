@@ -3,17 +3,10 @@ import XCTest
 
 extension AudioBarModuleTests {
 
-    func testLoadTrack1() {
+    func testLoadTrack() {
         var model = Model.waitingForURL
-        let commands = try! Module.update(for: .prepareToLoad(URL.foo), model: &model)
-        XCTAssertEqual(model, .readyToLoad(URL.foo))
-        XCTAssertTrue(commands.isEmpty)
-    }
-
-    func testLoadTrack2() {
-        var model = Model.waitingForURL
-        let commands = try! Module.update(for: .prepareToLoad(URL.bar), model: &model)
-        XCTAssertEqual(model, .readyToLoad(URL.bar))
+        let commands = try! Module.update(for: .prepareToLoad(URL.arbitrary), model: &model)
+        XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
         XCTAssertTrue(commands.isEmpty)
     }
 

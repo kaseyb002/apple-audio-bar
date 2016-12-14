@@ -61,7 +61,7 @@
                                 <items/>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-Lw-DJA">
-                                <rect key="frame" x="121" y="0.0" width="132" height="44"/>
+                                <rect key="frame" x="116" y="0.0" width="143" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAD-gh-z4d">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -75,9 +75,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPP-F4-JOP">
-                                        <rect key="frame" x="44" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="44" y="0.0" width="55" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="8ak-0z-Mht"/>
+                                            <constraint firstAttribute="width" constant="55" id="8ak-0z-Mht"/>
                                             <constraint firstAttribute="height" constant="44" id="kfN-dR-oqs"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="2" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -87,7 +87,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGP-A7-7Ta">
-                                        <rect key="frame" x="88" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="99" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" priority="999" constant="44" id="Kcf-Ml-XBZ"/>
                                             <constraint firstAttribute="height" constant="44" id="VVl-MN-faR"/>
@@ -99,9 +99,12 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ei9-VN-Jjt">
-                                <rect key="frame" x="320" y="0.0" width="39" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nUe-4Q-lqU">
+                                <rect key="frame" x="339" y="12" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ei9-VN-Jjt">
+                                <rect key="frame" x="359" y="0.0" width="0.0" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -121,11 +124,13 @@
                             <constraint firstItem="h2l-yO-BNi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DO6-NR-Ne2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ei9-VN-Jjt" secondAttribute="trailing" id="HVL-Ix-c2h"/>
                             <constraint firstItem="lE7-Lw-DJA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HuF-Fn-38e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nUe-4Q-lqU" secondAttribute="trailing" id="OxF-7n-zAU"/>
                             <constraint firstItem="Ez6-j5-wWD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="W6s-aW-XE7"/>
                             <constraint firstItem="Ei9-VN-Jjt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Wsa-YP-yXl"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ei9-VN-Jjt" secondAttribute="bottom" id="Wur-sq-LaD"/>
                             <constraint firstItem="h2l-yO-BNi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Xc6-GG-21O"/>
                             <constraint firstAttribute="trailing" secondItem="h2l-yO-BNi" secondAttribute="trailing" id="diF-CC-xh1"/>
+                            <constraint firstItem="nUe-4Q-lqU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ytp-P1-brc"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -133,6 +138,7 @@
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
                         <outlet property="audioRouteView" destination="Ez6-j5-wWD" id="6b7-vv-OhE"/>
+                        <outlet property="loadingIndicator" destination="nUe-4Q-lqU" id="RIa-wu-KjY"/>
                         <outlet property="playPauseButton" destination="pPP-F4-JOP" id="2Dn-aS-Szz"/>
                         <outlet property="seekBackButton" destination="KAD-gh-z4d" id="pvj-jy-tUy"/>
                         <outlet property="seekForwardButton" destination="hGP-A7-7Ta" id="GUC-Jz-XGU"/>

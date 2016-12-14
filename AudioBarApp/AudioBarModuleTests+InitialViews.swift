@@ -3,7 +3,7 @@ import XCTest
 
 extension AudioBarModuleTests {
 
-    func testViewWhenWaitingForTrack() {
+    func testViewWhenWaitingForURL() {
         let model = Model.waitingForURL
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
@@ -12,12 +12,13 @@ extension AudioBarModuleTests {
             areSeekButtonsHidden: true,
             playbackTime: "",
             isSeekBackButtonEnabled: false,
-            isSeekForwardButtonEnabled: false
+            isSeekForwardButtonEnabled: false,
+            isLoadingIndicatorVisible: false
         ))
     }
 
     func testViewWhenReadyToLoad() {
-        let model = Model.readyToLoad(URL.foo)
+        let model = Model.readyToLoadURL(URL.arbitrary)
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
             playPauseButtonMode: .play,
@@ -25,21 +26,23 @@ extension AudioBarModuleTests {
             areSeekButtonsHidden: true,
             playbackTime: "",
             isSeekBackButtonEnabled: false,
-            isSeekForwardButtonEnabled: false
+            isSeekForwardButtonEnabled: false,
+            isLoadingIndicatorVisible: false
         ))
     }
 
-    func testViewWhenWaitingForPlayerToLoadMedia() {
-        let model = Model.waitingForPlayerToLoadMedia
+    func testViewWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+        let model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
-            playPauseButtonMode: .play,
-            isPlayPauseButtonEnabled: false,
+            playPauseButtonMode: .pause,
+            isPlayPauseButtonEnabled: true,
             areSeekButtonsHidden: true,
-            playbackTime: "Loading",
+            playbackTime: "",
             isSeekBackButtonEnabled: false,
-            isSeekForwardButtonEnabled: false
+            isSeekForwardButtonEnabled: false,
+            isLoadingIndicatorVisible: true
         ))
     }
-    
+
 }

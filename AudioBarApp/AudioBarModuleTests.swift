@@ -26,7 +26,7 @@ typealias Command = Module.Command
 
 extension Model.ReadyState {
 
-    init(isPlaying: Bool = false, duration: TimeInterval = 2, currentTime: TimeInterval = 1) {
+    init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil) {
         self.isPlaying = isPlaying
         self.duration = duration
         self.currentTime = currentTime
@@ -64,12 +64,8 @@ extension Model: Equatable {
 
 extension URL {
 
-    static var foo: URL {
+    static var arbitrary: URL {
         return URL(string: "foo")!
-    }
-    
-    static var bar: URL {
-        return URL(string: "bar")!
     }
     
 }

@@ -3,6 +3,12 @@ import XCTest
 
 extension AudioBarModuleTests {
 
+    func testPlaybackTimeEmptyWhenCurrentTimeIsMissing() {
+        let model = Model.readyToPlay(.init(currentTime: nil))
+        let view = Module.view(for: model)
+        XCTAssertEqual(view.playbackTime, "")
+    }
+
     func testPlaybackTimeWhenAtBeginning1() {
         let model = Model.readyToPlay(.init(duration: 1, currentTime: 0))
         let view = Module.view(for: model)

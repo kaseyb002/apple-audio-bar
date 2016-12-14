@@ -1,8 +1,6 @@
 import Foundation
 import Elm
 
-struct FatalError: Error {}
-
 struct AudioBarModule: ElmModule {
 
     //
@@ -17,8 +15,9 @@ struct AudioBarModule: ElmModule {
         case seekBack
         case seekForward
 
-        case playerDidLoadMedia(withDuration: TimeInterval)
+        case playerDidBecomeReadyToPlay(withDuration: TimeInterval)
         case playerDidUpdateCurrentTime(TimeInterval)
+        case playerDidPlayToEnd
 
     }
 
@@ -32,12 +31,12 @@ struct AudioBarModule: ElmModule {
         struct ReadyState {
             var isPlaying: Bool
             var duration: TimeInterval
-            var currentTime: TimeInterval
+            var currentTime: TimeInterval?
         }
 
         case waitingForURL
-        case readyToLoad(URL)
-        case waitingForPlayerToLoadMedia
+        case readyToLoadURL(URL)
+        case waitingForPlayerToBecomeReadyToPlayURL(URL)
         case readyToPlay(ReadyState)
 
         init() { self = .waitingForURL }
@@ -52,7 +51,8 @@ struct AudioBarModule: ElmModule {
     enum Command {
 
         enum Player {
-            case open(URL)
+            case loadURL(URL)
+            case stopLoading
             case play
             case pause
             case setCurrentTime(TimeInterval)
@@ -79,6 +79,8 @@ struct AudioBarModule: ElmModule {
         let isSeekBackButtonEnabled: Bool
         let isSeekForwardButtonEnabled: Bool
 
+        let isLoadingIndicatorVisible: Bool
+
     }
 
     //
@@ -90,54 +92,39 @@ struct AudioBarModule: ElmModule {
         switch message {
 
         case .prepareToLoad(let url):
-            model = .readyToLoad(url)
+            model = .readyToLoadURL(url)
             return []
 
         case .togglePlay:
             switch model {
 
             case .waitingForURL:
-                throw FatalError()
+                throw error
 
-            case .readyToLoad(at: let url):
-                model = .waitingForPlayerToLoadMedia
-                return [.player(.open(url))]
+            case .readyToLoadURL(at: let url):
+                model = .waitingForPlayerToBecomeReadyToPlayURL(url)
+                return [.player(.loadURL(url))]
 
-            case .waitingForPlayerToLoadMedia:
-                throw FatalError()
+            case .waitingForPlayerToBecomeReadyToPlayURL(let url):
+                model = .readyToLoadURL(url)
+                return [.player(.stopLoading)]
 
             case .readyToPlay(var state):
                 let command: Command = .player(state.isPlaying ? .pause : .play)
                 state.isPlaying = !state.isPlaying
                 model = .readyToPlay(state)
                 return [command]
-
             }
-
-        case .playerDidLoadMedia(withDuration: let duration):
-            guard case .waitingForPlayerToLoadMedia = model else { throw error }
-            model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: 0))
-            return [.player(.play)]
-
-        case .playerDidUpdateCurrentTime(let currentTime):
-            guard case .readyToPlay(var state) = model else { throw error }
-            guard currentTime >= 0, currentTime <= state.duration else { throw error }
-            let shouldPause = currentTime == state.duration && state.isPlaying
-            let commands: [Command] = shouldPause ? [.player(.pause)] : []
-            if shouldPause { state.isPlaying = false }
-            state.currentTime = currentTime
-            model = .readyToPlay(state)
-            return commands
 
         case .seekBack:
             guard case .readyToPlay(var state) = model else { throw error }
-            state.currentTime = max(0, state.currentTime - 15)
+            state.currentTime = max(0, state.currentTime! - 15)
             model = .readyToPlay(state)
-            return [.player(.setCurrentTime(state.currentTime))]
+            return [.player(.setCurrentTime(state.currentTime!))]
 
         case .seekForward:
             guard case .readyToPlay(var state) = model else { throw error }
-            let currentTime = min(state.duration, state.currentTime + 15)
+            let currentTime = min(state.duration, state.currentTime! + 15)
             let currentTimeCommand = Command.player(.setCurrentTime(currentTime))
             let shouldPause = currentTime == state.duration && state.isPlaying
             let shouldPauseCommand: Command? = shouldPause ? .player(.pause) : nil
@@ -147,11 +134,25 @@ struct AudioBarModule: ElmModule {
             model = .readyToPlay(state)
             return commands
 
-        }
-    }
+        case .playerDidBecomeReadyToPlay(withDuration: let duration):
+            guard case .waitingForPlayerToBecomeReadyToPlayURL = model else { throw error }
+            model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
+            return [.player(.play)]
 
-    static var error: Error {
-        return FatalError()
+        case .playerDidPlayToEnd:
+            guard case .readyToPlay(var state) = model, state.isPlaying else { throw error }
+            state.currentTime = state.duration
+            state.isPlaying = false
+            model = .readyToPlay(state)
+            return []
+
+        case .playerDidUpdateCurrentTime(let currentTime):
+            guard case .readyToPlay(var state) = model else { throw error }
+            state.currentTime = currentTime
+            model = .readyToPlay(state)
+            return []
+
+        }
     }
 
     static func view(for model: Model) -> View {
@@ -164,44 +165,64 @@ struct AudioBarModule: ElmModule {
                 areSeekButtonsHidden: true,
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
-                isSeekForwardButtonEnabled: false
+                isSeekForwardButtonEnabled: false,
+                isLoadingIndicatorVisible: false
             )
 
-        case .readyToLoad:
+        case .readyToLoadURL:
             return View(
                 playPauseButtonMode: .play,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
-                isSeekForwardButtonEnabled: false
+                isSeekForwardButtonEnabled: false,
+                isLoadingIndicatorVisible: false
             )
 
-        case .waitingForPlayerToLoadMedia:
+        case .waitingForPlayerToBecomeReadyToPlayURL:
             return View(
-                playPauseButtonMode: .play,
-                isPlayPauseButtonEnabled: false,
+                playPauseButtonMode: .pause,
+                isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
-                playbackTime: "Loading",
+                playbackTime: "",
                 isSeekBackButtonEnabled: false,
-                isSeekForwardButtonEnabled: false
+                isSeekForwardButtonEnabled: false,
+                isLoadingIndicatorVisible: true
             )
 
         case .readyToPlay(let state):
-            let remainingTime = state.duration - state.currentTime
+            var remainingTime: TimeInterval? {
+                guard let currentTime = state.currentTime else { return nil }
+                return state.duration - currentTime
+            }
             var remainingTimeText: String {
+                guard let remainingTime = remainingTime else { return "" }
                 let formatter = DateComponentsFormatter()
                 formatter.allowedUnits = [.minute, .second]
                 formatter.zeroFormattingBehavior = .pad
                 return "-" + formatter.string(from: remainingTime)!
             }
+            var isPlayPauseButtonEnabled: Bool {
+                guard let remainingTime = remainingTime else { return true }
+                return remainingTime > 0
+            }
+            var isSeekBackButtonEnabled: Bool {
+                guard let currentTime = state.currentTime else { return false }
+                return currentTime > 0
+            }
+            var isSeekForwardButtonEnabled: Bool {
+                guard let remainingTime = remainingTime else { return false }
+                return remainingTime > 0
+            }
             return View(
                 playPauseButtonMode: state.isPlaying ? .pause : .play,
-                isPlayPauseButtonEnabled: remainingTime > 0,
+                isPlayPauseButtonEnabled: isPlayPauseButtonEnabled,
                 areSeekButtonsHidden: false,
                 playbackTime: remainingTimeText,
-                isSeekBackButtonEnabled: state.currentTime > 0,
-                isSeekForwardButtonEnabled: remainingTime > 0
+                isSeekBackButtonEnabled: isSeekBackButtonEnabled,
+                isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
+                isLoadingIndicatorVisible: state.isPlaying && state.currentTime == nil
             )
 
         }

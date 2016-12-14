@@ -1,20 +1,13 @@
 import XCTest
 @testable import AudioBarApp
 
-extension AudioBarModule {
+extension AudioBarModuleTests {
 
-    func testTogglePlayWhenReadyToLoad1() {
-        var model = Model.readyToLoad(URL.foo)
+    func testTogglePlayWhenReadyToLoad() {
+        var model = Model.readyToLoadURL(URL.arbitrary)
         let commands = try! Module.update(for: .togglePlay, model: &model)
-        XCTAssertEqual(model, .waitingForPlayerToLoadMedia)
-        XCTAssertEqual(commands, [.player(.open(URL.foo))])
-    }
-
-    func testTogglePlayWhenReadyToLoad2() {
-        var model = Model.readyToLoad(URL.bar)
-        let commands = try! Module.update(for: .togglePlay, model: &model)
-        XCTAssertEqual(model, .waitingForPlayerToLoadMedia)
-        XCTAssertEqual(commands, [.player(.open(URL.bar))])
+        XCTAssertEqual(model, .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
+        XCTAssertEqual(commands, [.player(.loadURL(URL.arbitrary))])
     }
 
     func testTogglePlayWhenPlaying() {
@@ -31,14 +24,16 @@ extension AudioBarModule {
         XCTAssertEqual(commands, [.player(.play)])
     }
 
-    func testTogglePlayUnexpectedly1() {
+    func testTogglePlayUnexpectedly() {
         var model = Model.waitingForURL
         XCTAssertThrowsError(try Module.update(for: .togglePlay, model: &model))
     }
 
-    func testTogglePlayUnexpectedly2() {
-        var model = Model.waitingForPlayerToLoadMedia
-        XCTAssertThrowsError(try Module.update(for: .togglePlay, model: &model))
+    func testTogglePlayWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+        var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
+        let commands = try! Module.update(for: .togglePlay, model: &model)
+        XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
+        XCTAssertEqual(commands, [.player(.stopLoading)])
     }
 
 }
