@@ -15,7 +15,17 @@ class AudioBarViewController: UIViewController {
     @IBOutlet var playPauseButton: UIButton!
     @IBOutlet var seekBackButton: UIButton!
     @IBOutlet var seekForwardButton: UIButton!
-    @IBOutlet var timeLabel: UILabel!
+
+
+    @IBOutlet var timeLabel: UILabel! {
+        didSet {
+            timeLabel.font = UIFont.monospacedDigitSystemFont(
+                ofSize: timeLabel.font.pointSize,
+                weight: UIFontWeightRegular
+            )
+        }
+    }
+
     @IBOutlet var audioRouteView: UIView!
 
     @IBAction func userDidTapPlayPauseButton() {
