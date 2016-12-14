@@ -13,14 +13,12 @@ struct AudioBarModule: ElmModule {
     enum Message {
 
         case prepareToLoad(URL)
-
-        case setDuration(TimeInterval)
-        case setCurrentTime(TimeInterval)
-
         case togglePlay
-
         case seekBack
         case seekForward
+
+        case playerDidUpdateDuration(TimeInterval)
+        case playerDidUpdateCurrentTime(TimeInterval)
 
     }
 
@@ -97,42 +95,45 @@ struct AudioBarModule: ElmModule {
             return []
 
         case .togglePlay:
-
             switch model {
-
             case .waitingForURL:
                 throw InvalidTransitionError()
-
             case .readyToLoad(at: let url):
                 model = .waitingForDuration
                 return [.player(.open(url))]
-
-
             case .waitingForDuration:
                 throw InvalidTransitionError()
-
             case .readyToPlay(var state):
                 let command: Command = .player(state.isPlaying ? .pause : .play)
                 state.isPlaying = !state.isPlaying
                 model = .readyToPlay(state)
                 return [command]
-
             }
 
-        case .setDuration(let duration):
+        case .playerDidUpdateDuration(let duration):
             guard case .waitingForDuration = model else {
                 throw InvalidTransitionError()
             }
             model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: 0))
             return [.player(.play)]
 
-        case .setCurrentTime(let currentTime):
+        case .playerDidUpdateCurrentTime(let currentTime):
             guard case .readyToPlay(var state) = model else {
                 throw InvalidTransitionError()
             }
+            guard currentTime >= 0, currentTime <= state.duration else {
+                throw InvalidTransitionError()
+            }
             state.currentTime = currentTime
+
+            var commands: [Command] = []
+            if state.currentTime == state.duration && state.isPlaying {
+                state.isPlaying = false
+                commands.append(.player(.pause))
+            }
+
             model = .readyToPlay(state)
-            return []
+            return commands
 
         case .seekBack:
             guard case .readyToPlay(var state) = model else {
@@ -158,6 +159,11 @@ struct AudioBarModule: ElmModule {
         }
 
     }
+
+//    // Temporary
+//    static var invalidTransitionError: Error {
+//        return InvalidTransitionError()
+//    }
 
     static func view(for model: Model) -> View {
         switch model {

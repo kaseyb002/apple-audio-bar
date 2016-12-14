@@ -44,7 +44,7 @@ class AudioBarViewController: UIViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.duration) {
             guard change![.oldKey] as! NSValue != change![.newKey] as! NSValue else { return }
-            program.dispatch(.setDuration(playerItem.duration.timeInterval))
+            program.dispatch(.playerDidUpdateDuration(playerItem.duration.timeInterval))
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -80,7 +80,7 @@ extension AudioBarViewController: ElmDelegate {
                 playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.duration), options: [.old, .new], context: nil)
                 player.replaceCurrentItem(with: playerItem)
                 player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { time in
-                    program.dispatch(.setCurrentTime(time.timeInterval))
+                    program.dispatch(.playerDidUpdateCurrentTime(time.timeInterval))
                 }
 
             case .play:

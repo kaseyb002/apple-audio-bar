@@ -55,33 +55,33 @@ extension AudioBarModuleTests {
     // MARK: Set duration
     //
 
-    func testSetDuration() {
+    func testPlayerDidUpdateDuration() {
         do {
             var model = Model.waitingForDuration
-            let commands = try! Module.update(for: .setDuration(1), model: &model)
+            let commands = try! Module.update(for: .playerDidUpdateDuration(1), model: &model)
             XCTAssertEqual(model, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: 0)))
             XCTAssertEqual(commands, [.player(.play)])
         }
         do {
             var model = Model.waitingForDuration
-            let commands = try! Module.update(for: .setDuration(2), model: &model)
+            let commands = try! Module.update(for: .playerDidUpdateDuration(2), model: &model)
             XCTAssertEqual(model, .readyToPlay(.init(isPlaying: true, duration: 2, currentTime: 0)))
             XCTAssertEqual(commands, [.player(.play)])
         }
     }
 
-    func testSetDurationUnexpectedly() {
+    func testplayerDidUpdateDurationUnexpectedly() {
         do {
             var model = Model.waitingForURL
-            XCTAssertThrowsError(try Module.update(for: .setDuration(1), model: &model))
+            XCTAssertThrowsError(try Module.update(for: .playerDidUpdateDuration(1), model: &model))
         }
         do {
             var model = Model.readyToLoad(URL.foo)
-            XCTAssertThrowsError(try Module.update(for: .setDuration(1), model: &model))
+            XCTAssertThrowsError(try Module.update(for: .playerDidUpdateDuration(1), model: &model))
         }
         do {
             var model = Model.readyToPlay(.init())
-            XCTAssertThrowsError(try Module.update(for: .setDuration(1), model: &model))
+            XCTAssertThrowsError(try Module.update(for: .playerDidUpdateDuration(1), model: &model))
         }
     }
 
@@ -127,33 +127,6 @@ extension AudioBarModuleTests {
         do {
             var model = Model.waitingForDuration
             XCTAssertThrowsError(try Module.update(for: .togglePlay, model: &model))
-        }
-    }
-
-    //
-    // MARK: -
-    // MARK: Set current time
-    //
-
-    func testSetCurrentTime() {
-        var model = Model.readyToPlay(.init(currentTime: 1))
-        let commands = try! Module.update(for: .setCurrentTime(2), model: &model)
-        XCTAssertEqual(model, .readyToPlay(.init(currentTime: 2)))
-        XCTAssertTrue(commands.isEmpty)
-    }
-
-    func testSetCurrentTimeUnexpectedly() {
-        do {
-            var model = Model.waitingForURL
-            XCTAssertThrowsError(try Module.update(for: .setCurrentTime(1), model: &model))
-        }
-        do {
-            var model = Model.readyToLoad(URL.foo)
-            XCTAssertThrowsError(try Module.update(for: .setCurrentTime(1), model: &model))
-        }
-        do {
-            var model = Model.waitingForDuration
-            XCTAssertThrowsError(try Module.update(for: .setCurrentTime(1), model: &model))
         }
     }
 
@@ -277,6 +250,76 @@ class AudioBarSeekForwardTests: XCTestCase {
     func testSeekBackWhenNotAllowed3() {
         var model = Model.waitingForDuration
         XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
+    }
+
+}
+
+class AudioBarSetCurrentTimeTests: XCTestCase {
+
+    func testPlayerDidUpdateCurrentTime1() {
+        var model = Model.readyToPlay(.init(currentTime: 0))
+        let commands = try! Module.update(for: .playerDidUpdateCurrentTime(1), model: &model)
+        XCTAssertEqual(model, .readyToPlay(.init(currentTime: 1)))
+        XCTAssertTrue(commands.isEmpty)
+    }
+
+    func testPlayerDidUpdateCurrentTime2() {
+        var model = Model.readyToPlay(.init(currentTime: 1))
+        let commands = try! Module.update(for: .playerDidUpdateCurrentTime(2), model: &model)
+        XCTAssertEqual(model, .readyToPlay(.init(currentTime: 2)))
+        XCTAssertTrue(commands.isEmpty)
+    }
+
+    func testPlayerDidUpdateCurrentTimeToEndWhenPlaying() {
+        var model = Model.readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 0))
+        let commands = try! Module.update(for: .playerDidUpdateCurrentTime(60), model: &model)
+        XCTAssertEqual(model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
+        XCTAssertEqual(commands, [.player(.pause)])
+    }
+
+    func testPlayerDidUpdateCurrentTimeToEndWhenPaused() {
+        var model = Model.readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 0))
+        let commands = try! Module.update(for: .playerDidUpdateCurrentTime(60), model: &model)
+        XCTAssertEqual(model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
+        XCTAssertTrue(commands.isEmpty)
+    }
+
+    func testPlayerDidUpdateCurrentTimePastEnd() {
+        var model = Model.readyToPlay(.init(duration: 60))
+        XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(61), model: &model))
+    }
+
+    func testPlayerDidUpdateCurrentTimeToZero() {
+        var model = Model.readyToPlay(.init(currentTime: 30))
+        let commands = try! Module.update(for: .playerDidUpdateCurrentTime(0), model: &model)
+        XCTAssertEqual(model, .readyToPlay(.init(currentTime: 0)))
+        XCTAssertTrue(commands.isEmpty)
+    }
+
+    func testPlayerDidUpdateCurrentTimeToNegativeValue1() {
+        var model = Model.readyToPlay(.init())
+        XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(-1), model: &model))
+    }
+
+    func testPlayerDidUpdateCurrentTimeToNegativeValue2() {
+        var model = Model.readyToPlay(.init())
+        XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(-2), model: &model))
+    }
+
+
+    func testPlayerDidUpdateCurrentTimeUnexpectedly1() {
+        var model = Model.waitingForURL
+        XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(1), model: &model))
+    }
+
+    func testPlayerDidUpdateCurrentTimeUnexpectedly2() {
+        var model = Model.readyToLoad(URL.foo)
+        XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(1), model: &model))
+    }
+
+    func testPlayerDidUpdateCurrentTimeUnexpectedly3() {
+        var model = Model.waitingForDuration
+        XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(1), model: &model))
     }
 
 }
