@@ -200,7 +200,7 @@ struct AudioBarModule: ElmModule {
 
             return View(
                 playPauseButtonMode: state.isPlaying ? .pause : .play,
-                isPlayPauseButtonEnabled: true,
+                isPlayPauseButtonEnabled: remainingTime > 0,
                 areSeekButtonsHidden: false,
                 playbackTime: remainingTimeText,
                 isSeekBackButtonEnabled: state.currentTime > 0,
