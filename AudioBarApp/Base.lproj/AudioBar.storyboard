@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hgr-O3-lor">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hgr-O3-lor">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -69,7 +69,7 @@
                                             <constraint firstAttribute="height" constant="44" id="CLw-ch-7Hc"/>
                                             <constraint firstAttribute="width" priority="999" constant="44" id="Qgw-vD-mhU"/>
                                         </constraints>
-                                        <state key="normal" title="&lt;"/>
+                                        <state key="normal" image="15 Seconds Back Button"/>
                                         <connections>
                                             <action selector="userDidTapSeekBackButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="dfp-Nb-Ike"/>
                                         </connections>
@@ -80,7 +80,7 @@
                                             <constraint firstAttribute="width" constant="44" id="8ak-0z-Mht"/>
                                             <constraint firstAttribute="height" constant="44" id="kfN-dR-oqs"/>
                                         </constraints>
-                                        <state key="normal" title="P"/>
+                                        <state key="normal" image="Play Button"/>
                                         <connections>
                                             <action selector="userDidTapPlayPauseButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="2CG-nn-hko"/>
                                         </connections>
@@ -91,7 +91,7 @@
                                             <constraint firstAttribute="width" priority="999" constant="44" id="Kcf-Ml-XBZ"/>
                                             <constraint firstAttribute="height" constant="44" id="VVl-MN-faR"/>
                                         </constraints>
-                                        <state key="normal" title="&gt;"/>
+                                        <state key="normal" image="15 Seconds Forward Button"/>
                                         <connections>
                                             <action selector="userDidTapSeekForwardButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="bTQ-53-tv6"/>
                                         </connections>
@@ -144,4 +144,9 @@
             <point key="canvasLocation" x="289" y="58"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="15 Seconds Back Button" width="20" height="22"/>
+        <image name="15 Seconds Forward Button" width="20" height="22"/>
+        <image name="Play Button" width="18" height="22"/>
+    </resources>
 </document>

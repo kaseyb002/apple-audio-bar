@@ -54,7 +54,7 @@ extension AudioBarViewController: ElmDelegate {
 
     func program(_ program: Program<Module>, didUpdate view: Module.View) {
 
-        playPauseButton.setTitle(view.playPauseButtonMode.title, for: .normal)
+        playPauseButton.setImage(view.playPauseButtonMode.image, for: .normal)
         playPauseButton.isEnabled = view.isPlayPauseButtonEnabled
 
         seekBackButton.isHidden = view.areSeekButtonsHidden
@@ -99,13 +99,15 @@ extension AudioBarViewController: ElmDelegate {
 
 extension AudioBarModule.View.PlayPauseButtonMode {
 
-    var title: String {
+    var image: UIImage {
         switch self {
-        case .play: return "PL"
-        case .pause: return "PA"
+        case .play:
+            return #imageLiteral(resourceName: "Play Button")
+        case .pause:
+            return #imageLiteral(resourceName: "Pause Button")
         }
     }
-    
+
 }
 
 extension AVPlayer {
