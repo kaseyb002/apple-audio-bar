@@ -2,10 +2,8 @@ import UIKit
 import AVFoundation
 import Elm
 
-//    typealias Message = AudioBarModule.Message
 typealias Model = AudioBarModule.Model
 typealias View = AudioBarModule.View
-//    typealias Command = AudioBarModule.Command
 
 class AudioBarViewController: UIViewController {
 
