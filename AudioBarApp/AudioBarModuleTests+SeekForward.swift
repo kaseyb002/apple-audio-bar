@@ -70,7 +70,7 @@ extension AudioBarModuleTests {
     }
 
     func testSeekBackWhenNotAllowed3() {
-        var model = Model.waitingForDuration
+        var model = Model.waitingForPlayerToLoadMedia
         XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
     }
     

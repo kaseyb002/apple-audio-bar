@@ -6,12 +6,13 @@ import Elm
 typealias Model = AudioBarModule.Model
 typealias View = AudioBarModule.View
 
-class AudioBarViewController: UIViewController {
+class AudioBarViewController: UIViewController, ElmDelegate {
 
     typealias Module = AudioBarModule
     let program = Module.makeProgram()
 
-    let player = AVPlayer()
+    private let player = AVPlayer()
+    private var playerTimeObserver: Any?
 
     let volumeView: MPVolumeView = {
         let view = MPVolumeView()
@@ -66,17 +67,14 @@ class AudioBarViewController: UIViewController {
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.duration) {
+        if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.status) {
             guard change![.oldKey] as! NSValue != change![.newKey] as! NSValue else { return }
-            program.dispatch(.playerDidUpdateDuration(playerItem.duration.timeInterval))
+            guard playerItem.status == .readyToPlay else { return }
+            program.dispatch(.playerDidLoadMedia(withDuration: playerItem.duration.timeInterval))
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-
-}
-
-extension AudioBarViewController: ElmDelegate {
 
     func program(_ program: Program<Module>, didUpdate view: Module.View) {
         playPauseButton.setImage(view.playPauseButtonMode.image, for: .normal)
@@ -96,17 +94,18 @@ extension AudioBarViewController: ElmDelegate {
 
             case .open(let url):
                 let playerItem = AVPlayerItem(url: url)
-                playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.duration), options: [.old, .new], context: nil)
+                playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
                 player.replaceCurrentItem(with: playerItem)
-                player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { time in
-                    program.dispatch(.playerDidUpdateCurrentTime(time.timeInterval))
-                }
 
             case .play:
                 player.play()
+                playerTimeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { time in
+                    program.dispatch(.playerDidUpdateCurrentTime(time.timeInterval))
+                }
 
             case .pause:
                 player.pause()
+                player.removeTimeObserver(playerTimeObserver!)
 
             case .setCurrentTime(let time):
                 player.setTime(time)

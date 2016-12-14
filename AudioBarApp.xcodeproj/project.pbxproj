@@ -19,7 +19,7 @@
 		91A21F8A1E01879800AE685A /* AudioBarModuleTests+UpdateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F891E01879800AE685A /* AudioBarModuleTests+UpdateTime.swift */; };
 		91A21F8D1E01880800AE685A /* AudioBarModuleTests+SeekForward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F8B1E0187EA00AE685A /* AudioBarModuleTests+SeekForward.swift */; };
 		91A21F8F1E01884700AE685A /* AudioBarModuleTests+TogglePlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F8E1E01884700AE685A /* AudioBarModuleTests+TogglePlay.swift */; };
-		91A21F931E01898000AE685A /* AudioBarModuleTests+UpdateDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F921E01898000AE685A /* AudioBarModuleTests+UpdateDuration.swift */; };
+		91A21F931E01898000AE685A /* AudioBarModuleTests+RENAME.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F921E01898000AE685A /* AudioBarModuleTests+RENAME.swift */; };
 		91A21F941E01899F00AE685A /* AudioBarModuleTests+LoadTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F901E0188AE00AE685A /* AudioBarModuleTests+LoadTrack.swift */; };
 		91A21F981E018B6B00AE685A /* AudioBarModuleTests+SeekForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F971E018B6B00AE685A /* AudioBarModuleTests+SeekForwardButton.swift */; };
 		91A21F991E018B6F00AE685A /* AudioBarModuleTests+SeekBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A21F951E018B5F00AE685A /* AudioBarModuleTests+SeekBackButton.swift */; };
@@ -73,7 +73,7 @@
 		91A21F8B1E0187EA00AE685A /* AudioBarModuleTests+SeekForward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+SeekForward.swift"; sourceTree = "<group>"; };
 		91A21F8E1E01884700AE685A /* AudioBarModuleTests+TogglePlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+TogglePlay.swift"; sourceTree = "<group>"; };
 		91A21F901E0188AE00AE685A /* AudioBarModuleTests+LoadTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+LoadTrack.swift"; sourceTree = "<group>"; };
-		91A21F921E01898000AE685A /* AudioBarModuleTests+UpdateDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+UpdateDuration.swift"; sourceTree = "<group>"; };
+		91A21F921E01898000AE685A /* AudioBarModuleTests+RENAME.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+RENAME.swift"; sourceTree = "<group>"; };
 		91A21F951E018B5F00AE685A /* AudioBarModuleTests+SeekBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+SeekBackButton.swift"; sourceTree = "<group>"; };
 		91A21F971E018B6B00AE685A /* AudioBarModuleTests+SeekForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+SeekForwardButton.swift"; sourceTree = "<group>"; };
 		91A21F9A1E018B9700AE685A /* AudioBarModuleTests+PlaybackTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioBarModuleTests+PlaybackTime.swift"; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 				91A21F9A1E018B9700AE685A /* AudioBarModuleTests+PlaybackTime.swift */,
 				91A21F901E0188AE00AE685A /* AudioBarModuleTests+LoadTrack.swift */,
 				91A21F891E01879800AE685A /* AudioBarModuleTests+UpdateTime.swift */,
-				91A21F921E01898000AE685A /* AudioBarModuleTests+UpdateDuration.swift */,
+				91A21F921E01898000AE685A /* AudioBarModuleTests+RENAME.swift */,
 				91A21F861E01872800AE685A /* AudioBarModuleTests+SeekBack.swift */,
 				91A21F951E018B5F00AE685A /* AudioBarModuleTests+SeekBackButton.swift */,
 				91A21F8B1E0187EA00AE685A /* AudioBarModuleTests+SeekForward.swift */,
@@ -284,7 +284,7 @@
 				9171D5961DFB5169002BE1FF /* AudioBarModuleTests.swift in Sources */,
 				91A21F8D1E01880800AE685A /* AudioBarModuleTests+SeekForward.swift in Sources */,
 				91A21F9E1E018BB200AE685A /* AudioBarModuleTests+PlayPauseButton.swift in Sources */,
-				91A21F931E01898000AE685A /* AudioBarModuleTests+UpdateDuration.swift in Sources */,
+				91A21F931E01898000AE685A /* AudioBarModuleTests+RENAME.swift in Sources */,
 				91A21F8A1E01879800AE685A /* AudioBarModuleTests+UpdateTime.swift in Sources */,
 				91A21FA31E018CE100AE685A /* AudioBarModuleTests+DefaultModel.swift in Sources */,
 				91A21F991E018B6F00AE685A /* AudioBarModuleTests+SeekBackButton.swift in Sources */,

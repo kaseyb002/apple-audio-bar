@@ -64,7 +64,7 @@ extension AudioBarModuleTests {
     }
 
     func testPlayerDidUpdateCurrentTimeUnexpectedly3() {
-        var model = Model.waitingForDuration
+        var model = Model.waitingForPlayerToLoadMedia
         XCTAssertThrowsError(try Module.update(for: .playerDidUpdateCurrentTime(1), model: &model))
     }
     

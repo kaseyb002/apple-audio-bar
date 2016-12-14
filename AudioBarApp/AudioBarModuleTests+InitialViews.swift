@@ -29,8 +29,8 @@ extension AudioBarModuleTests {
         ))
     }
 
-    func testViewWhenWaitingForDuration() {
-        let model = Model.waitingForDuration
+    func testViewWhenWaitingForPlayerToLoadMedia() {
+        let model = Model.waitingForPlayerToLoadMedia
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
             playPauseButtonMode: .play,

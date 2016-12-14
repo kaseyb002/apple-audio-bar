@@ -17,7 +17,7 @@ struct AudioBarModule: ElmModule {
         case seekBack
         case seekForward
 
-        case playerDidUpdateDuration(TimeInterval)
+        case playerDidLoadMedia(withDuration: TimeInterval)
         case playerDidUpdateCurrentTime(TimeInterval)
 
     }
@@ -37,7 +37,7 @@ struct AudioBarModule: ElmModule {
 
         case waitingForURL
         case readyToLoad(URL)
-        case waitingForDuration
+        case waitingForPlayerToLoadMedia
         case readyToPlay(ReadyState)
 
         init() { self = .waitingForURL }
@@ -100,10 +100,10 @@ struct AudioBarModule: ElmModule {
                 throw FatalError()
 
             case .readyToLoad(at: let url):
-                model = .waitingForDuration
+                model = .waitingForPlayerToLoadMedia
                 return [.player(.open(url))]
 
-            case .waitingForDuration:
+            case .waitingForPlayerToLoadMedia:
                 throw FatalError()
 
             case .readyToPlay(var state):
@@ -114,14 +114,14 @@ struct AudioBarModule: ElmModule {
 
             }
 
-        case .playerDidUpdateDuration(let duration):
-            guard case .waitingForDuration = model else { throw error }
+        case .playerDidLoadMedia(withDuration: let duration):
+            guard case .waitingForPlayerToLoadMedia = model else { throw error }
             model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: 0))
             return [.player(.play)]
 
         case .playerDidUpdateCurrentTime(let currentTime):
             guard case .readyToPlay(var state) = model else { throw error }
-            guard currentTime >= 0, currentTime <= state.duration else { throw FatalError() }
+            guard currentTime >= 0, currentTime <= state.duration else { throw error }
             let shouldPause = currentTime == state.duration && state.isPlaying
             let commands: [Command] = shouldPause ? [.player(.pause)] : []
             if shouldPause { state.isPlaying = false }
@@ -177,7 +177,7 @@ struct AudioBarModule: ElmModule {
                 isSeekForwardButtonEnabled: false
             )
 
-        case .waitingForDuration:
+        case .waitingForPlayerToLoadMedia:
             return View(
                 playPauseButtonMode: .play,
                 isPlayPauseButtonEnabled: false,

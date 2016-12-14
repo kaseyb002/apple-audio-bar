@@ -6,14 +6,14 @@ extension AudioBarModule {
     func testTogglePlayWhenReadyToLoad1() {
         var model = Model.readyToLoad(URL.foo)
         let commands = try! Module.update(for: .togglePlay, model: &model)
-        XCTAssertEqual(model, .waitingForDuration)
+        XCTAssertEqual(model, .waitingForPlayerToLoadMedia)
         XCTAssertEqual(commands, [.player(.open(URL.foo))])
     }
 
     func testTogglePlayWhenReadyToLoad2() {
         var model = Model.readyToLoad(URL.bar)
         let commands = try! Module.update(for: .togglePlay, model: &model)
-        XCTAssertEqual(model, .waitingForDuration)
+        XCTAssertEqual(model, .waitingForPlayerToLoadMedia)
         XCTAssertEqual(commands, [.player(.open(URL.bar))])
     }
 
@@ -37,7 +37,7 @@ extension AudioBarModule {
     }
 
     func testTogglePlayUnexpectedly2() {
-        var model = Model.waitingForDuration
+        var model = Model.waitingForPlayerToLoadMedia
         XCTAssertThrowsError(try Module.update(for: .togglePlay, model: &model))
     }
 
