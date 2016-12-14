@@ -33,8 +33,8 @@ struct AudioBarModule: ElmModule {
 
         struct ReadyState {
             var isPlaying: Bool
-            var currentTime: TimeInterval
             var duration: TimeInterval
+            var currentTime: TimeInterval
         }
 
         case waitingForURL
@@ -123,7 +123,7 @@ struct AudioBarModule: ElmModule {
             guard case .waitingForDuration = model else {
                 throw InvalidTransitionError()
             }
-            model = .readyToPlay(.init(isPlaying: true, currentTime: 0, duration: duration))
+            model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: 0))
             return [.player(.play)]
 
         case .setCurrentTime(let currentTime):
