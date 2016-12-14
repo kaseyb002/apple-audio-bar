@@ -1,7 +1,7 @@
 import Foundation
 import Elm
 
-struct InvalidTransitionError: Error {}
+struct FatalError: Error {}
 
 struct AudioBarModule: ElmModule {
 
@@ -87,7 +87,6 @@ struct AudioBarModule: ElmModule {
     //
 
     static func update(for message: Message, model: inout Model) throws -> [Command] {
-
         switch message {
 
         case .prepareToLoad(let url):
@@ -96,77 +95,68 @@ struct AudioBarModule: ElmModule {
 
         case .togglePlay:
             switch model {
+
             case .waitingForURL:
-                throw InvalidTransitionError()
+                throw FatalError()
+
             case .readyToLoad(at: let url):
                 model = .waitingForDuration
                 return [.player(.open(url))]
+
             case .waitingForDuration:
-                throw InvalidTransitionError()
+                throw FatalError()
+
             case .readyToPlay(var state):
                 let command: Command = .player(state.isPlaying ? .pause : .play)
                 state.isPlaying = !state.isPlaying
                 model = .readyToPlay(state)
                 return [command]
+
             }
 
         case .playerDidUpdateDuration(let duration):
-            guard case .waitingForDuration = model else {
-                throw InvalidTransitionError()
-            }
+            guard case .waitingForDuration = model else { throw error }
             model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: 0))
             return [.player(.play)]
 
         case .playerDidUpdateCurrentTime(let currentTime):
-            guard case .readyToPlay(var state) = model else {
-                throw InvalidTransitionError()
-            }
-            guard currentTime >= 0, currentTime <= state.duration else {
-                throw InvalidTransitionError()
-            }
+            guard case .readyToPlay(var state) = model else { throw error }
+            guard currentTime >= 0, currentTime <= state.duration else { throw FatalError() }
+            let shouldPause = currentTime == state.duration && state.isPlaying
+            let commands: [Command] = shouldPause ? [.player(.pause)] : []
+            if shouldPause { state.isPlaying = false }
             state.currentTime = currentTime
-
-            var commands: [Command] = []
-            if state.currentTime == state.duration && state.isPlaying {
-                state.isPlaying = false
-                commands.append(.player(.pause))
-            }
-
             model = .readyToPlay(state)
             return commands
 
         case .seekBack:
-            guard case .readyToPlay(var state) = model else {
-                throw InvalidTransitionError()
-            }
+            guard case .readyToPlay(var state) = model else { throw error }
             state.currentTime = max(0, state.currentTime - 15)
             model = .readyToPlay(state)
             return [.player(.setCurrentTime(state.currentTime))]
 
         case .seekForward:
-            guard case .readyToPlay(var state) = model else {
-                throw InvalidTransitionError()
-            }
-            var commands: [Command] = []
-            state.currentTime = min(state.duration, state.currentTime + 15)
-            commands.append(.player(.setCurrentTime(state.currentTime)))
-            if state.currentTime == state.duration && state.isPlaying {
-                state.isPlaying = false
-                commands.append(.player(.pause))
-            }
+            guard case .readyToPlay(var state) = model else { throw error }
+            let currentTime = min(state.duration, state.currentTime + 15)
+            let currentTimeCommand = Command.player(.setCurrentTime(currentTime))
+            let shouldPause = currentTime == state.duration && state.isPlaying
+            let shouldPauseCommand: Command? = shouldPause ? .player(.pause) : nil
+            if shouldPause { state.isPlaying = false }
+            let commands = [currentTimeCommand, shouldPauseCommand].flatMap { $0 }
+            state.currentTime = currentTime
             model = .readyToPlay(state)
             return commands
-        }
 
+        }
     }
 
-//    // Temporary
-//    static var invalidTransitionError: Error {
-//        return InvalidTransitionError()
-//    }
+    static var error: Error {
+        return FatalError()
+    }
 
     static func view(for model: Model) -> View {
         switch model {
+
         case .waitingForURL:
              return View(
                 playPauseButtonMode: .play,
@@ -176,6 +166,7 @@ struct AudioBarModule: ElmModule {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false
             )
+
         case .readyToLoad:
             return View(
                 playPauseButtonMode: .play,
@@ -185,6 +176,7 @@ struct AudioBarModule: ElmModule {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false
             )
+
         case .waitingForDuration:
             return View(
                 playPauseButtonMode: .play,
@@ -194,8 +186,8 @@ struct AudioBarModule: ElmModule {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false
             )
-        case .readyToPlay(let state):
 
+        case .readyToPlay(let state):
             let remainingTime = state.duration - state.currentTime
             var remainingTimeText: String {
                 let formatter = DateComponentsFormatter()
@@ -203,7 +195,6 @@ struct AudioBarModule: ElmModule {
                 formatter.zeroFormattingBehavior = .pad
                 return "-" + formatter.string(from: remainingTime)!
             }
-
             return View(
                 playPauseButtonMode: state.isPlaying ? .pause : .play,
                 isPlayPauseButtonEnabled: remainingTime > 0,
@@ -214,7 +205,6 @@ struct AudioBarModule: ElmModule {
             )
 
         }
-
     }
 
 }
