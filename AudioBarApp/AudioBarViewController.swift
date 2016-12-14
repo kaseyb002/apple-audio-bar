@@ -53,18 +53,13 @@ class AudioBarViewController: UIViewController {
 extension AudioBarViewController: ElmDelegate {
 
     func program(_ program: Program<Module>, didUpdate view: Module.View) {
-
         playPauseButton.setImage(view.playPauseButtonMode.image, for: .normal)
         playPauseButton.isEnabled = view.isPlayPauseButtonEnabled
-
         seekBackButton.isHidden = view.areSeekButtonsHidden
         seekBackButton.isEnabled = view.isSeekBackButtonEnabled
-
         seekForwardButton.isHidden = view.areSeekButtonsHidden
         seekForwardButton.isEnabled = view.isSeekForwardButtonEnabled
-
         timeLabel.text = view.playbackTime
-
     }
 
     func program(_ program: Program<Module>, didEmit command: Module.Command) {
