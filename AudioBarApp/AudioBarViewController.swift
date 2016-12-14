@@ -52,6 +52,9 @@ class AudioBarViewController: UIViewController {
         audioRouteView.addSubview(volumeView)
         program.setDelegate(self)
 
+        try! AVAudioSession.sharedInstance().setMode(AVAudioSessionModeSpokenAudio)
+        try! AVAudioSession.sharedInstance().setActive(true)
+
         let url = URL(string: "http://www.healerslibrary.com/audiobook/english/The_Emotion_Code_Ch_1.mp3")!
         program.dispatch(.prepareToLoad(url))
         
