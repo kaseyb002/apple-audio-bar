@@ -1,5 +1,6 @@
 import UIKit
 import AVFoundation
+import MediaPlayer
 import Elm
 
 typealias Model = AudioBarModule.Model
@@ -12,10 +13,16 @@ class AudioBarViewController: UIViewController {
 
     let player = AVPlayer()
 
+    let volumeView: MPVolumeView = {
+        let view = MPVolumeView()
+        view.showsVolumeSlider = false
+        view.setRouteButtonImage(#imageLiteral(resourceName: "AirPlay Icon"), for: .normal)
+        return view
+    }()
+
     @IBOutlet var playPauseButton: UIButton!
     @IBOutlet var seekBackButton: UIButton!
     @IBOutlet var seekForwardButton: UIButton!
-
 
     @IBOutlet var timeLabel: UILabel! {
         didSet {
@@ -42,11 +49,17 @@ class AudioBarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        audioRouteView.addSubview(volumeView)
         program.setDelegate(self)
 
         let url = URL(string: "http://www.healerslibrary.com/audiobook/english/The_Emotion_Code_Ch_1.mp3")!
         program.dispatch(.prepareToLoad(url))
         
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        volumeView.frame = audioRouteView.bounds
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
