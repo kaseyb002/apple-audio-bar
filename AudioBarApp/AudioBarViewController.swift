@@ -41,8 +41,6 @@ class AudioBarViewController: UIViewController {
         
     }
 
-
-
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.duration) {
             guard change![.oldKey] as! NSValue != change![.newKey] as! NSValue else { return }

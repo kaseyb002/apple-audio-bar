@@ -134,9 +134,27 @@ struct AudioBarModule: ElmModule {
             model = .readyToPlay(state)
             return []
 
-        default:
-            preconditionFailure()
+        case .seekBack:
+            guard case .readyToPlay(var state) = model else {
+                throw InvalidTransitionError()
+            }
+            state.currentTime = max(0, state.currentTime - 15)
+            model = .readyToPlay(state)
+            return [.player(.setCurrentTime(state.currentTime))]
 
+        case .seekForward:
+            guard case .readyToPlay(var state) = model else {
+                throw InvalidTransitionError()
+            }
+            var commands: [Command] = []
+            state.currentTime = min(state.duration, state.currentTime + 15)
+            commands.append(.player(.setCurrentTime(state.currentTime)))
+            if state.currentTime == state.duration && state.isPlaying {
+                state.isPlaying = false
+                commands.append(.player(.pause))
+            }
+            model = .readyToPlay(state)
+            return commands
         }
 
     }
