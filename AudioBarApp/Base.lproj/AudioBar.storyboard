@@ -61,13 +61,13 @@
                                 <items/>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lE7-Lw-DJA">
-                                <rect key="frame" x="88" y="0.0" width="198" height="44"/>
+                                <rect key="frame" x="121" y="0.0" width="132" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAD-gh-z4d">
-                                        <rect key="frame" x="0.0" y="0.0" width="66" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="CLw-ch-7Hc"/>
-                                            <constraint firstAttribute="width" priority="999" constant="66" id="Qgw-vD-mhU"/>
+                                            <constraint firstAttribute="width" priority="999" constant="44" id="Qgw-vD-mhU"/>
                                         </constraints>
                                         <state key="normal" image="15 Seconds Back Button"/>
                                         <connections>
@@ -75,20 +75,21 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPP-F4-JOP">
-                                        <rect key="frame" x="66" y="0.0" width="66" height="44"/>
+                                        <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="66" id="8ak-0z-Mht"/>
+                                            <constraint firstAttribute="width" constant="44" id="8ak-0z-Mht"/>
                                             <constraint firstAttribute="height" constant="44" id="kfN-dR-oqs"/>
                                         </constraints>
+                                        <inset key="imageEdgeInsets" minX="2" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" image="Play Button"/>
                                         <connections>
                                             <action selector="userDidTapPlayPauseButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="2CG-nn-hko"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGP-A7-7Ta">
-                                        <rect key="frame" x="132" y="0.0" width="66" height="44"/>
+                                        <rect key="frame" x="88" y="0.0" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" priority="999" constant="66" id="Kcf-Ml-XBZ"/>
+                                            <constraint firstAttribute="width" priority="999" constant="44" id="Kcf-Ml-XBZ"/>
                                             <constraint firstAttribute="height" constant="44" id="VVl-MN-faR"/>
                                         </constraints>
                                         <state key="normal" image="15 Seconds Forward Button"/>
