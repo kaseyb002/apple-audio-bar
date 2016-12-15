@@ -50,12 +50,6 @@ class AudioBarViewController: UIViewController, ElmDelegate {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let audioURL = URL(string: "http://www.healerslibrary.com/audiobook/english/The_Emotion_Code_Ch_1.mp3")!
-        loadURL(url: audioURL)
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         volumeView.frame = audioRouteView.bounds
