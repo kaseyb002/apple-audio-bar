@@ -33,7 +33,7 @@ extension AudioBarModuleTests {
         var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let commands = try! Module.update(for: .togglePlay, model: &model)
         XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
-        XCTAssertEqual(commands, [.player(.stopLoading)])
+        XCTAssertEqual(commands, [.player(.reset)])
     }
 
 }

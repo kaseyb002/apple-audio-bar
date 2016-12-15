@@ -73,23 +73,34 @@ class AudioBarViewController: UIViewController, ElmDelegate {
     }
 
     func program(_ program: Program<Module>, didEmit command: Module.Command) {
-        guard case .player(let command) = command else { preconditionFailure() }
+
         switch command {
-        case .loadURL(let url):
-            let playerItem = AVPlayerItem(url: url)
-            beginObservingPlayerItem(playerItem)
-            player.replaceCurrentItem(with: playerItem)
-        case .stopLoading:
-            guard let playerItem = player.currentItem else { preconditionFailure() }
-            endObservingPlayerItem(playerItem)
-            player.replaceCurrentItem(with: nil)
-        case .play:
-            player.play()
-        case .pause:
-            player.pause()
-        case .setCurrentTime(let time):
-            player.seek(to: CMTime(timeInterval: time))
+
+        case .player(let command):
+            switch command {
+            case .loadURL(let url):
+                let playerItem = AVPlayerItem(url: url)
+                beginObservingPlayerItem(playerItem)
+                player.replaceCurrentItem(with: playerItem)
+            case .reset:
+                guard let playerItem = player.currentItem else { preconditionFailure() }
+                endObservingPlayerItem(playerItem)
+                player.replaceCurrentItem(with: nil)
+            case .play:
+                player.play()
+            case .pause:
+                player.pause()
+            case .setCurrentTime(let time):
+                player.seek(to: CMTime(timeInterval: time))
+            }
+
+        case .showAlert(text: let text, button: let button):
+            let alertController = UIAlertController(title: text, message: nil, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: button, style: .default, handler: nil))
+            present(alertController, animated: true)
+
         }
+
     }
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
@@ -107,8 +118,16 @@ class AudioBarViewController: UIViewController, ElmDelegate {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.status) {
             guard change![.oldKey] as! NSValue != change![.newKey] as! NSValue else { return }
-            guard playerItem.status == .readyToPlay else { return }
-            program.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
+
+            switch playerItem.status {
+            case .unknown:
+                break
+            case .readyToPlay:
+                program.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
+            case .failed:
+                program.dispatch(.playerDidFailToBecomeReady)
+            }
+
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
