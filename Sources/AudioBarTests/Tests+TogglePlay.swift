@@ -1,7 +1,7 @@
 import XCTest
-@testable import AudioBarApp
+@testable import AudioBar
 
-extension AudioBarModuleTests {
+extension Tests {
 
     func testTogglePlayWhenReadyToLoad() {
         var model = Model.readyToLoadURL(URL.arbitrary)

@@ -1,7 +1,7 @@
 import XCTest
-@testable import AudioBarApp
+@testable import AudioBar
 
-extension AudioBarModuleTests {
+extension Tests {
 
     func testPlayerDidPlayToEnd() {
         var model = Model.readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 0))

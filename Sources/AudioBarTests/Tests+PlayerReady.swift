@@ -1,7 +1,7 @@
 import XCTest
-@testable import AudioBarApp
+@testable import AudioBar
 
-extension AudioBarModuleTests {
+extension Tests {
 
     func testPlayerDidBecomeReadyToPlay() {
         var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)

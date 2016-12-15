@@ -1,12 +1,12 @@
 import XCTest
-@testable import AudioBarApp
+@testable import AudioBar
 
 //
 // MARK: -
 // MARK: Test case
 //
 
-final class AudioBarModuleTests: XCTestCase {}
+final class Tests: XCTestCase {}
 
 //
 // MARK: -

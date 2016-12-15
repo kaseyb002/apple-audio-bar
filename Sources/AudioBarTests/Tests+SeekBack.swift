@@ -1,7 +1,7 @@
 import XCTest
-@testable import AudioBarApp
+@testable import AudioBar
 
-extension AudioBarModuleTests {
+extension Tests {
 
     func testSeekBack1() {
         var model = Model.readyToPlay(.init(duration: 60, currentTime: 60))

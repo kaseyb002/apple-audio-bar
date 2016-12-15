@@ -1,7 +1,7 @@
 import XCTest
-@testable import AudioBarApp
+@testable import AudioBar
 
-extension AudioBarModuleTests {
+extension Tests {
 
     func testLoadingIndicatorHiddenWhenPausedWithCurrentTimeAvailable() {
         let model = Model.readyToPlay(.init(isPlaying: false, currentTime: 0))
