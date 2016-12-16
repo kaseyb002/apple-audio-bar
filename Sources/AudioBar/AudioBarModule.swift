@@ -3,11 +3,6 @@ import Elm
 
 struct AudioBarModule: ElmModule {
 
-    //
-    // MARK: -
-    // MARK: Message
-    //
-
     enum Message {
 
         case prepareToLoad(URL)
@@ -21,11 +16,6 @@ struct AudioBarModule: ElmModule {
         case playerDidPlayToEnd
 
     }
-
-    //
-    // MARK: -
-    // MARK: Model
-    //
 
     enum Model: Initable {
 
@@ -44,11 +34,6 @@ struct AudioBarModule: ElmModule {
 
     }
 
-    //
-    // MARK: -
-    // MARK: Command
-    //
-
     enum Command {
 
         enum Player {
@@ -63,11 +48,6 @@ struct AudioBarModule: ElmModule {
         case showAlert(text: String, button: String)
 
     }
-
-    //
-    // MARK: -
-    // MARK: View
-    //
 
     struct View {
 
@@ -85,11 +65,6 @@ struct AudioBarModule: ElmModule {
 
     }
 
-    //
-    // MARK: -
-    // MARK: Update
-    //
-
     static func update(for message: Message, model: inout Model) throws -> [Command] {
         switch message {
 
@@ -99,18 +74,14 @@ struct AudioBarModule: ElmModule {
 
         case .togglePlay:
             switch model {
-
             case .waitingForURL:
                 throw error
-
             case .readyToLoadURL(at: let url):
                 model = .waitingForPlayerToBecomeReadyToPlayURL(url)
                 return [.player(.loadURL(url))]
-
             case .waitingForPlayerToBecomeReadyToPlayURL(let url):
                 model = .readyToLoadURL(url)
                 return [.player(.reset)]
-
             case .readyToPlay(var state):
                 let command: Command = .player(state.isPlaying ? .pause : .play)
                 state.isPlaying = !state.isPlaying

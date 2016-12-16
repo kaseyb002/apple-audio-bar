@@ -1,28 +1,13 @@
 import XCTest
 @testable import AudioBar
 
-//
-// MARK: -
-// MARK: Test case
-//
-
 final class Tests: XCTestCase {}
-
-//
-// MARK: -
-// MARK: Aliases
-//
 
 typealias Module = AudioBarModule
 
 typealias Model = Module.Model
 typealias View = Module.View
 typealias Command = Module.Command
-
-//
-// MARK: -
-// MARK: Default initializers
-//
 
 extension Model.ReadyState {
 
@@ -33,11 +18,6 @@ extension Model.ReadyState {
     }
 
 }
-
-//
-// MARK: -
-// MARK: Equatable conformances
-//
 
 extension View: Equatable {
     public static func ==(lhs: View, rhs: View) -> Bool {
@@ -56,11 +36,6 @@ extension Model: Equatable {
         return String(describing: lhs) == String(describing: rhs)
     }
 }
-
-//
-// MARK: -
-// MARK: Utilities
-//
 
 extension URL {
 
