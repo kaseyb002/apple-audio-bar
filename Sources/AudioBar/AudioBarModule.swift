@@ -126,13 +126,14 @@ struct AudioBarModule: ElmModule {
 
         case .seekForward:
             guard case .readyToPlay(var state) = model else { throw error }
+            var commands: [Command] = []
             let currentTime = min(state.duration, state.currentTime! + 15)
-            let currentTimeCommand = Command.player(.setCurrentTime(currentTime))
-            let shouldPause = currentTime == state.duration && state.isPlaying
-            let shouldPauseCommand: Command? = shouldPause ? .player(.pause) : nil
-            if shouldPause { state.isPlaying = false }
-            let commands = [currentTimeCommand, shouldPauseCommand].flatMap { $0 }
             state.currentTime = currentTime
+            commands.append(.player(.setCurrentTime(currentTime)))
+            if currentTime == state.duration && state.isPlaying {
+                state.isPlaying = false
+                commands.append(.player(.pause))
+            }
             model = .readyToPlay(state)
             return commands
 
