@@ -10,17 +10,17 @@ extension Tests {
         XCTAssertEqual(commands, [.player(.play)])
     }
 
-    func testPlayerdidBecomeReadyToPlayUnexpectedly1() {
+    func testPlayerDidBecomeReadyToPlayUnexpectedly1() {
         var model = Model.waitingForURL
         XCTAssertThrowsError(try Module.update(for: .playerDidBecomeReadyToPlay(withDuration: 0), model: &model))
     }
 
-    func testPlayerdidBecomeReadyToPlayUnexpectedly2() {
+    func testPlayerDidBecomeReadyToPlayUnexpectedly2() {
         var model = Model.readyToLoadURL(URL.arbitrary)
         XCTAssertThrowsError(try Module.update(for: .playerDidBecomeReadyToPlay(withDuration: 0), model: &model))
     }
 
-    func testPlayerdidBecomeReadyToPlayUnexpectedly3() {
+    func testPlayerDidBecomeReadyToPlayUnexpectedly3() {
         var model = Model.readyToPlay(.init())
         XCTAssertThrowsError(try Module.update(for: .playerDidBecomeReadyToPlay(withDuration: 0), model: &model))
     }
