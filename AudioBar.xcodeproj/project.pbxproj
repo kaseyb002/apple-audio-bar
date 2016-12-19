@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		913A65D81E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */; };
+		913A65E01E07F35200069B4E /* Elm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
 		91930F451E03158F006A0091 /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 91930F371E03158F006A0091 /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91930F5E1E0315B0006A0091 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4E1E0315B0006A0091 /* Shared.swift */; };
@@ -42,6 +43,20 @@
 			remoteInfo = AudioBar;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		913A65DF1E07F34800069B4E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				913A65E01E07F35200069B4E /* Elm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayPauseButtonEnabledTests.swift; sourceTree = "<group>"; };
@@ -172,6 +187,7 @@
 				91930F301E03158F006A0091 /* Frameworks */,
 				91930F311E03158F006A0091 /* Headers */,
 				91930F321E03158F006A0091 /* Resources */,
+				913A65DF1E07F34800069B4E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
