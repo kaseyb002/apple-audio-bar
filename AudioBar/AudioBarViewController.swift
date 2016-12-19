@@ -3,9 +3,9 @@ import AVFoundation
 import MediaPlayer
 import Elm
 
-class AudioBarViewController: UIViewController, ElmDelegate {
+public final class AudioBarViewController: UIViewController, ElmDelegate {
 
-    typealias Module = AudioBarModule
+    public typealias Module = AudioBarModule
 
     typealias Model = AudioBarModule.Model
     typealias View = AudioBarModule.View
@@ -33,11 +33,11 @@ class AudioBarViewController: UIViewController, ElmDelegate {
         program.dispatch(.seekBack)
     }
 
-    func loadURL(url: URL) {
+    public func loadURL(url: URL) {
         program.dispatch(.prepareToLoad(url))
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         volumeView.showsVolumeSlider = false
         volumeView.setRouteButtonImage(#imageLiteral(resourceName: "AirPlay Icon"), for: .normal)
@@ -50,12 +50,12 @@ class AudioBarViewController: UIViewController, ElmDelegate {
         }
     }
 
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         volumeView.frame = audioRouteView.bounds
     }
 
-    func program(_ program: Program<Module>, didUpdate view: Module.View) {
+    public func program(_ program: Program<Module>, didUpdate view: Module.View) {
         playPauseButton.setImage(view.playPauseButtonMode.image, for: .normal)
         playPauseButton.isEnabled = view.isPlayPauseButtonEnabled
         seekBackButton.isHidden = view.areSeekButtonsHidden
@@ -66,7 +66,7 @@ class AudioBarViewController: UIViewController, ElmDelegate {
         loadingIndicator.isHidden = !view.isLoadingIndicatorVisible
     }
 
-    func program(_ program: Program<Module>, didEmit command: Module.Command) {
+    public func program(_ program: Program<Module>, didEmit command: Module.Command) {
 
         switch command {
 
@@ -109,7 +109,7 @@ class AudioBarViewController: UIViewController, ElmDelegate {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.status) {
             guard change![.oldKey] as! NSValue != change![.newKey] as! NSValue else { return }
 

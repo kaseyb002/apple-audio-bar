@@ -1,9 +1,9 @@
 import Foundation
 import Elm
 
-struct AudioBarModule: ElmModule {
+public struct AudioBarModule: ElmModule {
 
-    enum Message {
+    public enum Message {
 
         case prepareToLoad(URL)
         case togglePlay
@@ -17,9 +17,9 @@ struct AudioBarModule: ElmModule {
 
     }
 
-    enum Model: Initable {
+    public enum Model: Initable {
 
-        struct ReadyState {
+        public struct ReadyState {
             var isPlaying: Bool
             var duration: TimeInterval
             var currentTime: TimeInterval?
@@ -30,13 +30,13 @@ struct AudioBarModule: ElmModule {
         case waitingForPlayerToBecomeReadyToPlayURL(URL)
         case readyToPlay(ReadyState)
 
-        init() { self = .waitingForURL }
+        public init() { self = .waitingForURL }
 
     }
 
-    enum Command {
+    public enum Command {
 
-        enum Player {
+        public enum Player {
             case loadURL(URL)
             case play
             case pause
@@ -49,7 +49,7 @@ struct AudioBarModule: ElmModule {
 
     }
 
-    struct View {
+    public struct View {
 
         public enum PlayPauseButtonMode { case play, pause }
 
@@ -65,7 +65,7 @@ struct AudioBarModule: ElmModule {
 
     }
 
-    static func update(for message: Message, model: inout Model) throws -> [Command] {
+    public static func update(for message: Message, model: inout Model) throws -> [Command] {
         switch message {
 
         case .prepareToLoad(let url):
@@ -134,7 +134,7 @@ struct AudioBarModule: ElmModule {
         }
     }
 
-    static func view(for model: Model) -> View {
+    public static func view(for model: Model) -> View {
         switch model {
 
         case .waitingForURL:
