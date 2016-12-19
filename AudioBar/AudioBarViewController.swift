@@ -45,6 +45,7 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: UIFontWeightRegular)
         program.setDelegate(self)
         player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak program] time in
+            guard player?.currentItem?.status == .readyToPlay else { return }
             guard let currentTime = player?.currentTime().timeInterval else { return }
             program?.dispatch(.playerDidUpdateCurrentTime(currentTime))
         }
