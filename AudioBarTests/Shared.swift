@@ -3,9 +3,9 @@ import XCTest
 
 typealias Module = AudioBarModule
 
-typealias Model = Module.Model
-typealias View = Module.View
-typealias Command = Module.Command
+public typealias Model = Module.Model
+public typealias Command = Module.Command
+public typealias View = Module.View
 
 extension Model.ReadyState {
     init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil) {
