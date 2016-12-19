@@ -1,9 +1,9 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class DefaultModelTests: XCTestCase {
 
-    func testDefaultModel() {
+    func test() {
         let model = Model()
         XCTAssertEqual(model, .waitingForURL)
     }

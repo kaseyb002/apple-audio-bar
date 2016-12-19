@@ -1,39 +1,39 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class TogglePlayTests: XCTestCase {
 
-    func testTogglePlayWhenReadyToLoad() {
+    func testWhenReadyToLoad() {
         var model = Model.readyToLoadURL(URL.arbitrary)
         let commands = try! Module.update(for: .togglePlay, model: &model)
         XCTAssertEqual(model, .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
         XCTAssertEqual(commands, [.player(.loadURL(URL.arbitrary))])
     }
 
-    func testTogglePlayWhenPlaying() {
+    func testWhenPlaying() {
         var model = Model.readyToPlay(.init(isPlaying: true))
         let commands = try! Module.update(for: .togglePlay, model: &model)
         XCTAssertEqual(model, .readyToPlay(.init(isPlaying: false)))
         XCTAssertEqual(commands, [.player(.pause)])
     }
 
-    func testTogglePlayWhenPaused() {
+    func testWhenPaused() {
         var model = Model.readyToPlay(.init(isPlaying: false))
         let commands = try! Module.update(for: .togglePlay, model: &model)
         XCTAssertEqual(model, .readyToPlay(.init(isPlaying: true)))
         XCTAssertEqual(commands, [.player(.play)])
     }
 
-    func testTogglePlayUnexpectedly() {
-        var model = Model.waitingForURL
-        XCTAssertThrowsError(try Module.update(for: .togglePlay, model: &model))
-    }
-
-    func testTogglePlayWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+    func testWhenWaitingForPlayerToBecomeReadyToPlayURL() {
         var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let commands = try! Module.update(for: .togglePlay, model: &model)
         XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
         XCTAssertEqual(commands, [.player(.reset)])
+    }
+
+    func testWhenUnexpected() {
+        var model = Model.waitingForURL
+        XCTAssertThrowsError(try Module.update(for: .togglePlay, model: &model))
     }
 
 }

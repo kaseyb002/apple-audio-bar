@@ -1,9 +1,9 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class LoadTrackTests: XCTestCase {
 
-    func testLoadTrack() {
+    func test() {
         var model = Model.waitingForURL
         let commands = try! Module.update(for: .prepareToLoad(URL.arbitrary), model: &model)
         XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
@@ -11,6 +11,6 @@ extension Tests {
     }
 
     // TODO: How do we handle this?
-    func testLoadTrackUnexpectedly() {}
+    func testWhenUnexpected() {}
 
 }

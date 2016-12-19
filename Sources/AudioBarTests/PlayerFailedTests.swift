@@ -1,26 +1,26 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class PlayerFailedTests: XCTestCase {
 
-    func testPlayerDidFailToBecomeReady() {
+    func test() {
         var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let commands = try! Module.update(for: .playerDidFailToBecomeReady, model: &model)
         XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
         XCTAssertEqual(commands, [.player(.reset), .showAlert(text: "Unable to load media", button: "OK")])
     }
 
-    func testPlayerDidFailToBecomeReadyUnexpectedly1() {
+    func testWhenUnexpected1() {
         var model = Model.waitingForURL
         XCTAssertThrowsError(try Module.update(for: .playerDidFailToBecomeReady, model: &model))
     }
 
-    func testPlayerDidFailToBecomeReadyUnexpectedly2() {
+    func testWhenUnexpected2() {
         var model = Model.readyToLoadURL(URL.arbitrary)
         XCTAssertThrowsError(try Module.update(for: .playerDidFailToBecomeReady, model: &model))
     }
 
-    func testPlayerDidFailToBecomeReadyUnexpectedly3() {
+    func testWhenUnexpected3() {
         var model = Model.readyToPlay(.init())
         XCTAssertThrowsError(try Module.update(for: .playerDidFailToBecomeReady, model: &model))
     }

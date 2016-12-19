@@ -10,21 +10,21 @@
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
 		91930F451E03158F006A0091 /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 91930F371E03158F006A0091 /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91930F5E1E0315B0006A0091 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4E1E0315B0006A0091 /* Tests.swift */; };
-		91930F5F1E0315B0006A0091 /* Tests+DefaultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4F1E0315B0006A0091 /* Tests+DefaultModel.swift */; };
-		91930F601E0315B0006A0091 /* Tests+InitialViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F501E0315B0006A0091 /* Tests+InitialViews.swift */; };
-		91930F611E0315B0006A0091 /* Tests+PlaybackTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F511E0315B0006A0091 /* Tests+PlaybackTime.swift */; };
-		91930F621E0315B0006A0091 /* Tests+LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F521E0315B0006A0091 /* Tests+LoadingIndicator.swift */; };
-		91930F631E0315B0006A0091 /* Tests+LoadTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F531E0315B0006A0091 /* Tests+LoadTrack.swift */; };
-		91930F641E0315B0006A0091 /* Tests+PlayerReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F541E0315B0006A0091 /* Tests+PlayerReady.swift */; };
-		91930F651E0315B0006A0091 /* Tests+PlayerFailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F551E0315B0006A0091 /* Tests+PlayerFailed.swift */; };
-		91930F661E0315B0006A0091 /* Tests+PlayerTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F561E0315B0006A0091 /* Tests+PlayerTime.swift */; };
-		91930F671E0315B0006A0091 /* Tests+PlayerFinished.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F571E0315B0006A0091 /* Tests+PlayerFinished.swift */; };
-		91930F681E0315B0006A0091 /* Tests+SeekBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F581E0315B0006A0091 /* Tests+SeekBack.swift */; };
-		91930F691E0315B0006A0091 /* Tests+SeekBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F591E0315B0006A0091 /* Tests+SeekBackButton.swift */; };
-		91930F6A1E0315B0006A0091 /* Tests+SeekForward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5A1E0315B0006A0091 /* Tests+SeekForward.swift */; };
-		91930F6B1E0315B0006A0091 /* Tests+SeekForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5B1E0315B0006A0091 /* Tests+SeekForwardButton.swift */; };
-		91930F6C1E0315B0006A0091 /* Tests+TogglePlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5C1E0315B0006A0091 /* Tests+TogglePlay.swift */; };
-		91930F6D1E0315B0006A0091 /* Tests+PlayPauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5D1E0315B0006A0091 /* Tests+PlayPauseButton.swift */; };
+		91930F5F1E0315B0006A0091 /* DefaultModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4F1E0315B0006A0091 /* DefaultModelTests.swift */; };
+		91930F601E0315B0006A0091 /* SimpleViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F501E0315B0006A0091 /* SimpleViewTests.swift */; };
+		91930F611E0315B0006A0091 /* PlaybackTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F511E0315B0006A0091 /* PlaybackTimeTests.swift */; };
+		91930F621E0315B0006A0091 /* LoadingIndicatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F521E0315B0006A0091 /* LoadingIndicatorTests.swift */; };
+		91930F631E0315B0006A0091 /* LoadTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F531E0315B0006A0091 /* LoadTrackTests.swift */; };
+		91930F641E0315B0006A0091 /* PlayerReadyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F541E0315B0006A0091 /* PlayerReadyTests.swift */; };
+		91930F651E0315B0006A0091 /* PlayerFailedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F551E0315B0006A0091 /* PlayerFailedTests.swift */; };
+		91930F661E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F561E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift */; };
+		91930F671E0315B0006A0091 /* PlayerDidPlayToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F571E0315B0006A0091 /* PlayerDidPlayToEndTests.swift */; };
+		91930F681E0315B0006A0091 /* SeekBackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F581E0315B0006A0091 /* SeekBackTests.swift */; };
+		91930F691E0315B0006A0091 /* SeekBackButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F591E0315B0006A0091 /* SeekBackButtonTests.swift */; };
+		91930F6A1E0315B0006A0091 /* SeekForwardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5A1E0315B0006A0091 /* SeekForwardTests.swift */; };
+		91930F6B1E0315B0006A0091 /* SeekForwardButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */; };
+		91930F6C1E0315B0006A0091 /* TogglePlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */; };
+		91930F6D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */; };
 		91930F711E0315BC006A0091 /* AudioBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91930F6E1E0315BC006A0091 /* AudioBar.storyboard */; };
 		91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */; };
 		91930F731E0315BC006A0091 /* AudioBarModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F701E0315BC006A0091 /* AudioBarModule.swift */; };
@@ -49,21 +49,21 @@
 		91930F3D1E03158F006A0091 /* AudioBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F441E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91930F4E1E0315B0006A0091 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		91930F4F1E0315B0006A0091 /* Tests+DefaultModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+DefaultModel.swift"; sourceTree = "<group>"; };
-		91930F501E0315B0006A0091 /* Tests+InitialViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+InitialViews.swift"; sourceTree = "<group>"; };
-		91930F511E0315B0006A0091 /* Tests+PlaybackTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+PlaybackTime.swift"; sourceTree = "<group>"; };
-		91930F521E0315B0006A0091 /* Tests+LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+LoadingIndicator.swift"; sourceTree = "<group>"; };
-		91930F531E0315B0006A0091 /* Tests+LoadTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+LoadTrack.swift"; sourceTree = "<group>"; };
-		91930F541E0315B0006A0091 /* Tests+PlayerReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+PlayerReady.swift"; sourceTree = "<group>"; };
-		91930F551E0315B0006A0091 /* Tests+PlayerFailed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+PlayerFailed.swift"; sourceTree = "<group>"; };
-		91930F561E0315B0006A0091 /* Tests+PlayerTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+PlayerTime.swift"; sourceTree = "<group>"; };
-		91930F571E0315B0006A0091 /* Tests+PlayerFinished.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+PlayerFinished.swift"; sourceTree = "<group>"; };
-		91930F581E0315B0006A0091 /* Tests+SeekBack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+SeekBack.swift"; sourceTree = "<group>"; };
-		91930F591E0315B0006A0091 /* Tests+SeekBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+SeekBackButton.swift"; sourceTree = "<group>"; };
-		91930F5A1E0315B0006A0091 /* Tests+SeekForward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+SeekForward.swift"; sourceTree = "<group>"; };
-		91930F5B1E0315B0006A0091 /* Tests+SeekForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+SeekForwardButton.swift"; sourceTree = "<group>"; };
-		91930F5C1E0315B0006A0091 /* Tests+TogglePlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+TogglePlay.swift"; sourceTree = "<group>"; };
-		91930F5D1E0315B0006A0091 /* Tests+PlayPauseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tests+PlayPauseButton.swift"; sourceTree = "<group>"; };
+		91930F4F1E0315B0006A0091 /* DefaultModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultModelTests.swift; sourceTree = "<group>"; };
+		91930F501E0315B0006A0091 /* SimpleViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleViewTests.swift; sourceTree = "<group>"; };
+		91930F511E0315B0006A0091 /* PlaybackTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackTimeTests.swift; sourceTree = "<group>"; };
+		91930F521E0315B0006A0091 /* LoadingIndicatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorTests.swift; sourceTree = "<group>"; };
+		91930F531E0315B0006A0091 /* LoadTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadTrackTests.swift; sourceTree = "<group>"; };
+		91930F541E0315B0006A0091 /* PlayerReadyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerReadyTests.swift; sourceTree = "<group>"; };
+		91930F551E0315B0006A0091 /* PlayerFailedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerFailedTests.swift; sourceTree = "<group>"; };
+		91930F561E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDidUpdateCurrentTimeTests.swift; sourceTree = "<group>"; };
+		91930F571E0315B0006A0091 /* PlayerDidPlayToEndTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDidPlayToEndTests.swift; sourceTree = "<group>"; };
+		91930F581E0315B0006A0091 /* SeekBackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekBackTests.swift; sourceTree = "<group>"; };
+		91930F591E0315B0006A0091 /* SeekBackButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekBackButtonTests.swift; sourceTree = "<group>"; };
+		91930F5A1E0315B0006A0091 /* SeekForwardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekForwardTests.swift; sourceTree = "<group>"; };
+		91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekForwardButtonTests.swift; sourceTree = "<group>"; };
+		91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TogglePlayTests.swift; sourceTree = "<group>"; };
+		91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayPauseButtonModeTests.swift; sourceTree = "<group>"; };
 		91930F6E1E0315BC006A0091 /* AudioBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AudioBar.storyboard; sourceTree = "<group>"; };
 		91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewController.swift; sourceTree = "<group>"; };
 		91930F701E0315BC006A0091 /* AudioBarModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarModule.swift; sourceTree = "<group>"; };
@@ -127,21 +127,21 @@
 			isa = PBXGroup;
 			children = (
 				91930F4E1E0315B0006A0091 /* Tests.swift */,
-				91930F4F1E0315B0006A0091 /* Tests+DefaultModel.swift */,
-				91930F501E0315B0006A0091 /* Tests+InitialViews.swift */,
-				91930F511E0315B0006A0091 /* Tests+PlaybackTime.swift */,
-				91930F521E0315B0006A0091 /* Tests+LoadingIndicator.swift */,
-				91930F531E0315B0006A0091 /* Tests+LoadTrack.swift */,
-				91930F541E0315B0006A0091 /* Tests+PlayerReady.swift */,
-				91930F551E0315B0006A0091 /* Tests+PlayerFailed.swift */,
-				91930F561E0315B0006A0091 /* Tests+PlayerTime.swift */,
-				91930F571E0315B0006A0091 /* Tests+PlayerFinished.swift */,
-				91930F581E0315B0006A0091 /* Tests+SeekBack.swift */,
-				91930F591E0315B0006A0091 /* Tests+SeekBackButton.swift */,
-				91930F5A1E0315B0006A0091 /* Tests+SeekForward.swift */,
-				91930F5B1E0315B0006A0091 /* Tests+SeekForwardButton.swift */,
-				91930F5C1E0315B0006A0091 /* Tests+TogglePlay.swift */,
-				91930F5D1E0315B0006A0091 /* Tests+PlayPauseButton.swift */,
+				91930F4F1E0315B0006A0091 /* DefaultModelTests.swift */,
+				91930F501E0315B0006A0091 /* SimpleViewTests.swift */,
+				91930F511E0315B0006A0091 /* PlaybackTimeTests.swift */,
+				91930F521E0315B0006A0091 /* LoadingIndicatorTests.swift */,
+				91930F531E0315B0006A0091 /* LoadTrackTests.swift */,
+				91930F541E0315B0006A0091 /* PlayerReadyTests.swift */,
+				91930F551E0315B0006A0091 /* PlayerFailedTests.swift */,
+				91930F561E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift */,
+				91930F571E0315B0006A0091 /* PlayerDidPlayToEndTests.swift */,
+				91930F581E0315B0006A0091 /* SeekBackTests.swift */,
+				91930F591E0315B0006A0091 /* SeekBackButtonTests.swift */,
+				91930F5A1E0315B0006A0091 /* SeekForwardTests.swift */,
+				91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */,
+				91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */,
+				91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */,
 				91930F441E03158F006A0091 /* Info.plist */,
 			);
 			path = AudioBarTests;
@@ -270,22 +270,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91930F651E0315B0006A0091 /* Tests+PlayerFailed.swift in Sources */,
-				91930F691E0315B0006A0091 /* Tests+SeekBackButton.swift in Sources */,
-				91930F6C1E0315B0006A0091 /* Tests+TogglePlay.swift in Sources */,
-				91930F6B1E0315B0006A0091 /* Tests+SeekForwardButton.swift in Sources */,
-				91930F6A1E0315B0006A0091 /* Tests+SeekForward.swift in Sources */,
-				91930F601E0315B0006A0091 /* Tests+InitialViews.swift in Sources */,
-				91930F671E0315B0006A0091 /* Tests+PlayerFinished.swift in Sources */,
-				91930F621E0315B0006A0091 /* Tests+LoadingIndicator.swift in Sources */,
-				91930F611E0315B0006A0091 /* Tests+PlaybackTime.swift in Sources */,
-				91930F681E0315B0006A0091 /* Tests+SeekBack.swift in Sources */,
-				91930F661E0315B0006A0091 /* Tests+PlayerTime.swift in Sources */,
-				91930F5F1E0315B0006A0091 /* Tests+DefaultModel.swift in Sources */,
-				91930F631E0315B0006A0091 /* Tests+LoadTrack.swift in Sources */,
-				91930F641E0315B0006A0091 /* Tests+PlayerReady.swift in Sources */,
+				91930F651E0315B0006A0091 /* PlayerFailedTests.swift in Sources */,
+				91930F691E0315B0006A0091 /* SeekBackButtonTests.swift in Sources */,
+				91930F6C1E0315B0006A0091 /* TogglePlayTests.swift in Sources */,
+				91930F6B1E0315B0006A0091 /* SeekForwardButtonTests.swift in Sources */,
+				91930F6A1E0315B0006A0091 /* SeekForwardTests.swift in Sources */,
+				91930F601E0315B0006A0091 /* SimpleViewTests.swift in Sources */,
+				91930F671E0315B0006A0091 /* PlayerDidPlayToEndTests.swift in Sources */,
+				91930F621E0315B0006A0091 /* LoadingIndicatorTests.swift in Sources */,
+				91930F611E0315B0006A0091 /* PlaybackTimeTests.swift in Sources */,
+				91930F681E0315B0006A0091 /* SeekBackTests.swift in Sources */,
+				91930F661E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift in Sources */,
+				91930F5F1E0315B0006A0091 /* DefaultModelTests.swift in Sources */,
+				91930F631E0315B0006A0091 /* LoadTrackTests.swift in Sources */,
+				91930F641E0315B0006A0091 /* PlayerReadyTests.swift in Sources */,
 				91930F5E1E0315B0006A0091 /* Tests.swift in Sources */,
-				91930F6D1E0315B0006A0091 /* Tests+PlayPauseButton.swift in Sources */,
+				91930F6D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

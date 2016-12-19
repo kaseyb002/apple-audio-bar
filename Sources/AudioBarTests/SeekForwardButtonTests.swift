@@ -1,27 +1,27 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class SeekForwardButtonTests: XCTestCase {
 
-    func testSeekForwardButtonEnabledWhenNotAtEnd1() {
+    func testWhenNotAtEnd1() {
         let model = Model.readyToPlay(.init(duration: 1, currentTime: 0.99))
         let view = Module.view(for: model)
         XCTAssertTrue(view.isSeekForwardButtonEnabled)
     }
 
-    func testSeekForwardButtonEnabledWhenNotAtEnd2() {
+    func testWhenNotAtEnd2() {
         let model = Model.readyToPlay(.init(duration: 2, currentTime: 1.99))
         let view = Module.view(for: model)
         XCTAssertTrue(view.isSeekForwardButtonEnabled)
     }
 
-    func testSeekForwardButtonDisabledWhenAtEnd1() {
+    func testWhenAtEnd1() {
         let model = Model.readyToPlay(.init(duration: 1, currentTime: 1))
         let view = Module.view(for: model)
         XCTAssertFalse(view.isSeekForwardButtonEnabled)
     }
 
-    func testSeekForwardButtonDisabledWhenAtEnd2() {
+    func testWhenAtEnd2() {
         let model = Model.readyToPlay(.init(duration: 2, currentTime: 2))
         let view = Module.view(for: model)
         XCTAssertFalse(view.isSeekForwardButtonEnabled)

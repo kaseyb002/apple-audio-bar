@@ -1,8 +1,6 @@
 import XCTest
 @testable import AudioBar
 
-final class Tests: XCTestCase {}
-
 typealias Module = AudioBarModule
 
 typealias Model = Module.Model

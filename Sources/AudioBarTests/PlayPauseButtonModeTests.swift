@@ -1,30 +1,30 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class PlayPauseButtonModeTests: XCTestCase {
 
-    func testPlayPauseButtonModeWhenPaused() {
+    func testWhenPaused() {
         let model = Model.readyToPlay(.init(isPlaying: false))
         let view = Module.view(for: model)
         XCTAssertEqual(view.playPauseButtonMode, .play)
     }
 
-    func testPlayPauseButtonModeWhenPlaying() {
+    func testWhenPlaying() {
         let model = Model.readyToPlay(.init(isPlaying: true))
         let view = Module.view(for: model)
         XCTAssertEqual(view.playPauseButtonMode, .pause)
     }
 
-    func testPlayPauseEnabled() {
+    func testWithPositiveRemainingTime() {
         let model = Model.readyToPlay(.init(duration: 60, currentTime: 59))
         let view = Module.view(for: model)
         XCTAssertTrue(view.isPlayPauseButtonEnabled)
     }
 
-    func testPlayButtonDisabledWhenNoTimeRemaining() {
+    func testWithZeroRemainingTime() {
         let model = Model.readyToPlay(.init(duration: 60, currentTime: 60))
         let view = Module.view(for: model)
         XCTAssertFalse(view.isPlayPauseButtonEnabled)
     }
-    
+
 }

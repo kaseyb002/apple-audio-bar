@@ -1,9 +1,9 @@
 import XCTest
 @testable import AudioBar
 
-extension Tests {
+final class SimpleViewTests: XCTestCase {
 
-    func testViewWhenWaitingForURL() {
+    func testWhenWaitingForURL() {
         let model = Model.waitingForURL
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
@@ -17,7 +17,7 @@ extension Tests {
         ))
     }
 
-    func testViewWhenReadyToLoad() {
+    func testWhenReadyToLoad() {
         let model = Model.readyToLoadURL(URL.arbitrary)
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
@@ -31,7 +31,7 @@ extension Tests {
         ))
     }
 
-    func testViewWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+    func testWhenWaitingForPlayerToBecomeReadyToPlayURL() {
         let model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(
