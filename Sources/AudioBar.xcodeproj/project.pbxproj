@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		913A65D81E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */; };
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
 		91930F451E03158F006A0091 /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 91930F371E03158F006A0091 /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91930F5E1E0315B0006A0091 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4E1E0315B0006A0091 /* Tests.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayPauseButtonEnabledTests.swift; sourceTree = "<group>"; };
 		91930F341E03158F006A0091 /* AudioBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F371E03158F006A0091 /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		91930F381E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */,
 				91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */,
 				91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */,
+				913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */,
 				91930F441E03158F006A0091 /* Info.plist */,
 			);
 			path = AudioBarTests;
@@ -274,6 +277,7 @@
 				91930F691E0315B0006A0091 /* SeekBackButtonTests.swift in Sources */,
 				91930F6C1E0315B0006A0091 /* TogglePlayTests.swift in Sources */,
 				91930F6B1E0315B0006A0091 /* SeekForwardButtonTests.swift in Sources */,
+				913A65D81E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift in Sources */,
 				91930F6A1E0315B0006A0091 /* SeekForwardTests.swift in Sources */,
 				91930F601E0315B0006A0091 /* SimpleViewTests.swift in Sources */,
 				91930F671E0315B0006A0091 /* PlayerDidPlayToEndTests.swift in Sources */,

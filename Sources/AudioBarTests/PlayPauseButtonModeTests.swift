@@ -15,16 +15,4 @@ final class PlayPauseButtonModeTests: XCTestCase {
         XCTAssertEqual(view.playPauseButtonMode, .pause)
     }
 
-    func testWithPositiveRemainingTime() {
-        let model = Model.readyToPlay(.init(duration: 60, currentTime: 59))
-        let view = Module.view(for: model)
-        XCTAssertTrue(view.isPlayPauseButtonEnabled)
-    }
-
-    func testWithZeroRemainingTime() {
-        let model = Model.readyToPlay(.init(duration: 60, currentTime: 60))
-        let view = Module.view(for: model)
-        XCTAssertFalse(view.isPlayPauseButtonEnabled)
-    }
-
 }

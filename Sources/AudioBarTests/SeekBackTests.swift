@@ -33,12 +33,17 @@ final class SeekBackTests: XCTestCase {
 
     func testWhenUnexpected1() {
         var model = Model.waitingForURL
-        XCTAssertThrowsError(try Module.update(for: .seekForward, model: &model))
+        XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
     }
 
     func testWhenUnexpected2() {
         var model = Model.readyToLoadURL(URL.arbitrary)
-        XCTAssertThrowsError(try Module.update(for: .seekForward, model: &model))
+        XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
+    }
+
+    func testWhenUnexpected3() {
+        var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
+        XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
     }
     
 }

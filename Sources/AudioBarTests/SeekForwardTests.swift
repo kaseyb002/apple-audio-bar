@@ -59,4 +59,19 @@ final class SeekForwardTests: XCTestCase {
         XCTAssertEqual(commands, [.player(.setCurrentTime(60))])
     }
 
+    func testWhenUnexpected1() {
+        var model = Model.waitingForURL
+        XCTAssertThrowsError(try Module.update(for: .seekForward, model: &model))
+    }
+
+    func testWhenUnexpected2() {
+        var model = Model.readyToLoadURL(URL.arbitrary)
+        XCTAssertThrowsError(try Module.update(for: .seekForward, model: &model))
+    }
+
+    func testWhenUnexpected3() {
+        var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
+        XCTAssertThrowsError(try Module.update(for: .seekForward, model: &model))
+    }
+
 }

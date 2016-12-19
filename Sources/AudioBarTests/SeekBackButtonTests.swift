@@ -3,26 +3,28 @@ import XCTest
 
 final class SeekBackButtonTests: XCTestCase {
 
-    func testWithElapsedTimeZero() {
+    func testWithNoElapsedTime() {
+        let model = Model.readyToPlay(.init(currentTime: nil))
+        let view = Module.view(for: model)
+        XCTAssertFalse(view.isSeekBackButtonEnabled)
+    }
+
+    func testWithZeroElapsedTime() {
         let model = Model.readyToPlay(.init(duration: 60, currentTime: 0))
         let view = Module.view(for: model)
         XCTAssertFalse(view.isSeekBackButtonEnabled)
     }
 
-    func testWithPositiveElapsedTime() {
+    func testWithPositiveElapsedTime1() {
         let model = Model.readyToPlay(.init(duration: 60, currentTime: 0.01))
         let view = Module.view(for: model)
         XCTAssertTrue(view.isSeekBackButtonEnabled)
     }
 
-    func testWhenUnexpected1() {
-        var model = Model.waitingForURL
-        XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
-    }
-
-    func testWhenUnexpected2() {
-        var model = Model.readyToLoadURL(URL.arbitrary)
-        XCTAssertThrowsError(try Module.update(for: .seekBack, model: &model))
+    func testWithPositiveElapsedTime2() {
+        let model = Model.readyToPlay(.init(duration: 60, currentTime: 0.02))
+        let view = Module.view(for: model)
+        XCTAssertTrue(view.isSeekBackButtonEnabled)
     }
     
 }
