@@ -40,9 +40,9 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         volumeView.showsVolumeSlider = false
-        volumeView.setRouteButtonImage(#imageLiteral(resourceName: "AirPlay Icon"), for: .normal)
-        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: UIFontWeightRegular)
+        volumeView.setRouteButtonImage(loadImage(withName: "AirPlay Icon"), for: .normal)
         audioRouteView.addSubview(volumeView)
+        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: UIFontWeightRegular)
         program.setDelegate(self)
         player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak program] time in
             guard let currentTime = player?.currentTime().timeInterval else { return }
@@ -56,7 +56,13 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
     }
 
     public func program(_ program: Program<Module>, didUpdate view: Module.View) {
-        playPauseButton.setImage(view.playPauseButtonMode.image, for: .normal)
+        var playPauseButtonImage: UIImage {
+            switch view.playPauseButtonMode {
+            case .play: return loadImage(withName: "Play Button")
+            case .pause: return loadImage(withName: "Pause Button")
+            }
+        }
+        playPauseButton.setImage(playPauseButtonImage, for: .normal)
         playPauseButton.isEnabled = view.isPlayPauseButtonEnabled
         seekBackButton.isHidden = view.areSeekButtonsHidden
         seekBackButton.isEnabled = view.isSeekBackButtonEnabled
@@ -127,15 +133,9 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
         }
     }
 
-}
-
-extension AudioBarModule.View.PlayPauseButtonMode {
-
-    var image: UIImage {
-        switch self {
-        case .play: return #imageLiteral(resourceName: "Play Button")
-        case .pause: return #imageLiteral(resourceName: "Pause Button")
-        }
+    private func loadImage(withName name: String) -> UIImage {
+        let bundle = Bundle(for: AudioBarViewController.self)
+        return UIImage(named: name, in: bundle, compatibleWith: traitCollection)!
     }
 
 }
