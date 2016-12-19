@@ -133,9 +133,17 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
         }
     }
 
+    public static func instantiateFromStoryboard() -> AudioBarViewController {
+        let storyboard = UIStoryboard(name: "AudioBar", bundle: bundle)
+        return storyboard.instantiateInitialViewController() as! AudioBarViewController
+    }
+
     private func loadImage(withName name: String) -> UIImage {
-        let bundle = Bundle(for: AudioBarViewController.self)
-        return UIImage(named: name, in: bundle, compatibleWith: traitCollection)!
+        return UIImage(named: name, in: AudioBarViewController.bundle, compatibleWith: traitCollection)!
+    }
+
+    private static var bundle: Bundle {
+        return Bundle(for: AudioBarViewController.self)
     }
 
 }
