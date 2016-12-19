@@ -117,9 +117,8 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
     }
 
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if let playerItem = player.currentItem, keyPath == #keyPath(AVPlayerItem.status) {
+        if let playerItem = player.currentItem, object as? AVPlayerItem == playerItem, keyPath == #keyPath(AVPlayerItem.status) {
             guard change![.oldKey] as! NSValue != change![.newKey] as! NSValue else { return }
-
             switch playerItem.status {
             case .unknown:
                 break
@@ -128,7 +127,6 @@ public final class AudioBarViewController: UIViewController, ElmDelegate {
             case .failed:
                 program.dispatch(.playerDidFailToBecomeReady)
             }
-
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
