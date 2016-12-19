@@ -31,7 +31,7 @@ final class SimpleViewTests: XCTestCase {
         ))
     }
 
-    func testWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+    func testWhenWaitingForPlayer() {
         let model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let view = Module.view(for: model)
         XCTAssertEqual(view, View(

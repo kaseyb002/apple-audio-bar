@@ -10,7 +10,4 @@ final class LoadTrackTests: XCTestCase {
         XCTAssertTrue(commands.isEmpty)
     }
 
-    // TODO: How do we handle this?
-    func testWhenUnexpected() {}
-
 }

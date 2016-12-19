@@ -24,7 +24,7 @@ final class TogglePlayTests: XCTestCase {
         XCTAssertEqual(commands, [.player(.play)])
     }
 
-    func testWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+    func testWhenWaitingForPlayer() {
         var model = Model.waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
         let commands = try! Module.update(for: .togglePlay, model: &model)
         XCTAssertEqual(model, .readyToLoadURL(URL.arbitrary))
