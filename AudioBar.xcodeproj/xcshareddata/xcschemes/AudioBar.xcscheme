@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "919364161DC8B1ED00510B7C"
+               BlueprintIdentifier = "91930F331E03158F006A0091"
                BuildableName = "AudioBar.framework"
                BlueprintName = "AudioBar"
                ReferencedContainer = "container:AudioBar.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9193641F1DC8B1EE00510B7C"
+               BlueprintIdentifier = "91930F3C1E03158F006A0091"
                BuildableName = "AudioBarTests.xctest"
                BlueprintName = "AudioBarTests"
                ReferencedContainer = "container:AudioBar.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "919364161DC8B1ED00510B7C"
+            BlueprintIdentifier = "91930F331E03158F006A0091"
             BuildableName = "AudioBar.framework"
             BlueprintName = "AudioBar"
             ReferencedContainer = "container:AudioBar.xcodeproj">
@@ -64,7 +64,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "919364161DC8B1ED00510B7C"
+            BlueprintIdentifier = "91930F331E03158F006A0091"
             BuildableName = "AudioBar.framework"
             BlueprintName = "AudioBar"
             ReferencedContainer = "container:AudioBar.xcodeproj">
@@ -82,7 +82,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "919364161DC8B1ED00510B7C"
+            BlueprintIdentifier = "91930F331E03158F006A0091"
             BuildableName = "AudioBar.framework"
             BlueprintName = "AudioBar"
             ReferencedContainer = "container:AudioBar.xcodeproj">
