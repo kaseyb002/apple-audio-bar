@@ -3,7 +3,7 @@ import AVFoundation
 import MediaPlayer
 import Elm
 
-public final class AudioBarViewController: UIViewController, ElmDelegate {
+public final class AudioBarViewController: UIViewController, Elm.Delegate {
 
     public typealias Module = AudioBarModule
 
