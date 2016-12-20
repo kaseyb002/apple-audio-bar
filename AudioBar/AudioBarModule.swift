@@ -1,7 +1,7 @@
 import Foundation
 import Elm
 
-public struct AudioBarModule: ElmModule {
+public struct AudioBarModule: Elm.Module {
 
     public enum Message {
 
