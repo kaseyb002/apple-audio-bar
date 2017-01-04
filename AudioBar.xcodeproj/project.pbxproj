@@ -7,31 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		913A65D81E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */; };
-		913A65E01E07F35200069B4E /* Elm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		916289D71E1C456C0004D27E /* AudioBarViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289D61E1C456C0004D27E /* AudioBarViewTests.swift */; };
+		916289D91E1C45740004D27E /* AudioBarStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289D81E1C45740004D27E /* AudioBarStartTests.swift */; };
+		916289DB1E1C457A0004D27E /* AudioBarUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289DA1E1C457A0004D27E /* AudioBarUpdateTests.swift */; };
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
 		91930F451E03158F006A0091 /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 91930F371E03158F006A0091 /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91930F5E1E0315B0006A0091 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4E1E0315B0006A0091 /* Shared.swift */; };
-		91930F5F1E0315B0006A0091 /* DefaultModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4F1E0315B0006A0091 /* DefaultModelTests.swift */; };
-		91930F601E0315B0006A0091 /* SimpleViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F501E0315B0006A0091 /* SimpleViewTests.swift */; };
-		91930F611E0315B0006A0091 /* PlaybackTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F511E0315B0006A0091 /* PlaybackTimeTests.swift */; };
-		91930F621E0315B0006A0091 /* LoadingIndicatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F521E0315B0006A0091 /* LoadingIndicatorTests.swift */; };
-		91930F631E0315B0006A0091 /* LoadTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F531E0315B0006A0091 /* LoadTrackTests.swift */; };
-		91930F641E0315B0006A0091 /* PlayerReadyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F541E0315B0006A0091 /* PlayerReadyTests.swift */; };
-		91930F651E0315B0006A0091 /* PlayerFailedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F551E0315B0006A0091 /* PlayerFailedTests.swift */; };
-		91930F661E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F561E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift */; };
-		91930F671E0315B0006A0091 /* PlayerDidPlayToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F571E0315B0006A0091 /* PlayerDidPlayToEndTests.swift */; };
-		91930F681E0315B0006A0091 /* SeekBackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F581E0315B0006A0091 /* SeekBackTests.swift */; };
-		91930F691E0315B0006A0091 /* SeekBackButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F591E0315B0006A0091 /* SeekBackButtonTests.swift */; };
-		91930F6A1E0315B0006A0091 /* SeekForwardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5A1E0315B0006A0091 /* SeekForwardTests.swift */; };
-		91930F6B1E0315B0006A0091 /* SeekForwardButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */; };
-		91930F6C1E0315B0006A0091 /* TogglePlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */; };
-		91930F6D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */; };
 		91930F711E0315BC006A0091 /* AudioBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91930F6E1E0315BC006A0091 /* AudioBar.storyboard */; };
 		91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */; };
 		91930F731E0315BC006A0091 /* AudioBarModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F701E0315BC006A0091 /* AudioBarModule.swift */; };
 		91C186411E03177A006ECAD8 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
 		91C186461E031A4D006ECAD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91C186451E031A4D006ECAD8 /* Assets.xcassets */; };
+		91C655B11E1BB0D0008D1F21 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,43 +31,16 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		913A65DF1E07F34800069B4E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				913A65E01E07F35200069B4E /* Elm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayPauseButtonEnabledTests.swift; sourceTree = "<group>"; };
+		916289D61E1C456C0004D27E /* AudioBarViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewTests.swift; sourceTree = "<group>"; };
+		916289D81E1C45740004D27E /* AudioBarStartTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarStartTests.swift; sourceTree = "<group>"; };
+		916289DA1E1C457A0004D27E /* AudioBarUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarUpdateTests.swift; sourceTree = "<group>"; };
 		91930F341E03158F006A0091 /* AudioBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F371E03158F006A0091 /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		91930F381E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91930F3D1E03158F006A0091 /* AudioBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F441E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91930F4E1E0315B0006A0091 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
-		91930F4F1E0315B0006A0091 /* DefaultModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultModelTests.swift; sourceTree = "<group>"; };
-		91930F501E0315B0006A0091 /* SimpleViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleViewTests.swift; sourceTree = "<group>"; };
-		91930F511E0315B0006A0091 /* PlaybackTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackTimeTests.swift; sourceTree = "<group>"; };
-		91930F521E0315B0006A0091 /* LoadingIndicatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorTests.swift; sourceTree = "<group>"; };
-		91930F531E0315B0006A0091 /* LoadTrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadTrackTests.swift; sourceTree = "<group>"; };
-		91930F541E0315B0006A0091 /* PlayerReadyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerReadyTests.swift; sourceTree = "<group>"; };
-		91930F551E0315B0006A0091 /* PlayerFailedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerFailedTests.swift; sourceTree = "<group>"; };
-		91930F561E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDidUpdateCurrentTimeTests.swift; sourceTree = "<group>"; };
-		91930F571E0315B0006A0091 /* PlayerDidPlayToEndTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDidPlayToEndTests.swift; sourceTree = "<group>"; };
-		91930F581E0315B0006A0091 /* SeekBackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekBackTests.swift; sourceTree = "<group>"; };
-		91930F591E0315B0006A0091 /* SeekBackButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekBackButtonTests.swift; sourceTree = "<group>"; };
-		91930F5A1E0315B0006A0091 /* SeekForwardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekForwardTests.swift; sourceTree = "<group>"; };
-		91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekForwardButtonTests.swift; sourceTree = "<group>"; };
-		91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TogglePlayTests.swift; sourceTree = "<group>"; };
-		91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayPauseButtonModeTests.swift; sourceTree = "<group>"; };
 		91930F6E1E0315BC006A0091 /* AudioBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AudioBar.storyboard; sourceTree = "<group>"; };
 		91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewController.swift; sourceTree = "<group>"; };
 		91930F701E0315BC006A0091 /* AudioBarModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarModule.swift; sourceTree = "<group>"; };
@@ -102,19 +62,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */,
+				91C655B11E1BB0D0008D1F21 /* Elm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		916289DC1E1C49610004D27E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91C186401E03177A006ECAD8 /* Elm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		91930F2A1E03158F006A0091 = {
 			isa = PBXGroup;
 			children = (
 				91930F361E03158F006A0091 /* AudioBar */,
 				91930F411E03158F006A0091 /* AudioBarTests */,
 				91930F351E03158F006A0091 /* Products */,
-				91C186401E03177A006ECAD8 /* Elm.framework */,
+				916289DC1E1C49610004D27E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,22 +112,9 @@
 		91930F411E03158F006A0091 /* AudioBarTests */ = {
 			isa = PBXGroup;
 			children = (
-				91930F4F1E0315B0006A0091 /* DefaultModelTests.swift */,
-				91930F501E0315B0006A0091 /* SimpleViewTests.swift */,
-				91930F511E0315B0006A0091 /* PlaybackTimeTests.swift */,
-				91930F521E0315B0006A0091 /* LoadingIndicatorTests.swift */,
-				91930F531E0315B0006A0091 /* LoadTrackTests.swift */,
-				91930F541E0315B0006A0091 /* PlayerReadyTests.swift */,
-				91930F551E0315B0006A0091 /* PlayerFailedTests.swift */,
-				91930F561E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift */,
-				91930F571E0315B0006A0091 /* PlayerDidPlayToEndTests.swift */,
-				91930F581E0315B0006A0091 /* SeekBackTests.swift */,
-				91930F591E0315B0006A0091 /* SeekBackButtonTests.swift */,
-				91930F5A1E0315B0006A0091 /* SeekForwardTests.swift */,
-				91930F5B1E0315B0006A0091 /* SeekForwardButtonTests.swift */,
-				91930F5C1E0315B0006A0091 /* TogglePlayTests.swift */,
-				91930F5D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift */,
-				913A65D71E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift */,
+				916289D81E1C45740004D27E /* AudioBarStartTests.swift */,
+				916289DA1E1C457A0004D27E /* AudioBarUpdateTests.swift */,
+				916289D61E1C456C0004D27E /* AudioBarViewTests.swift */,
 				91930F4E1E0315B0006A0091 /* Shared.swift */,
 				91930F441E03158F006A0091 /* Info.plist */,
 			);
@@ -187,7 +143,6 @@
 				91930F301E03158F006A0091 /* Frameworks */,
 				91930F311E03158F006A0091 /* Headers */,
 				91930F321E03158F006A0091 /* Resources */,
-				913A65DF1E07F34800069B4E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -290,23 +245,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91930F651E0315B0006A0091 /* PlayerFailedTests.swift in Sources */,
-				91930F691E0315B0006A0091 /* SeekBackButtonTests.swift in Sources */,
-				91930F6C1E0315B0006A0091 /* TogglePlayTests.swift in Sources */,
-				91930F6B1E0315B0006A0091 /* SeekForwardButtonTests.swift in Sources */,
-				913A65D81E07E61E00069B4E /* PlayPauseButtonEnabledTests.swift in Sources */,
-				91930F6A1E0315B0006A0091 /* SeekForwardTests.swift in Sources */,
-				91930F601E0315B0006A0091 /* SimpleViewTests.swift in Sources */,
-				91930F671E0315B0006A0091 /* PlayerDidPlayToEndTests.swift in Sources */,
-				91930F621E0315B0006A0091 /* LoadingIndicatorTests.swift in Sources */,
-				91930F611E0315B0006A0091 /* PlaybackTimeTests.swift in Sources */,
-				91930F681E0315B0006A0091 /* SeekBackTests.swift in Sources */,
-				91930F661E0315B0006A0091 /* PlayerDidUpdateCurrentTimeTests.swift in Sources */,
-				91930F5F1E0315B0006A0091 /* DefaultModelTests.swift in Sources */,
-				91930F631E0315B0006A0091 /* LoadTrackTests.swift in Sources */,
-				91930F641E0315B0006A0091 /* PlayerReadyTests.swift in Sources */,
+				916289DB1E1C457A0004D27E /* AudioBarUpdateTests.swift in Sources */,
 				91930F5E1E0315B0006A0091 /* Shared.swift in Sources */,
-				91930F6D1E0315B0006A0091 /* PlayPauseButtonModeTests.swift in Sources */,
+				916289D71E1C456C0004D27E /* AudioBarViewTests.swift in Sources */,
+				916289D91E1C45740004D27E /* AudioBarStartTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

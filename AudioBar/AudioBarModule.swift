@@ -3,6 +3,8 @@ import Elm
 
 public struct AudioBarModule: Elm.Module {
 
+    public struct Flags {}
+
     public enum Message {
 
         case prepareToLoad(URL)
@@ -17,7 +19,7 @@ public struct AudioBarModule: Elm.Module {
 
     }
 
-    public enum Model: Initable {
+    public enum Model {
 
         public struct ReadyState {
             var isPlaying: Bool
@@ -29,8 +31,6 @@ public struct AudioBarModule: Elm.Module {
         case readyToLoadURL(URL)
         case waitingForPlayerToBecomeReadyToPlayURL(URL)
         case readyToPlay(ReadyState)
-
-        public init() { self = .waitingForURL }
 
     }
 
@@ -65,72 +65,91 @@ public struct AudioBarModule: Elm.Module {
 
     }
 
-    public static func update(for message: Message, model: inout Model) throws -> [Command] {
+    public enum Failure: Error {
+        case genericError
+    }
+
+    public static func start(with flags: Flags) throws -> Model {
+        return .waitingForURL
+    }
+
+    public static func update(for message: Message, model: inout Model, perform: (Command) -> Void) throws {
         switch message {
 
         case .prepareToLoad(let url):
             model = .readyToLoadURL(url)
-            return []
 
         case .togglePlay:
             switch model {
             case .waitingForURL:
-                throw error
+                throw Failure.genericError
             case .readyToLoadURL(at: let url):
                 model = .waitingForPlayerToBecomeReadyToPlayURL(url)
-                return [.player(.loadURL(url))]
+                perform(.player(.loadURL(url)))
             case .waitingForPlayerToBecomeReadyToPlayURL(let url):
                 model = .readyToLoadURL(url)
-                return [.player(.reset)]
+                perform(.player(.reset))
             case .readyToPlay(var state):
-                let command: Command = .player(state.isPlaying ? .pause : .play)
+                state.isPlaying ? perform(.player(.pause)) : perform(.player(.play))
                 state.isPlaying = !state.isPlaying
                 model = .readyToPlay(state)
-                return [command]
             }
 
         case .seekBack:
-            guard case .readyToPlay(var state) = model else { throw error }
+            guard case .readyToPlay(var state) = model else {
+                throw Failure.genericError
+            }
             state.currentTime = max(0, state.currentTime! - 15)
             model = .readyToPlay(state)
-            return [.player(.setCurrentTime(state.currentTime!))]
+            perform(.player(.setCurrentTime(state.currentTime!)))
 
         case .seekForward:
-            guard case .readyToPlay(var state) = model else { throw error }
-            var commands: [Command] = []
+
+            guard case .readyToPlay(var state) = model else {
+                throw Failure.genericError
+            }
+
             let currentTime = min(state.duration, state.currentTime! + 15)
             state.currentTime = currentTime
-            commands.append(.player(.setCurrentTime(currentTime)))
+            perform(.player(.setCurrentTime(currentTime)))
+
             if currentTime == state.duration && state.isPlaying {
                 state.isPlaying = false
-                commands.append(.player(.pause))
+                perform(.player(.pause))
             }
+
             model = .readyToPlay(state)
-            return commands
 
         case .playerDidBecomeReadyToPlay(withDuration: let duration):
-            guard case .waitingForPlayerToBecomeReadyToPlayURL = model else { throw error }
+            guard case .waitingForPlayerToBecomeReadyToPlayURL = model else {
+                throw Failure.genericError
+            }
             model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
-            return [.player(.play)]
+            perform(.player(.play))
 
         case .playerDidPlayToEnd:
-            guard case .readyToPlay(var state) = model, state.isPlaying else { throw error }
+            guard case .readyToPlay(var state) = model, state.isPlaying else {
+                throw Failure.genericError
+            }
             state.currentTime = state.duration
             state.isPlaying = false
             model = .readyToPlay(state)
-            return []
 
         case .playerDidUpdateCurrentTime(let currentTime):
-            guard case .readyToPlay(var state) = model else { throw error }
+            guard case .readyToPlay(var state) = model else {
+                throw Failure.genericError
+            }
             state.currentTime = currentTime
             model = .readyToPlay(state)
-            return []
 
         case .playerDidFailToBecomeReady:
-            guard case .waitingForPlayerToBecomeReadyToPlayURL(let url) = model else { throw error }
+            guard case .waitingForPlayerToBecomeReadyToPlayURL(let url) = model else {
+                throw Failure.genericError
+            }
             model = .readyToLoadURL(url)
-            return [.player(.reset), .showAlert(text: "Unable to load media", button: "OK")]
-
+            perform(.player(.reset))
+            perform(.showAlert(text: "Unable to load media", button: "OK"))
+            
         }
     }
 
