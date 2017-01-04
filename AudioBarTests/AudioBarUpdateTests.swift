@@ -171,16 +171,16 @@ class AudioBarUpdateTests: XCTestCase, UpdateTests {
     }
 
     func testSeekForward1() {
-        model = .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 0))
+        model = .readyToPlay(.init(duration: 60, currentTime: 0))
         message = .seekForward
-        expect(model, .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 0 + 15)))
+        expect(model, .readyToPlay(.init(duration: 60, currentTime: 0 + 15)))
         expect(command, .player(.setCurrentTime(0 + 15)))
     }
 
     func testSeekForward2() {
-        model = .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 1))
+        model = .readyToPlay(.init(duration: 60, currentTime: 1))
         message = .seekForward
-        expect(model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 1 + 15)))
+        expect(model, .readyToPlay(.init(duration: 60, currentTime: 1 + 15)))
         expect(command, .player(.setCurrentTime(1 + 15)))
     }
 
