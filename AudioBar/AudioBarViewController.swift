@@ -5,10 +5,10 @@ import Elm
 
 public final class AudioBarViewController: UIViewController, Elm.Delegate {
 
-    public typealias Module = AudioBarModule
+    public typealias Module = AudioBar
 
-    typealias Model = AudioBarModule.Model
-    typealias View = AudioBarModule.View
+    typealias Model = AudioBar.Model
+    typealias View = AudioBar.View
 
     private let program = Module.makeProgram(flags: .init())
     private let player = AVPlayer()

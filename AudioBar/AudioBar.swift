@@ -1,7 +1,7 @@
 import Foundation
 import Elm
 
-public struct AudioBarModule: Elm.Module {
+public struct AudioBar: Elm.Module {
 
     public struct Flags {}
 
@@ -69,7 +69,7 @@ public struct AudioBarModule: Elm.Module {
         case genericError
     }
 
-    public static func start(with flags: Flags) throws -> Model {
+    public static func model(loading flags: Flags) throws -> Model {
         return .waitingForURL
     }
 
@@ -153,7 +153,7 @@ public struct AudioBarModule: Elm.Module {
         }
     }
 
-    public static func view(for model: Model) -> View {
+    public static func view(presenting model: Model) -> View {
         switch model {
 
         case .waitingForURL:
