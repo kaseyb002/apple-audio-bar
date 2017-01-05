@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		916289D71E1C456C0004D27E /* AudioBarViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289D61E1C456C0004D27E /* AudioBarViewTests.swift */; };
-		916289D91E1C45740004D27E /* AudioBarStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289D81E1C45740004D27E /* AudioBarStartTests.swift */; };
-		916289DB1E1C457A0004D27E /* AudioBarUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289DA1E1C457A0004D27E /* AudioBarUpdateTests.swift */; };
+		916289D91E1C45740004D27E /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289D81E1C45740004D27E /* AudioBarTests.swift */; };
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
 		91930F451E03158F006A0091 /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 91930F371E03158F006A0091 /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		91930F5E1E0315B0006A0091 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4E1E0315B0006A0091 /* Shared.swift */; };
 		91930F711E0315BC006A0091 /* AudioBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91930F6E1E0315BC006A0091 /* AudioBar.storyboard */; };
 		91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */; };
 		91930F731E0315BC006A0091 /* AudioBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F701E0315BC006A0091 /* AudioBar.swift */; };
@@ -32,15 +29,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		916289D61E1C456C0004D27E /* AudioBarViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewTests.swift; sourceTree = "<group>"; };
-		916289D81E1C45740004D27E /* AudioBarStartTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarStartTests.swift; sourceTree = "<group>"; };
-		916289DA1E1C457A0004D27E /* AudioBarUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarUpdateTests.swift; sourceTree = "<group>"; };
+		916289D81E1C45740004D27E /* AudioBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
 		91930F341E03158F006A0091 /* AudioBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F371E03158F006A0091 /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		91930F381E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91930F3D1E03158F006A0091 /* AudioBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F441E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91930F4E1E0315B0006A0091 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		91930F6E1E0315BC006A0091 /* AudioBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AudioBar.storyboard; sourceTree = "<group>"; };
 		91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewController.swift; sourceTree = "<group>"; };
 		91930F701E0315BC006A0091 /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
@@ -112,10 +106,7 @@
 		91930F411E03158F006A0091 /* AudioBarTests */ = {
 			isa = PBXGroup;
 			children = (
-				916289D81E1C45740004D27E /* AudioBarStartTests.swift */,
-				916289DA1E1C457A0004D27E /* AudioBarUpdateTests.swift */,
-				916289D61E1C456C0004D27E /* AudioBarViewTests.swift */,
-				91930F4E1E0315B0006A0091 /* Shared.swift */,
+				916289D81E1C45740004D27E /* AudioBarTests.swift */,
 				91930F441E03158F006A0091 /* Info.plist */,
 			);
 			path = AudioBarTests;
@@ -245,10 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916289DB1E1C457A0004D27E /* AudioBarUpdateTests.swift in Sources */,
-				91930F5E1E0315B0006A0091 /* Shared.swift in Sources */,
-				916289D71E1C456C0004D27E /* AudioBarViewTests.swift in Sources */,
-				916289D91E1C45740004D27E /* AudioBarStartTests.swift in Sources */,
+				916289D91E1C45740004D27E /* AudioBarTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
