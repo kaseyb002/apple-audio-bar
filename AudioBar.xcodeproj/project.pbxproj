@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		916289D91E1C45740004D27E /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289D81E1C45740004D27E /* AudioBarTests.swift */; };
+		916289EE1E1E93970004D27E /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289ED1E1E93960004D27E /* AudioBarTests.swift */; };
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
 		91930F451E03158F006A0091 /* AudioBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 91930F371E03158F006A0091 /* AudioBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91930F711E0315BC006A0091 /* AudioBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91930F6E1E0315BC006A0091 /* AudioBar.storyboard */; };
@@ -29,12 +29,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		916289D81E1C45740004D27E /* AudioBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
+		916289ED1E1E93960004D27E /* AudioBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarTests.swift; sourceTree = "<group>"; };
+		916289EF1E1E93BA0004D27E /* InfoTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InfoTests.plist; sourceTree = "<group>"; };
 		91930F341E03158F006A0091 /* AudioBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91930F371E03158F006A0091 /* AudioBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioBar.h; sourceTree = "<group>"; };
 		91930F381E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91930F3D1E03158F006A0091 /* AudioBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		91930F441E03158F006A0091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91930F6E1E0315BC006A0091 /* AudioBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AudioBar.storyboard; sourceTree = "<group>"; };
 		91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewController.swift; sourceTree = "<group>"; };
 		91930F701E0315BC006A0091 /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
@@ -75,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				91930F361E03158F006A0091 /* AudioBar */,
-				91930F411E03158F006A0091 /* AudioBarTests */,
 				91930F351E03158F006A0091 /* Products */,
 				916289DC1E1C49610004D27E /* Frameworks */,
 			);
@@ -97,19 +96,12 @@
 				91930F6E1E0315BC006A0091 /* AudioBar.storyboard */,
 				91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */,
 				91930F701E0315BC006A0091 /* AudioBar.swift */,
+				916289ED1E1E93960004D27E /* AudioBarTests.swift */,
 				91C186451E031A4D006ECAD8 /* Assets.xcassets */,
 				91930F381E03158F006A0091 /* Info.plist */,
+				916289EF1E1E93BA0004D27E /* InfoTests.plist */,
 			);
 			path = AudioBar;
-			sourceTree = "<group>";
-		};
-		91930F411E03158F006A0091 /* AudioBarTests */ = {
-			isa = PBXGroup;
-			children = (
-				916289D81E1C45740004D27E /* AudioBarTests.swift */,
-				91930F441E03158F006A0091 /* Info.plist */,
-			);
-			path = AudioBarTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +173,7 @@
 					91930F3C1E03158F006A0091 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = 977T8AV26N;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -236,7 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916289D91E1C45740004D27E /* AudioBarTests.swift in Sources */,
+				916289EE1E1E93970004D27E /* AudioBarTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,15 +399,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 977T8AV26N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = AudioBarTests/Info.plist;
+				INFOPLIST_FILE = AudioBar/InfoTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = TBD.AudioBarTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -423,12 +418,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 977T8AV26N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = AudioBarTests/Info.plist;
+				INFOPLIST_FILE = AudioBar/InfoTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = TBD.AudioBarTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
