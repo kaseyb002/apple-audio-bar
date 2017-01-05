@@ -3,152 +3,152 @@ import Elm
 
 @testable import AudioBar
 
-class AudioBarViewTests: XCTestCase, ViewTests {
+class AudioBarViewTests: XCTestCase, Tests {
 
-    var fixture = ViewFixture<AudioBarModule>()
+    typealias Module = AudioBarModule
     let failureReporter = XCTFail
 
     func testViewWhenWaitingForURL() {
-        model = .waitingForURL
-        expect(view.playPauseButtonMode, .play)
-        expect(view.isPlayPauseButtonEnabled, false)
-        expect(view.areSeekButtonsHidden)
-        expect(view.playbackTime, "")
-        expect(view.isSeekBackButtonEnabled, false)
-        expect(view.isSeekForwardButtonEnabled, false)
-        expect(view.isLoadingIndicatorVisible, false)
+        let view = expectView(presenting: .waitingForURL)
+        expect(view?.playPauseButtonMode, .play)
+        expect(view?.isPlayPauseButtonEnabled, false)
+        expect(view?.areSeekButtonsHidden, true)
+        expect(view?.playbackTime, "")
+        expect(view?.isSeekBackButtonEnabled, false)
+        expect(view?.isSeekForwardButtonEnabled, false)
+        expect(view?.isLoadingIndicatorVisible, false)
     }
 
     func testViewWhenReadyToLoad() {
-        model = .readyToLoadURL(URL.arbitrary)
-        expect(view.playPauseButtonMode, .play)
-        expect(view.isPlayPauseButtonEnabled)
-        expect(view.areSeekButtonsHidden)
-        expect(view.playbackTime, "")
-        expect(view.isSeekBackButtonEnabled, false)
-        expect(view.isSeekForwardButtonEnabled, false)
-        expect(view.isLoadingIndicatorVisible, false)
+        let view = expectView(presenting: .readyToLoadURL(URL.arbitrary))
+        expect(view?.playPauseButtonMode, .play)
+        expect(view?.isPlayPauseButtonEnabled, true)
+        expect(view?.areSeekButtonsHidden, true)
+        expect(view?.playbackTime, "")
+        expect(view?.isSeekBackButtonEnabled, false)
+        expect(view?.isSeekForwardButtonEnabled, false)
+        expect(view?.isLoadingIndicatorVisible, false)
     }
 
     func testViewWhenWaitingForPlayer() {
-        model = .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary)
-        expect(view.playPauseButtonMode, .pause)
-        expect(view.isPlayPauseButtonEnabled)
-        expect(view.areSeekButtonsHidden)
-        expect(view.playbackTime, "")
-        expect(view.isSeekBackButtonEnabled, false)
-        expect(view.isSeekForwardButtonEnabled, false)
-        expect(view.isLoadingIndicatorVisible)
+        let view = expectView(presenting: .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
+        expect(view?.playPauseButtonMode, .pause)
+        expect(view?.isPlayPauseButtonEnabled, true)
+        expect(view?.areSeekButtonsHidden, true)
+        expect(view?.playbackTime, "")
+        expect(view?.isSeekBackButtonEnabled, false)
+        expect(view?.isSeekForwardButtonEnabled, false)
+        expect(view?.isLoadingIndicatorVisible, true)
     }
 
     func testPlaybackTime1() {
-        model = .readyToPlay(.init(currentTime: nil))
-        expect(view.playbackTime, "")
+        let view = expectView(presenting: .readyToPlay(.init(currentTime: nil)))
+        expect(view?.playbackTime, "")
     }
 
     func testPlaybackTime2() {
-        model = .readyToPlay(.init(duration: 1, currentTime: 0))
-        expect(view.playbackTime, "-0:01")
+        let view = expectView(presenting: .readyToPlay(.init(duration: 1, currentTime: 0)))
+        expect(view?.playbackTime, "-0:01")
     }
 
     func testPlaybackTime3() {
-        model = .readyToPlay(.init(duration: 61, currentTime: 0))
-        expect(view.playbackTime, "-1:01")
+        let view = expectView(presenting: .readyToPlay(.init(duration: 61, currentTime: 0)))
+        expect(view?.playbackTime, "-1:01")
     }
 
     func testPlaybackTime4() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 20))
-        expect(view.playbackTime, "-0:40")
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 20)))
+        expect(view?.playbackTime, "-0:40")
     }
 
     func testIsLoadingIndicatorVisible1() {
-        model = .readyToPlay(.init(isPlaying: true, currentTime: nil))
-        expect(view.isLoadingIndicatorVisible)
+        let view = expectView(presenting: .readyToPlay(.init(isPlaying: true, currentTime: nil)))
+        expect(view?.isLoadingIndicatorVisible, true)
     }
 
     func testIsLoadingIndicatorVisible2() {
-        model = .readyToPlay(.init(isPlaying: false, currentTime: nil))
-        expect(view.isLoadingIndicatorVisible, false)
+        let view = expectView(presenting: .readyToPlay(.init(isPlaying: false, currentTime: nil)))
+        expect(view?.isLoadingIndicatorVisible, false)
     }
 
     func testIsLoadingIndicatorVisible3() {
-        model = .readyToPlay(.init(isPlaying: true, currentTime: 0))
-        expect(view.isLoadingIndicatorVisible, false)
+        let view = expectView(presenting: .readyToPlay(.init(isPlaying: true, currentTime: 0)))
+        expect(view?.isLoadingIndicatorVisible, false)
     }
 
     func testIsLoadingIndicatorVisible4() {
-        model = .readyToPlay(.init(isPlaying: false, currentTime: 0))
-        expect(view.isLoadingIndicatorVisible, false)
+        let view = expectView(presenting: .readyToPlay(.init(isPlaying: false, currentTime: 0)))
+        expect(view?.isLoadingIndicatorVisible, false)
     }
 
     func testIsSeekBackButtonEnabled1() {
-        model = .readyToPlay(.init(currentTime: nil))
-        expect(view.isSeekBackButtonEnabled, false)
+        let view = expectView(presenting: .readyToPlay(.init(currentTime: nil)))
+        expect(view?.isSeekBackButtonEnabled, false)
     }
 
     func testIsSeekBackButtonEnabled2() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 0))
-        expect(view.isSeekBackButtonEnabled, false)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 0)))
+        expect(view?.isSeekBackButtonEnabled, false)
     }
 
     func testIsSeekBackButtonEnabled3() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 1))
-        expect(view.isSeekBackButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 1)))
+        expect(view?.isSeekBackButtonEnabled, true)
     }
 
     func testIsSeekBackButtonEnabled4() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 2))
-        expect(view.isSeekBackButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 2)))
+        expect(view?.isSeekBackButtonEnabled, true)
     }
 
     func testIsSeekForwardButtonEnabled1() {
-        model = .readyToPlay(.init(currentTime: nil))
-        expect(view.isSeekForwardButtonEnabled, false)
+        let view = expectView(presenting: .readyToPlay(.init(currentTime: nil)))
+        expect(view?.isSeekForwardButtonEnabled, false)
     }
 
     func testIsSeekForwardButtonEnabled2() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 58))
-        expect(view.isSeekForwardButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 58)))
+        expect(view?.isSeekForwardButtonEnabled, true)
     }
 
     func testIsSeekForwardButtonEnabled3() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 59))
-        expect(view.isSeekForwardButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 59)))
+        expect(view?.isSeekForwardButtonEnabled, true)
     }
 
     func testIsSeekForwardButtonEnabled4() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 60))
-        expect(view.isSeekForwardButtonEnabled, false)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 60)))
+        expect(view?.isSeekForwardButtonEnabled, false)
     }
 
     func testPlayPauseButtonMode1() {
-        model = .readyToPlay(.init(isPlaying: false))
-        expect(view.playPauseButtonMode, .play)
+        let view = expectView(presenting: .readyToPlay(.init(isPlaying: false)))
+        expect(view?.playPauseButtonMode, .play)
     }
 
     func testPlayPauseButtonMode2() {
-        model = .readyToPlay(.init(isPlaying: true))
-        expect(view.playPauseButtonMode, .pause)
+        let view = expectView(presenting: .readyToPlay(.init(isPlaying: true)))
+        expect(view?.playPauseButtonMode, .pause)
     }
 
     func testIsPlayPauseButtonEnabled1() {
-        model = .readyToPlay(.init(currentTime: nil))
-        expect(view.isPlayPauseButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(currentTime: nil)))
+        expect(view?.isPlayPauseButtonEnabled, true)
     }
 
     func testIsPlayPauseButtonEnabled2() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 60))
-        expect(view.isPlayPauseButtonEnabled, false)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 60)))
+        expect(view?.isPlayPauseButtonEnabled, false)
     }
 
     func testIsPlayPauseButtonEnabled3() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 59))
-        expect(view.isPlayPauseButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 59)))
+        expect(view?.isPlayPauseButtonEnabled, true)
     }
 
     func testIsPlayPauseButtonEnabled4() {
-        model = .readyToPlay(.init(duration: 60, currentTime: 58))
-        expect(view.isPlayPauseButtonEnabled)
+        let view = expectView(presenting: .readyToPlay(.init(duration: 60, currentTime: 58)))
+        expect(view?.isPlayPauseButtonEnabled, true)
     }
     
 }

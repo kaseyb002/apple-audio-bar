@@ -3,13 +3,13 @@ import Elm
 
 @testable import AudioBar
 
-class AudioBarStartTests: XCTestCase, StartTests {
+class AudioBarStartTests: XCTestCase, Tests {
 
-    var fixture = StartFixture<AudioBarModule>()
+    typealias Module = AudioBarModule
     let failureReporter = XCTFail
 
     func testDefaultModel() {
-        flags = .init()
+        let model = expectModel(loading: .init())
         expect(model, .waitingForURL)
     }
     
