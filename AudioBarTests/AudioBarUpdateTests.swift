@@ -5,7 +5,7 @@ import Elm
 
 class AudioBarUpdateTests: XCTestCase, Tests {
 
-    typealias Module = AudioBarModule
+    typealias Module = AudioBar
     let failureReporter = XCTFail
 
     func testLoadTrack() {

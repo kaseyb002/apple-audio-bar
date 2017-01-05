@@ -1,7 +1,7 @@
 import Foundation
 import Elm
 
-public struct AudioBarModule: Elm.Module {
+public struct AudioBar: Elm.Module {
 
     public struct Flags {}
 

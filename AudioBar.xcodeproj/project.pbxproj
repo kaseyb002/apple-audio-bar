@@ -15,7 +15,7 @@
 		91930F5E1E0315B0006A0091 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F4E1E0315B0006A0091 /* Shared.swift */; };
 		91930F711E0315BC006A0091 /* AudioBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91930F6E1E0315BC006A0091 /* AudioBar.storyboard */; };
 		91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */; };
-		91930F731E0315BC006A0091 /* AudioBarModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F701E0315BC006A0091 /* AudioBarModule.swift */; };
+		91930F731E0315BC006A0091 /* AudioBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F701E0315BC006A0091 /* AudioBar.swift */; };
 		91C186411E03177A006ECAD8 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
 		91C186461E031A4D006ECAD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91C186451E031A4D006ECAD8 /* Assets.xcassets */; };
 		91C655B11E1BB0D0008D1F21 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
@@ -43,7 +43,7 @@
 		91930F4E1E0315B0006A0091 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		91930F6E1E0315BC006A0091 /* AudioBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AudioBar.storyboard; sourceTree = "<group>"; };
 		91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewController.swift; sourceTree = "<group>"; };
-		91930F701E0315BC006A0091 /* AudioBarModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarModule.swift; sourceTree = "<group>"; };
+		91930F701E0315BC006A0091 /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
 		91C186401E03177A006ECAD8 /* Elm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Elm.framework; path = Carthage/Build/iOS/Elm.framework; sourceTree = "<group>"; };
 		91C186451E031A4D006ECAD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,7 +102,7 @@
 				91930F371E03158F006A0091 /* AudioBar.h */,
 				91930F6E1E0315BC006A0091 /* AudioBar.storyboard */,
 				91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */,
-				91930F701E0315BC006A0091 /* AudioBarModule.swift */,
+				91930F701E0315BC006A0091 /* AudioBar.swift */,
 				91C186451E031A4D006ECAD8 /* Assets.xcassets */,
 				91930F381E03158F006A0091 /* Info.plist */,
 			);
@@ -236,7 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91930F731E0315BC006A0091 /* AudioBarModule.swift in Sources */,
+				91930F731E0315BC006A0091 /* AudioBar.swift in Sources */,
 				91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,7 +1,7 @@
 import XCTest
 @testable import AudioBar
 
-extension AudioBarModule.Model.ReadyState {
+extension AudioBar.Model.ReadyState {
     init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil) {
         self.isPlaying = isPlaying
         self.duration = duration
