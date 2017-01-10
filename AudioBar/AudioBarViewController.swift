@@ -5,14 +5,14 @@ import Elm
 
 public final class AudioBarViewController: UIViewController, Elm.Delegate {
 
-    public typealias Module = AudioBarModule
+    public typealias Module = AudioBar
 
-    typealias Model = AudioBarModule.Model
-    typealias View = AudioBarModule.View
+    typealias Model = AudioBar.Model
+    typealias View = AudioBar.View
 
-    private let program = Module.makeProgram()
+    private let program = Module.makeProgram(flags: .init())
     private let player = AVPlayer()
-    private let volumeView: MPVolumeView = MPVolumeView()
+    private let volumeView = MPVolumeView()
 
     @IBOutlet private var playPauseButton: UIButton!
     @IBOutlet private var seekBackButton: UIButton!
