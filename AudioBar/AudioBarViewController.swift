@@ -80,13 +80,15 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         case .player(let command):
             switch command {
             case .loadURL(let url):
-                let playerItem = AVPlayerItem(url: url)
-                beginObservingPlayerItem(playerItem)
-                player.replaceCurrentItem(with: playerItem)
-            case .reset:
-                guard let playerItem = player.currentItem else { preconditionFailure() }
-                endObservingPlayerItem(playerItem)
-                player.replaceCurrentItem(with: nil)
+                if let playerItem = player.currentItem {
+                    player.replaceCurrentItem(with: nil)
+                    endObservingPlayerItem(playerItem)
+                }
+                if let url = url {
+                    let playerItem = AVPlayerItem(url: url)
+                    beginObservingPlayerItem(playerItem)
+                    player.replaceCurrentItem(with: playerItem)
+                }
             case .play:
                 player.play()
             case .pause:

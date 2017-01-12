@@ -37,11 +37,10 @@ public struct AudioBar: Elm.Module {
     public enum Command {
 
         public enum Player {
-            case loadURL(URL)
+            case loadURL(URL?)
             case play
             case pause
             case setCurrentTime(TimeInterval)
-            case reset
         }
 
         case player(Player)
@@ -80,6 +79,21 @@ public struct AudioBar: Elm.Module {
         switch message {
 
         case .prepareToLoad(let url):
+            let isPlayerActive: Bool = {
+                switch model {
+                case .waitingForURL:
+                    return false
+                case .readyToLoadURL:
+                    return false
+                case .waitingForPlayerToBecomeReadyToPlayURL:
+                    return true
+                case .readyToPlay:
+                    return true
+                }
+            }()
+            if isPlayerActive {
+                perform(.player(.loadURL(nil)))
+            }
             model = .readyToLoadURL(url)
 
         case .togglePlay:
@@ -91,7 +105,7 @@ public struct AudioBar: Elm.Module {
                 perform(.player(.loadURL(url)))
             case .waitingForPlayerToBecomeReadyToPlayURL(let url):
                 model = .readyToLoadURL(url)
-                perform(.player(.reset))
+                perform(.player(.loadURL(nil)))
             case .readyToPlay(var state):
                 state.isPlaying ? perform(.player(.pause)) : perform(.player(.play))
                 state.isPlaying = !state.isPlaying
@@ -154,7 +168,6 @@ public struct AudioBar: Elm.Module {
                 throw Failure.notWaitingToBecomeReadyToPlay
             }
             model = .readyToLoadURL(url)
-            perform(.player(.reset))
             perform(.showAlert(text: "Unable to load media", button: "OK"))
             
         }
