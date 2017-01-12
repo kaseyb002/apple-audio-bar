@@ -27,6 +27,8 @@ public struct AudioBar: Elm.Module {
             var currentTime: TimeInterval?
         }
 
+        static let seekInterval: TimeInterval = 15
+
         case waitingForURL
         case readyToLoadURL(URL)
         case waitingForPlayerToBecomeReadyToPlayURL(URL)
@@ -99,7 +101,7 @@ public struct AudioBar: Elm.Module {
             guard case .readyToPlay(var state) = model else {
                 throw Failure.genericError
             }
-            state.currentTime = max(0, state.currentTime! - 15)
+            state.currentTime = max(0, state.currentTime! - Model.seekInterval)
             model = .readyToPlay(state)
             perform(.player(.setCurrentTime(state.currentTime!)))
 
@@ -109,7 +111,7 @@ public struct AudioBar: Elm.Module {
                 throw Failure.genericError
             }
 
-            let currentTime = min(state.duration, state.currentTime! + 15)
+            let currentTime = min(state.duration, state.currentTime! + Model.seekInterval)
             state.currentTime = currentTime
             perform(.player(.setCurrentTime(currentTime)))
 
