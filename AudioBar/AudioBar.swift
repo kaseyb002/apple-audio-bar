@@ -26,6 +26,7 @@ public struct AudioBar: Elm.Module {
         case readyToLoadURL(URL)
         case waitingForPlayerToBecomeReadyToPlayURL(URL)
         case readyToPlay(ReadyState)
+        static let seekInterval: TimeInterval = 15
     }
 
     public enum Command {
@@ -102,7 +103,7 @@ public struct AudioBar: Elm.Module {
             guard case .readyToPlay(var state) = model else {
                 throw Failure.notReadyToPlay
             }
-            state.currentTime = max(0, state.currentTime! - 15)
+            state.currentTime = max(0, state.currentTime! - Model.seekInterval)
             model = .readyToPlay(state)
             perform(.player(.setCurrentTime(state.currentTime!)))
         case .seekForward:
@@ -110,7 +111,7 @@ public struct AudioBar: Elm.Module {
                 throw Failure.notReadyToPlay
             }
 
-            let currentTime = min(state.duration, state.currentTime! + 15)
+            let currentTime = min(state.duration, state.currentTime! + Model.seekInterval)
             state.currentTime = currentTime
             perform(.player(.setCurrentTime(currentTime)))
 

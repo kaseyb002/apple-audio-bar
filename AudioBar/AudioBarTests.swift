@@ -133,14 +133,14 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testSeekBack1() {
         let update = expectUpdate(for: .seekBack, model: .readyToPlay(.init(duration: 60, currentTime: 60)))
-        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 60 - 15)))
-        expect(update?.command, .player(.setCurrentTime(60 - 15)))
+        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 60 - AudioBar.Model.seekInterval)))
+        expect(update?.command, .player(.setCurrentTime(60 - AudioBar.Model.seekInterval)))
     }
 
     func testSeekBack2() {
         let update = expectUpdate(for: .seekBack, model: .readyToPlay(.init(duration: 60, currentTime: 15)))
-        expect(update?.command, .player(.setCurrentTime(15 - 15)))
-        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 15 - 15)))
+        expect(update?.command, .player(.setCurrentTime(15 - AudioBar.Model.seekInterval)))
+        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 15 - AudioBar.Model.seekInterval)))
     }
 
     func testSeekBackNearBeginning1() {
@@ -172,14 +172,14 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testSeekForward1() {
         let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(duration: 60, currentTime: 0)))
-        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 0 + 15)))
-        expect(update?.command, .player(.setCurrentTime(0 + 15)))
+        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 0 + AudioBar.Model.seekInterval)))
+        expect(update?.command, .player(.setCurrentTime(0 + AudioBar.Model.seekInterval)))
     }
 
     func testSeekForward2() {
         let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(duration: 60, currentTime: 1)))
-        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 1 + 15)))
-        expect(update?.command, .player(.setCurrentTime(1 + 15)))
+        expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 1 + AudioBar.Model.seekInterval)))
+        expect(update?.command, .player(.setCurrentTime(1 + AudioBar.Model.seekInterval)))
     }
 
     func testSeekForwardNearEndWhenPlaying1() {
