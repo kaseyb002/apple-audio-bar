@@ -66,10 +66,10 @@ public struct AudioBar: Elm.Module {
     }
 
     public enum Failure: Error {
-        case emptyURL
-        case playerIsNotReadyToPlay
-        case playerIsNotPlaying
-        case playerIsNotWaitingToBecomeReadyToPlay
+        case noURL
+        case notReadyToPlay
+        case notPlaying
+        case notWaitingToBecomeReadyToPlay
     }
 
     public static func model(loading flags: Flags) throws -> Model {
@@ -85,7 +85,7 @@ public struct AudioBar: Elm.Module {
         case .togglePlay:
             switch model {
             case .waitingForURL:
-                throw Failure.emptyURL
+                throw Failure.noURL
             case .readyToLoadURL(at: let url):
                 model = .waitingForPlayerToBecomeReadyToPlayURL(url)
                 perform(.player(.loadURL(url)))
@@ -100,7 +100,7 @@ public struct AudioBar: Elm.Module {
 
         case .seekBack:
             guard case .readyToPlay(var state) = model else {
-                throw Failure.playerIsNotReadyToPlay
+                throw Failure.notReadyToPlay
             }
             state.currentTime = max(0, state.currentTime! - 15)
             model = .readyToPlay(state)
@@ -108,7 +108,7 @@ public struct AudioBar: Elm.Module {
 
         case .seekForward:
             guard case .readyToPlay(var state) = model else {
-                throw Failure.playerIsNotReadyToPlay
+                throw Failure.notReadyToPlay
             }
 
             let currentTime = min(state.duration, state.currentTime! + 15)
@@ -124,18 +124,18 @@ public struct AudioBar: Elm.Module {
 
         case .playerDidBecomeReadyToPlay(withDuration: let duration):
             guard case .waitingForPlayerToBecomeReadyToPlayURL = model else {
-                throw Failure.playerIsNotWaitingToBecomeReadyToPlay
+                throw Failure.notWaitingToBecomeReadyToPlay
             }
             model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
             perform(.player(.play))
 
         case .playerDidPlayToEnd:
             guard case .readyToPlay(var state) = model else {
-                throw Failure.playerIsNotReadyToPlay
+                throw Failure.notReadyToPlay
             }
 
             guard state.isPlaying else {
-                throw Failure.playerIsNotPlaying
+                throw Failure.notPlaying
             }
 
             state.currentTime = state.duration
@@ -144,14 +144,14 @@ public struct AudioBar: Elm.Module {
 
         case .playerDidUpdateCurrentTime(let currentTime):
             guard case .readyToPlay(var state) = model else {
-                throw Failure.playerIsNotReadyToPlay
+                throw Failure.notReadyToPlay
             }
             state.currentTime = currentTime
             model = .readyToPlay(state)
 
         case .playerDidFailToBecomeReady:
             guard case .waitingForPlayerToBecomeReadyToPlayURL(let url) = model else {
-                throw Failure.playerIsNotWaitingToBecomeReadyToPlay
+                throw Failure.notWaitingToBecomeReadyToPlay
             }
             model = .readyToLoadURL(url)
             perform(.player(.reset))
