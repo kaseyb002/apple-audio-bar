@@ -74,9 +74,7 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     }
 
     public func program(_ program: Program<Module>, didEmit command: Module.Command) {
-
         switch command {
-
         case .player(let command):
             switch command {
             case .loadURL(let url):
@@ -96,14 +94,11 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
             case .setCurrentTime(let time):
                 player.seek(to: CMTime(timeInterval: time))
             }
-
         case .showAlert(text: let text, button: let button):
             let alertController = UIAlertController(title: text, message: nil, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: button, style: .default, handler: nil))
             present(alertController, animated: true)
-
         }
-
     }
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
