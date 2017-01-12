@@ -17,9 +17,26 @@ class AudioBarTests: XCTestCase, Tests {
 
     // MARK: Update
 
-    func testLoadTrack() {
-        let update = expectUpdate(for: .prepareToLoad(URL.arbitrary), model: .waitingForURL)
-        expect(update?.model, .readyToLoadURL(URL.arbitrary))
+    func testPrepareToLoad1() {
+        let update = expectUpdate(for: .prepareToLoad(URL.foo), model: .waitingForURL)
+        expect(update?.model, .readyToLoadURL(URL.foo))
+    }
+
+    func testPrepareToLoad2() {
+        let update = expectUpdate(for: .prepareToLoad(URL.foo), model: .readyToLoadURL(URL.bar))
+        expect(update?.model, .readyToLoadURL(URL.foo))
+    }
+
+    func testPrepareToLoad3() {
+        let update = expectUpdate(for: .prepareToLoad(URL.foo), model: .waitingForPlayerToBecomeReadyToPlayURL(URL.bar))
+        expect(update?.model, .readyToLoadURL(URL.foo))
+        expect(update?.command, .player(.loadURL(nil)))
+    }
+
+    func testPrepareToLoad4() {
+        let update = expectUpdate(for: .prepareToLoad(URL.foo), model: .readyToPlay(.init()))
+        expect(update?.model, .readyToLoadURL(URL.foo))
+        expect(update?.command, .player(.loadURL(nil)))
     }
 
     func testPlayerDidBecomeReadyToPlay() {
@@ -46,7 +63,7 @@ class AudioBarTests: XCTestCase, Tests {
     func testPlayerDidFailToBecomeReady() {
         let update = expectUpdate(for: .playerDidFailToBecomeReady, model: .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
         expect(update?.model, .readyToLoadURL(URL.arbitrary))
-        expect(update?.commands, [.player(.reset), .showAlert(text: "Unable to load media", button: "OK")])
+        expect(update?.commands, [.showAlert(text: "Unable to load media", button: "OK")])
     }
 
     func testPlayerDidFailToBecomeReadyUnexpectedly1() {
@@ -223,7 +240,7 @@ class AudioBarTests: XCTestCase, Tests {
     func testTogglePlayWhenWaitingForPlayerToBecomeReadyToPlayURL() {
         let update = expectUpdate(for: .togglePlay, model: .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
         expect(update?.model, .readyToLoadURL(URL.arbitrary))
-        expect(update?.command, .player(.reset))
+        expect(update?.command, .player(.loadURL(nil)))
     }
 
     func testTogglePlayUnexpectedly() {
@@ -387,6 +404,10 @@ extension AudioBar.Model.ReadyState {
 }
 
 extension URL {
+
+    static let foo = URL(string: "foo")!
+    static let bar = URL(string: "bar")!
+
     static var arbitrary: URL {
         return URL(string: "foo")!
     }
