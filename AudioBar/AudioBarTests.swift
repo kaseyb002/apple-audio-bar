@@ -63,7 +63,7 @@ class AudioBarTests: XCTestCase, Tests {
     func testPlayerDidFailToBecomeReady() {
         let update = expectUpdate(for: .playerDidFailToBecomeReady, model: .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
         expect(update?.model, .readyToLoadURL(URL.arbitrary))
-        expect(update?.commands, [.showAlert(text: "Unable to load media", button: "OK")])
+        expect(update?.command, .showAlert(text: "Unable to load media", button: "OK"))
     }
 
     func testPlayerDidFailToBecomeReadyUnexpectedly1() {
@@ -185,13 +185,15 @@ class AudioBarTests: XCTestCase, Tests {
     func testSeekForwardNearEndWhenPlaying1() {
         let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 59)))
         expect(update?.model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
-        expect(update?.commands, [.player(.setCurrentTime(60)), .player(.pause)])
+        expect(update?.commands[0], .player(.setCurrentTime(60)))
+        expect(update?.commands[1], .player(.pause))
     }
 
     func testSeekForwardNearEndWhenPlaying2() {
         let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 58)))
         expect(update?.model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
-        expect(update?.commands, [.player(.setCurrentTime(60)), .player(.pause)])
+        expect(update?.commands[0], .player(.setCurrentTime(60)))
+        expect(update?.commands[1], .player(.pause))
     }
 
     func testSeekForwardNearEndWhenPaused1() {
