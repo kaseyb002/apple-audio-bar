@@ -6,7 +6,7 @@ public struct AudioBar: Elm.Module {
     public struct Flags {}
 
     public enum Message {
-        case prepareToLoad(URL)
+        case prepareToLoad(URL?)
         case togglePlay
         case seekBack
         case seekForward
@@ -61,7 +61,7 @@ public struct AudioBar: Elm.Module {
         case notWaitingToBecomeReadyToPlay
     }
 
-    public static func model(loading flags: Flags) throws -> Model {
+    public static func start(with flags: Flags, perform: (Command) -> Void) throws -> Model {
         return .waitingForURL
     }
 
@@ -83,7 +83,11 @@ public struct AudioBar: Elm.Module {
             if isPlayerActive {
                 perform(.player(.loadURL(nil)))
             }
-            model = .readyToLoadURL(url)
+            if let url = url {
+                model = .readyToLoadURL(url)
+            } else {
+                model = .waitingForURL
+            }
         case .togglePlay:
             switch model {
             case .waitingForURL:
@@ -153,7 +157,7 @@ public struct AudioBar: Elm.Module {
         }
     }
 
-    public static func view(presenting model: Model) -> View {
+    public static func view(for model: Model) -> View {
         switch model {
         case .waitingForURL:
              return View(
