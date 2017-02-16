@@ -39,6 +39,28 @@ class AudioBarTests: XCTestCase, Tests {
         expect(update?.command, .player(.loadURL(nil)))
     }
 
+    func testPrepareToLoadNil1() {
+        let update = expectUpdate(for: .prepareToLoad(nil), model: .waitingForURL)
+        expect(update?.model, .waitingForURL)
+    }
+
+    func testPrepareToLoadNil2() {
+        let update = expectUpdate(for: .prepareToLoad(nil), model: .readyToLoadURL(URL.foo))
+        expect(update?.model, .waitingForURL)
+    }
+
+    func testPrepareToLoadNil3() {
+        let update = expectUpdate(for: .prepareToLoad(nil), model: .waitingForPlayerToBecomeReadyToPlayURL(URL.foo))
+        expect(update?.model, .waitingForURL)
+        expect(update?.command, .player(.loadURL(nil)))
+    }
+
+    func testPrepareToLoadNil4() {
+        let update = expectUpdate(for: .prepareToLoad(nil), model: .readyToPlay(.init()))
+        expect(update?.model, .waitingForURL)
+        expect(update?.command, .player(.loadURL(nil)))
+    }
+
     func testPlayerDidBecomeReadyToPlay() {
         let update = expectUpdate(for: .playerDidBecomeReadyToPlay(withDuration: 1), model: .waitingForPlayerToBecomeReadyToPlayURL(URL.arbitrary))
         expect(update?.model, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: nil)))

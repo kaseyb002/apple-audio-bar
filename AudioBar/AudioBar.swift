@@ -6,7 +6,7 @@ public struct AudioBar: Elm.Module {
     public struct Flags {}
 
     public enum Message {
-        case prepareToLoad(URL)
+        case prepareToLoad(URL?)
         case togglePlay
         case seekBack
         case seekForward
@@ -83,7 +83,11 @@ public struct AudioBar: Elm.Module {
             if isPlayerActive {
                 perform(.player(.loadURL(nil)))
             }
-            model = .readyToLoadURL(url)
+            if let url = url {
+                model = .readyToLoadURL(url)
+            } else {
+                model = .waitingForURL
+            }
         case .togglePlay:
             switch model {
             case .waitingForURL:

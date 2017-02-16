@@ -33,7 +33,7 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         program.dispatch(.seekBack)
     }
 
-    public func loadURL(url: URL) {
+    public func loadURL(url: URL?) {
         program.dispatch(.prepareToLoad(url))
     }
 
