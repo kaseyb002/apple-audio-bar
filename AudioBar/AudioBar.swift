@@ -61,7 +61,7 @@ public struct AudioBar: Elm.Module {
         case notWaitingToBecomeReadyToPlay
     }
 
-    public static func model(loading flags: Flags) throws -> Model {
+    public static func start(with flags: Flags, perform: (Command) -> Void) throws -> Model {
         return .waitingForURL
     }
 
@@ -157,7 +157,7 @@ public struct AudioBar: Elm.Module {
         }
     }
 
-    public static func view(presenting model: Model) -> View {
+    public static func view(for model: Model) -> View {
         switch model {
         case .waitingForURL:
              return View(

@@ -10,7 +10,7 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     typealias Model = AudioBar.Model
     typealias View = AudioBar.View
 
-    private let program = Module.makeProgram(flags: .init())
+    private lazy var program: Program<Module> = Module.makeProgram(delegate: self, flags: .init())
     private let player = AVPlayer()
     private let volumeView = MPVolumeView()
 
@@ -43,7 +43,6 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         volumeView.setRouteButtonImage(loadImage(withName: "AirPlay Icon"), for: .normal)
         audioRouteView.addSubview(volumeView)
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: UIFontWeightRegular)
-        program.setDelegate(self)
         player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak program] time in
             guard player?.currentItem?.status == .readyToPlay else { return }
             guard let currentTime = player?.currentTime().timeInterval else { return }
