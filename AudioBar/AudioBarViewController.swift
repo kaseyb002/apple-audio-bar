@@ -22,10 +22,8 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     @IBOutlet private var audioRouteView: UIView!
 
     @IBAction func userDidTapPlayPauseButton() {
-        switch program.view.playPauseButtonMode {
-        case .play: program.dispatch(.play)
-        case .pause: program.dispatch(.pause)
-        }
+        let mode = program.view.playPauseButtonMode
+        program.dispatch(.playPauseButton(mode))
     }
 
     @IBAction func userDidTapSeekForwardButton() {
