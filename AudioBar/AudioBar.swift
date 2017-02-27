@@ -7,7 +7,8 @@ public struct AudioBar: Elm.Module {
 
     public enum Message {
         case prepareToLoad(URL?)
-        case togglePlay
+        case play
+        case pause
         case seekBack
         case seekForward
         case playerDidBecomeReadyToPlay(withDuration: TimeInterval)
@@ -45,7 +46,7 @@ public struct AudioBar: Elm.Module {
             case play
             case pause
         }
-        let playPauseButtonMode: PlayPauseButtonMode // Rename to match togglePlay
+        let playPauseButtonMode: PlayPauseButtonMode
         let isPlayPauseButtonEnabled: Bool
         let areSeekButtonsHidden: Bool
         let playbackTime: String
@@ -56,8 +57,12 @@ public struct AudioBar: Elm.Module {
 
     public enum Failure: Error {
         case noURL
+        case waitingForURL
+        case readyToLoadURL
         case notReadyToPlay
+        case playing
         case notPlaying
+        case waitingToBecomeReadyToPlay
         case notWaitingToBecomeReadyToPlay
     }
 
@@ -88,20 +93,35 @@ public struct AudioBar: Elm.Module {
             } else {
                 model = .waitingForURL
             }
-        case .togglePlay:
+        case .play:
             switch model {
             case .waitingForURL:
                 throw Failure.noURL
             case .readyToLoadURL(at: let url):
                 model = .waitingForPlayerToBecomeReadyToPlayURL(url)
                 perform(.player(.loadURL(url)))
+            case .waitingForPlayerToBecomeReadyToPlayURL:
+                throw Failure.waitingToBecomeReadyToPlay
+            case .readyToPlay(var state):
+                guard !state.isPlaying else { throw Failure.playing }
+                state.isPlaying = true
+                model = .readyToPlay(state)
+                perform(.player(.play))
+            }
+        case .pause:
+            switch model {
+            case .waitingForURL:
+                throw Failure.waitingForURL
+            case .readyToLoadURL:
+                throw Failure.readyToLoadURL
             case .waitingForPlayerToBecomeReadyToPlayURL(let url):
                 model = .readyToLoadURL(url)
                 perform(.player(.loadURL(nil)))
             case .readyToPlay(var state):
-                state.isPlaying ? perform(.player(.pause)) : perform(.player(.play))
-                state.isPlaying = !state.isPlaying
+                guard state.isPlaying else { throw Failure.notPlaying }
+                state.isPlaying = false
                 model = .readyToPlay(state)
+                perform(.player(.pause))
             }
         case .seekBack:
             guard case .readyToPlay(var state) = model else {
