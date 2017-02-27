@@ -23,7 +23,7 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
 
     @IBAction func userDidTapPlayPauseButton() {
         let mode = program.view.playPauseButtonMode
-        program.dispatch(.playPauseButton(mode))
+        program.dispatch(.togglePlayPauseButton(withMode: mode))
     }
 
     @IBAction func userDidTapSeekForwardButton() {

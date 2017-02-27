@@ -244,56 +244,56 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testPlayWhenReadyToLoadURL() {
-        let update = expectUpdate(for: .playPauseButton(.play), model: .readyToLoadURL(.arbitrary))
+        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .play), model: .readyToLoadURL(.arbitrary))
         expect(update?.model, .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(update?.command, .player(.loadURL(.arbitrary)))
     }
 
     func testPlayWhenReadyToPlayAndNotPlaying() {
-        let update = expectUpdate(for: .playPauseButton(.play), model: .readyToPlay(.init(isPlaying: false)))
+        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .play), model: .readyToPlay(.init(isPlaying: false)))
         expect(update?.model, .readyToPlay(.init(isPlaying: true)))
         expect(update?.command, .player(.play))
     }
 
     func testPlayWhenWaitingForURL() {
-        let failure = expectFailure(for: .playPauseButton(.play), model: .waitingForURL)
+        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .play), model: .waitingForURL)
         expect(failure, .noURL)
     }
 
     func testPlayWhenWaitingForPlayerToBecomeReadyToPlayURL() {
-        let failure = expectFailure(for: .playPauseButton(.play), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .play), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(failure, .waitingToBecomeReadyToPlay)
     }
 
     func testPlayWhenReadyToPlayAndPlaying() {
-        let failure = expectFailure(for: .playPauseButton(.play), model: .readyToPlay(.init(isPlaying: true)))
+        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .play), model: .readyToPlay(.init(isPlaying: true)))
         expect(failure, .playing)
     }
 
     func testPauseWhenWaitingForPlayerToBecomeReadyToPlayURL() {
-        let update = expectUpdate(for: .playPauseButton(.pause), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .pause), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(update?.model, .readyToLoadURL(.arbitrary))
         expect(update?.command, .player(.loadURL(nil)))
     }
 
     func testPauseWhenReadyToPlayAndPlaying() {
-        let update = expectUpdate(for: .playPauseButton(.pause), model: .readyToPlay(.init(isPlaying: true)))
+        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .pause), model: .readyToPlay(.init(isPlaying: true)))
         expect(update?.model, .readyToPlay(.init(isPlaying: false)))
         expect(update?.command, .player(.pause))
     }
 
     func testPauseWhenWaitingForURL() {
-        let failure = expectFailure(for: .playPauseButton(.pause), model: .waitingForURL)
+        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .pause), model: .waitingForURL)
         expect(failure, .waitingForURL)
     }
 
     func testPauseWhenReadyToPlayAndNotPlaying() {
-        let failure = expectFailure(for: .playPauseButton(.pause), model: .readyToPlay(.init(isPlaying: false)))
+        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .pause), model: .readyToPlay(.init(isPlaying: false)))
         expect(failure, .notPlaying)
     }
 
     func testPauseWhenReadyToLoadURL() {
-        let failure = expectFailure(for: .playPauseButton(.pause), model: .readyToLoadURL(.arbitrary))
+        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .pause), model: .readyToLoadURL(.arbitrary))
         expect(failure, .readyToLoadURL)
     }
 
