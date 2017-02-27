@@ -13,6 +13,8 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     private lazy var program: Program<Module> = Module.makeProgram(delegate: self, flags: .init())
     private let player = AVPlayer()
     private let volumeView = MPVolumeView()
+    private let commandCenter = MPRemoteCommandCenter.shared()
+    private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
 
     @IBOutlet private var playPauseButton: UIButton!
     @IBOutlet private var seekBackButton: UIButton!
@@ -48,6 +50,13 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
             guard let currentTime = player?.currentTime().timeInterval else { return }
             program?.dispatch(.playerDidUpdateCurrentTime(currentTime))
         }
+        commandCenter.playCommand.addTarget(self, action: #selector(userDidTapPlayPauseButton))
+        commandCenter.pauseCommand.addTarget(self, action: #selector(userDidTapPlayPauseButton))
+        commandCenter.skipForwardCommand.preferredIntervals = [.init(value: Module.Model.seekInterval)]
+        commandCenter.skipBackwardCommand.preferredIntervals = [.init(value: Module.Model.seekInterval)]
+        commandCenter.skipForwardCommand.addTarget(self, action: #selector(userDidTapSeekForwardButton))
+        commandCenter.skipBackwardCommand.addTarget(self, action: #selector(userDidTapSeekBackButton))
+        nowPlayingInfoCenter.nowPlayingInfo = [:]
     }
 
     public override func viewDidLayoutSubviews() {
@@ -70,6 +79,10 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         seekForwardButton.isEnabled = view.isSeekForwardButtonEnabled
         timeLabel.text = view.playbackTime
         loadingIndicator.isHidden = !view.isLoadingIndicatorVisible
+        commandCenter.playCommand.isEnabled = view.isPlayPauseButtonEnabled
+        commandCenter.pauseCommand.isEnabled = view.isPlayPauseButtonEnabled
+        commandCenter.skipForwardCommand.isEnabled = view.isSeekForwardButtonEnabled
+        commandCenter.skipBackwardCommand.isEnabled = view.isSeekBackButtonEnabled
     }
 
     public func program(_ program: Program<Module>, didEmit command: Module.Command) {
@@ -92,6 +105,7 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
                 player.pause()
             case .setCurrentTime(let time):
                 player.seek(to: CMTime(timeInterval: time))
+                nowPlayingInfoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = time
             }
         case .showAlert(text: let text, button: let button):
             let alertController = UIAlertController(title: text, message: nil, preferredStyle: .alert)
@@ -119,7 +133,9 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
             case .unknown:
                 break
             case .readyToPlay:
-                program.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
+                let duration = playerItem.duration.timeInterval
+                program.dispatch(.playerDidBecomeReadyToPlay(withDuration: duration))
+                nowPlayingInfoCenter.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = duration
             case .failed:
                 program.dispatch(.playerDidFailToBecomeReady)
             }
