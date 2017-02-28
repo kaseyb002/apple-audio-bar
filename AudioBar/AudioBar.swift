@@ -10,10 +10,10 @@ public struct AudioBar: Elm.Module {
             case userDidTapPlayButton
             case userDidTapPauseButton
         }
-        case playPauseButton(PlayPauseButton)
         case prepareToLoad(URL?)
-        case seekBack
-        case seekForward
+        case playPauseButton(PlayPauseButton)
+        case userDidTapSeekBackButton
+        case userDidTapSeekForwardButton
         case playerDidBecomeReadyToPlay(withDuration: TimeInterval)
         case playerDidFailToBecomeReady
         case playerDidUpdateCurrentTime(TimeInterval)
@@ -121,14 +121,14 @@ public struct AudioBar: Elm.Module {
                 model = .readyToPlay(state)
                 perform(.player(.pause))
             }
-        case .seekBack:
+        case .userDidTapSeekBackButton:
             guard case .readyToPlay(var state) = model else {
                 throw Failure.notReadyToPlay
             }
             state.currentTime = max(0, state.currentTime! - Model.seekInterval)
             model = .readyToPlay(state)
             perform(.player(.setCurrentTime(state.currentTime!)))
-        case .seekForward:
+        case .userDidTapSeekForwardButton:
             guard case .readyToPlay(var state) = model else {
                 throw Failure.notReadyToPlay
             }

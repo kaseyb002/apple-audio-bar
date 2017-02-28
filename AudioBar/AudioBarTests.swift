@@ -153,93 +153,93 @@ class AudioBarTests: XCTestCase, Tests {
         expect(failure, .notReadyToPlay)
     }
 
-    func testSeekBack1() {
-        let update = expectUpdate(for: .seekBack, model: .readyToPlay(.init(duration: 60, currentTime: 60)))
+    func testUserDidTapSeekBackButton1() {
+        let update = expectUpdate(for: .userDidTapSeekBackButton, model: .readyToPlay(.init(duration: 60, currentTime: 60)))
         expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 60 - AudioBar.Model.seekInterval)))
         expect(update?.command, .player(.setCurrentTime(60 - AudioBar.Model.seekInterval)))
     }
 
-    func testSeekBack2() {
-        let update = expectUpdate(for: .seekBack, model: .readyToPlay(.init(duration: 60, currentTime: 15)))
+    func testUserDidTapSeekBackButton2() {
+        let update = expectUpdate(for: .userDidTapSeekBackButton, model: .readyToPlay(.init(duration: 60, currentTime: 15)))
         expect(update?.command, .player(.setCurrentTime(15 - AudioBar.Model.seekInterval)))
         expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 15 - AudioBar.Model.seekInterval)))
     }
 
-    func testSeekBackNearBeginning1() {
-        let update = expectUpdate(for: .seekBack, model: .readyToPlay(.init(duration: 60, currentTime: 1)))
+    func testUserDidTapSeekBackButtonNearBeginning1() {
+        let update = expectUpdate(for: .userDidTapSeekBackButton, model: .readyToPlay(.init(duration: 60, currentTime: 1)))
         expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 0)))
         expect(update?.command, .player(.setCurrentTime(0)))
     }
 
-    func testSeekBackNearBeginning2() {
-        let update = expectUpdate(for: .seekBack, model: .readyToPlay(.init(duration: 60, currentTime: 2)))
+    func testUserDidTapSeekBackButtonNearBeginning2() {
+        let update = expectUpdate(for: .userDidTapSeekBackButton, model: .readyToPlay(.init(duration: 60, currentTime: 2)))
         expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 0)))
         expect(update?.command, .player(.setCurrentTime(0)))
     }
 
-    func testSeekBackUnexpectedly1() {
-        let failure = expectFailure(for: .seekBack, model: .waitingForURL)
+    func testUserDidTapSeekBackButtonUnexpectedly1() {
+        let failure = expectFailure(for: .userDidTapSeekBackButton, model: .waitingForURL)
         expect(failure, .notReadyToPlay)
     }
 
-    func testSeekBackUnexpectedly2() {
-        let failure = expectFailure(for: .seekBack, model: .readyToLoadURL(.arbitrary))
+    func testUserDidTapSeekBackButtonUnexpectedly2() {
+        let failure = expectFailure(for: .userDidTapSeekBackButton, model: .readyToLoadURL(.arbitrary))
         expect(failure, .notReadyToPlay)
     }
 
-    func testSeekBackUnexpectedly3() {
-        let failure = expectFailure(for: .seekBack, model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+    func testUserDidTapSeekBackButtonUnexpectedly3() {
+        let failure = expectFailure(for: .userDidTapSeekBackButton, model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(failure, .notReadyToPlay)
     }
 
-    func testSeekForward1() {
-        let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(duration: 60, currentTime: 0)))
+    func testUserDidTapSeekForwardButton1() {
+        let update = expectUpdate(for: .userDidTapSeekForwardButton, model: .readyToPlay(.init(duration: 60, currentTime: 0)))
         expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 0 + AudioBar.Model.seekInterval)))
         expect(update?.command, .player(.setCurrentTime(0 + AudioBar.Model.seekInterval)))
     }
 
-    func testSeekForward2() {
-        let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(duration: 60, currentTime: 1)))
+    func testUserDidTapSeekForwardButton2() {
+        let update = expectUpdate(for: .userDidTapSeekForwardButton, model: .readyToPlay(.init(duration: 60, currentTime: 1)))
         expect(update?.model, .readyToPlay(.init(duration: 60, currentTime: 1 + AudioBar.Model.seekInterval)))
         expect(update?.command, .player(.setCurrentTime(1 + AudioBar.Model.seekInterval)))
     }
 
-    func testSeekForwardNearEndWhenPlaying1() {
-        let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 59)))
+    func testUserDidTapSeekForwardButtonNearEndWhenPlaying1() {
+        let update = expectUpdate(for: .userDidTapSeekForwardButton, model: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 59)))
         expect(update?.model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
         expect(update?.commands[0], .player(.setCurrentTime(60)))
         expect(update?.commands[1], .player(.pause))
     }
 
-    func testSeekForwardNearEndWhenPlaying2() {
-        let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 58)))
+    func testUserDidTapSeekForwardButtonNearEndWhenPlaying2() {
+        let update = expectUpdate(for: .userDidTapSeekForwardButton, model: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 58)))
         expect(update?.model, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
         expect(update?.commands[0], .player(.setCurrentTime(60)))
         expect(update?.commands[1], .player(.pause))
     }
 
-    func testSeekForwardNearEndWhenPaused1() {
-        let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 59)))
+    func testUserDidTapSeekForwardButtonNearEndWhenPaused1() {
+        let update = expectUpdate(for: .userDidTapSeekForwardButton, model: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 59)))
         expect(update?.command, .player(.setCurrentTime(60)))
     }
 
-    func testSeekForwardNearEndWhenPaused2() {
-        let update = expectUpdate(for: .seekForward, model: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 58)))
+    func testUserDidTapSeekForwardButtonNearEndWhenPaused2() {
+        let update = expectUpdate(for: .userDidTapSeekForwardButton, model: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 58)))
         expect(update?.command, .player(.setCurrentTime(60)))
     }
 
-    func testSeekForwardUnexpectedly1() {
-        let failure = expectFailure(for: .seekForward, model: .waitingForURL)
+    func testUserDidTapSeekForwardButtonUnexpectedly1() {
+        let failure = expectFailure(for: .userDidTapSeekForwardButton, model: .waitingForURL)
         expect(failure, .notReadyToPlay)
     }
 
-    func testSeekForwardUnexpectedly2() {
-        let failure = expectFailure(for: .seekForward, model: .readyToLoadURL(.arbitrary))
+    func testUserDidTapSeekForwardButtonUnexpectedly2() {
+        let failure = expectFailure(for: .userDidTapSeekForwardButton, model: .readyToLoadURL(.arbitrary))
         expect(failure, .notReadyToPlay)
     }
 
-    func testSeekForwardUnexpectedly3() {
-        let failure = expectFailure(for: .seekForward, model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+    func testUserDidTapSeekForwardButtonUnexpectedly3() {
+        let failure = expectFailure(for: .userDidTapSeekForwardButton, model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(failure, .notReadyToPlay)
     }
 

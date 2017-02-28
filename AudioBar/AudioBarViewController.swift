@@ -27,11 +27,11 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     }
 
     @IBAction func userDidTapSeekForwardButton() {
-        program.dispatch(.seekForward)
+        program.dispatch(.userDidTapSeekForwardButton)
     }
 
     @IBAction func userDidTapSeekBackButton() {
-        program.dispatch(.seekBack)
+        program.dispatch(.userDidTapSeekBackButton)
     }
 
     public func loadURL(url: URL?) {
