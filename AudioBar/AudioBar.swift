@@ -3,16 +3,15 @@ import Elm
 
 public struct AudioBar: Elm.Module {
 
-    public enum PlayPauseButtonMode {
-        case play
-        case pause
-    }
-
     public struct Flags {}
 
     public enum Message {
+        public enum PlayPauseButton {
+            case userDidTapPlayButton
+            case userDidTapPauseButton
+        }
+        case playPauseButton(PlayPauseButton)
         case prepareToLoad(URL?)
-        case togglePlayPauseButton(withMode: PlayPauseButtonMode)
         case seekBack
         case seekForward
         case playerDidBecomeReadyToPlay(withDuration: TimeInterval)
@@ -46,7 +45,7 @@ public struct AudioBar: Elm.Module {
     }
 
     public struct View {
-        let playPauseButtonMode: PlayPauseButtonMode
+        let playPauseButtonMessage: Message.PlayPauseButton
         let isPlayPauseButtonEnabled: Bool
         let areSeekButtonsHidden: Bool
         let playbackTime: String
@@ -57,7 +56,6 @@ public struct AudioBar: Elm.Module {
 
     public enum Failure: Error {
         case noURL
-        case waitingForURL
         case readyToLoadURL
         case notReadyToPlay
         case playing
@@ -93,7 +91,7 @@ public struct AudioBar: Elm.Module {
             } else {
                 model = .waitingForURL
             }
-        case .togglePlayPauseButton(.play):
+        case .playPauseButton(.userDidTapPlayButton):
             switch model {
             case .waitingForURL:
                 throw Failure.noURL
@@ -108,10 +106,10 @@ public struct AudioBar: Elm.Module {
                 model = .readyToPlay(state)
                 perform(.player(.play))
             }
-        case .togglePlayPauseButton(.pause):
+        case .playPauseButton(.userDidTapPauseButton):
             switch model {
             case .waitingForURL:
-                throw Failure.waitingForURL
+                throw Failure.noURL
             case .readyToLoadURL:
                 throw Failure.readyToLoadURL
             case .waitingForPlayerToBecomeReadyToPlayURL(let url):
@@ -181,7 +179,7 @@ public struct AudioBar: Elm.Module {
         switch model {
         case .waitingForURL:
              return View(
-                playPauseButtonMode: .play,
+                playPauseButtonMessage: .userDidTapPlayButton,
                 isPlayPauseButtonEnabled: false,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
@@ -191,7 +189,7 @@ public struct AudioBar: Elm.Module {
             )
         case .readyToLoadURL:
             return View(
-                playPauseButtonMode: .play,
+                playPauseButtonMessage: .userDidTapPlayButton,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
@@ -201,7 +199,7 @@ public struct AudioBar: Elm.Module {
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
             return View(
-                playPauseButtonMode: .pause,
+                playPauseButtonMessage: .userDidTapPauseButton,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
@@ -234,7 +232,7 @@ public struct AudioBar: Elm.Module {
                 return remainingTime > 0
             }
             return View(
-                playPauseButtonMode: state.isPlaying ? .pause : .play,
+                playPauseButtonMessage: state.isPlaying ? .userDidTapPauseButton : .userDidTapPlayButton,
                 isPlayPauseButtonEnabled: isPlayPauseButtonEnabled,
                 areSeekButtonsHidden: false,
                 playbackTime: remainingTimeText,

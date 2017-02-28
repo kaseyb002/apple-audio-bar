@@ -22,8 +22,8 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     @IBOutlet private var audioRouteView: UIView!
 
     @IBAction func userDidTapPlayPauseButton() {
-        let mode = program.view.playPauseButtonMode
-        program.dispatch(.togglePlayPauseButton(withMode: mode))
+        let message = program.view.playPauseButtonMessage
+        program.dispatch(.playPauseButton(message))
     }
 
     @IBAction func userDidTapSeekForwardButton() {
@@ -58,9 +58,9 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
 
     public func program(_ program: Program<Module>, didUpdate view: Module.View) {
         var playPauseButtonImage: UIImage {
-            switch view.playPauseButtonMode {
-            case .play: return loadImage(withName: "Play Button")
-            case .pause: return loadImage(withName: "Pause Button")
+            switch view.playPauseButtonMessage {
+            case .userDidTapPlayButton: return loadImage(withName: "Play Button")
+            case .userDidTapPauseButton: return loadImage(withName: "Pause Button")
             }
         }
         playPauseButton.setImage(playPauseButtonImage, for: .normal)

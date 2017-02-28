@@ -243,65 +243,65 @@ class AudioBarTests: XCTestCase, Tests {
         expect(failure, .notReadyToPlay)
     }
 
-    func testPlayWhenReadyToLoadURL() {
-        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .play), model: .readyToLoadURL(.arbitrary))
+    func testUserDidTapPlayButtonWhenReadyToLoadURL() {
+        let update = expectUpdate(for: .playPauseButton(.userDidTapPlayButton), model: .readyToLoadURL(.arbitrary))
         expect(update?.model, .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(update?.command, .player(.loadURL(.arbitrary)))
     }
 
-    func testPlayWhenReadyToPlayAndNotPlaying() {
-        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .play), model: .readyToPlay(.init(isPlaying: false)))
+    func testUserDidTapPlayButtonWhenReadyToPlayAndNotPlaying() {
+        let update = expectUpdate(for: .playPauseButton(.userDidTapPlayButton), model: .readyToPlay(.init(isPlaying: false)))
         expect(update?.model, .readyToPlay(.init(isPlaying: true)))
         expect(update?.command, .player(.play))
     }
 
-    func testPlayWhenWaitingForURL() {
-        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .play), model: .waitingForURL)
+    func testUserDidTapPlayButtonWhenWaitingForURL() {
+        let failure = expectFailure(for: .playPauseButton(.userDidTapPlayButton), model: .waitingForURL)
         expect(failure, .noURL)
     }
 
-    func testPlayWhenWaitingForPlayerToBecomeReadyToPlayURL() {
-        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .play), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+    func testUserDidTapPlayButtonWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+        let failure = expectFailure(for: .playPauseButton(.userDidTapPlayButton), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(failure, .waitingToBecomeReadyToPlay)
     }
 
-    func testPlayWhenReadyToPlayAndPlaying() {
-        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .play), model: .readyToPlay(.init(isPlaying: true)))
+    func testUserDidTapPlayButtonWhenReadyToPlayAndPlaying() {
+        let failure = expectFailure(for: .playPauseButton(.userDidTapPlayButton), model: .readyToPlay(.init(isPlaying: true)))
         expect(failure, .playing)
     }
 
-    func testPauseWhenWaitingForPlayerToBecomeReadyToPlayURL() {
-        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .pause), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+    func testUserDidTapPauseButtonWhenWaitingForPlayerToBecomeReadyToPlayURL() {
+        let update = expectUpdate(for: .playPauseButton(.userDidTapPauseButton), model: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(update?.model, .readyToLoadURL(.arbitrary))
         expect(update?.command, .player(.loadURL(nil)))
     }
 
-    func testPauseWhenReadyToPlayAndPlaying() {
-        let update = expectUpdate(for: .togglePlayPauseButton(withMode: .pause), model: .readyToPlay(.init(isPlaying: true)))
+    func testUserDidTapPauseButtonWhenReadyToPlayAndPlaying() {
+        let update = expectUpdate(for: .playPauseButton(.userDidTapPauseButton), model: .readyToPlay(.init(isPlaying: true)))
         expect(update?.model, .readyToPlay(.init(isPlaying: false)))
         expect(update?.command, .player(.pause))
     }
 
-    func testPauseWhenWaitingForURL() {
-        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .pause), model: .waitingForURL)
-        expect(failure, .waitingForURL)
+    func testUserDidTapPauseButtonWhenWaitingForURL() {
+        let failure = expectFailure(for: .playPauseButton(.userDidTapPauseButton), model: .waitingForURL)
+        expect(failure, .noURL)
     }
 
-    func testPauseWhenReadyToPlayAndNotPlaying() {
-        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .pause), model: .readyToPlay(.init(isPlaying: false)))
-        expect(failure, .notPlaying)
-    }
-
-    func testPauseWhenReadyToLoadURL() {
-        let failure = expectFailure(for: .togglePlayPauseButton(withMode: .pause), model: .readyToLoadURL(.arbitrary))
+    func testUserDidTapPauseButtonWhenReadyToLoadURL() {
+        let failure = expectFailure(for: .playPauseButton(.userDidTapPauseButton), model: .readyToLoadURL(.arbitrary))
         expect(failure, .readyToLoadURL)
+    }
+
+    func testUserDidTapPauseButtonWhenReadyToPlayAndNotPlaying() {
+        let failure = expectFailure(for: .playPauseButton(.userDidTapPauseButton), model: .readyToPlay(.init(isPlaying: false)))
+        expect(failure, .notPlaying)
     }
 
     // MARK: View
 
     func testViewWhenWaitingForURL() {
         let view = expectView(for: .waitingForURL)
-        expect(view?.playPauseButtonMode, .play)
+        expect(view?.playPauseButtonMessage, .userDidTapPlayButton)
         expect(view?.isPlayPauseButtonEnabled, false)
         expect(view?.areSeekButtonsHidden, true)
         expect(view?.playbackTime, "")
@@ -312,7 +312,7 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testViewWhenReadyToLoad() {
         let view = expectView(for: .readyToLoadURL(.arbitrary))
-        expect(view?.playPauseButtonMode, .play)
+        expect(view?.playPauseButtonMessage, .userDidTapPlayButton)
         expect(view?.isPlayPauseButtonEnabled, true)
         expect(view?.areSeekButtonsHidden, true)
         expect(view?.playbackTime, "")
@@ -323,7 +323,7 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testViewWhenWaitingForPlayer() {
         let view = expectView(for: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
-        expect(view?.playPauseButtonMode, .pause)
+        expect(view?.playPauseButtonMessage, .userDidTapPauseButton)
         expect(view?.isPlayPauseButtonEnabled, true)
         expect(view?.areSeekButtonsHidden, true)
         expect(view?.playbackTime, "")
@@ -414,12 +414,12 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testPlayPauseButtonMode1() {
         let view = expectView(for: .readyToPlay(.init(isPlaying: false)))
-        expect(view?.playPauseButtonMode, .play)
+        expect(view?.playPauseButtonMessage, .userDidTapPlayButton)
     }
 
     func testPlayPauseButtonMode2() {
         let view = expectView(for: .readyToPlay(.init(isPlaying: true)))
-        expect(view?.playPauseButtonMode, .pause)
+        expect(view?.playPauseButtonMessage, .userDidTapPauseButton)
     }
 
     func testIsPlayPauseButtonEnabled1() {
