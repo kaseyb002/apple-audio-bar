@@ -111,39 +111,21 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
 
     private func configureCommandCenterCommands() {
         remoteCommandCenter.playCommand.addTarget { [weak store] _ in
-            guard
-                let store = store,
-                store.view.isPlayPauseButtonEnabled else { return .noSuchContent }
-            guard store.view.playPauseButtonEvent == .userDidTapPlayButton else { return .commandFailed }
-            store.dispatch(.playPauseButton(.userDidTapPlayButton))
-            guard store.view.playPauseButtonEvent == .userDidTapPauseButton else { return .commandFailed }
+            store!.dispatch(.playPauseButton(.userDidTapPlayButton))
             return .success
         }
         remoteCommandCenter.pauseCommand.addTarget { [weak store] _ in
-            guard
-                let store = store,
-                store.view.isPlayPauseButtonEnabled else { return .noSuchContent }
-            guard store.view.playPauseButtonEvent == .userDidTapPauseButton else { return .commandFailed }
-            store.dispatch(.playPauseButton(.userDidTapPauseButton))
-            guard store.view.playPauseButtonEvent == .userDidTapPlayButton else { return .commandFailed }
+            store!.dispatch(.playPauseButton(.userDidTapPauseButton))
             return .success
         }
         remoteCommandCenter.skipForwardCommand.addTarget { [weak store] _ in
-            guard
-                let store = store,
-                store.view.isSeekForwardButtonEnabled else { return .noSuchContent }
-            store.dispatch(.userDidTapSeekForwardButton)
+            store!.dispatch(.userDidTapSeekForwardButton)
             return .success
         }
         remoteCommandCenter.skipBackwardCommand.addTarget { [weak store] _ in
-            guard
-                let store = store,
-                store.view.isSeekBackButtonEnabled else { return .noSuchContent }
-            store.dispatch(.userDidTapSeekBackButton)
+            store!.dispatch(.userDidTapSeekBackButton)
             return .success
         }
-        remoteCommandCenter.skipForwardCommand.preferredIntervals = [.init(value: AudioBar.State.seekInterval)]
-        remoteCommandCenter.skipBackwardCommand.preferredIntervals = [.init(value: AudioBar.State.seekInterval)]
     }
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
