@@ -1,23 +1,27 @@
 import Foundation
 import Elm
 
-public struct AudioBar: Elm.Module {
+public struct AudioBar: Program {
 
-    public struct Flags {}
+    public struct Seed {}
 
-    public enum Message {
+    public enum Event {
+        public enum PlayPauseButton {
+            case userDidTapPlayButton
+            case userDidTapPauseButton
+        }
         case prepareToLoad(URL?)
-        case togglePlay
-        case seekBack
-        case seekForward
+        case playPauseButton(PlayPauseButton)
+        case userDidTapSeekBackButton
+        case userDidTapSeekForwardButton
         case playerDidBecomeReadyToPlay(withDuration: TimeInterval)
         case playerDidFailToBecomeReady
         case playerDidUpdateCurrentTime(TimeInterval)
         case playerDidPlayToEnd
     }
 
-    public enum Model {
-        public struct ReadyState {
+    public enum State {
+        public struct ReadyToPlay {
             var isPlaying: Bool
             var duration: TimeInterval
             var currentTime: TimeInterval?
@@ -25,11 +29,11 @@ public struct AudioBar: Elm.Module {
         case waitingForURL
         case readyToLoadURL(URL)
         case waitingForPlayerToBecomeReadyToPlayURL(URL)
-        case readyToPlay(ReadyState)
+        case readyToPlay(ReadyToPlay)
         static let seekInterval: TimeInterval = 15
     }
 
-    public enum Command {
+    public enum Action {
         public enum Player {
             case loadURL(URL?)
             case start(withDuration: TimeInterval)
@@ -42,11 +46,7 @@ public struct AudioBar: Elm.Module {
     }
 
     public struct View {
-        public enum PlayPauseButtonMode {
-            case play
-            case pause
-        }
-        let playPauseButtonMode: PlayPauseButtonMode // Rename to match togglePlay
+        let playPauseButtonEvent: Event.PlayPauseButton
         let isPlayPauseButtonEnabled: Bool
         let areSeekButtonsHidden: Bool
         let playbackTime: String
@@ -57,20 +57,24 @@ public struct AudioBar: Elm.Module {
 
     public enum Failure: Error {
         case noURL
+        case readyToLoadURL
         case notReadyToPlay
+        case playing
         case notPlaying
+        case waitingToBecomeReadyToPlay
         case notWaitingToBecomeReadyToPlay
     }
 
-    public static func start(with flags: Flags, perform: (Command) -> Void) throws -> Model {
-        return .waitingForURL
+    public static func start(with seed: Seed, perform: (Action) -> Void) -> Result<State, Failure> {
+        let state = State.waitingForURL
+        return .success(state)
     }
 
-    public static func update(for message: Message, model: inout Model, perform: (Command) -> Void) throws {
-        switch message {
+    public static func update(for event: Event, state: inout State, perform: (Action) -> Void) -> Result<Success, Failure> {
+        switch event {
         case .prepareToLoad(let url):
             let isPlayerActive: Bool = {
-                switch model {
+                switch state {
                 case .waitingForURL:
                     return false
                 case .readyToLoadURL:
@@ -85,84 +89,101 @@ public struct AudioBar: Elm.Module {
                 perform(.player(.loadURL(nil)))
             }
             if let url = url {
-                model = .readyToLoadURL(url)
+                state = .readyToLoadURL(url)
             } else {
-                model = .waitingForURL
+                state = .waitingForURL
             }
-        case .togglePlay:
-            switch model {
+        case .playPauseButton(.userDidTapPlayButton):
+            switch state {
             case .waitingForURL:
-                throw Failure.noURL
+                return .failure(.noURL)
             case .readyToLoadURL(at: let url):
-                model = .waitingForPlayerToBecomeReadyToPlayURL(url)
+                state = .waitingForPlayerToBecomeReadyToPlayURL(url)
                 perform(.player(.loadURL(url)))
+            case .waitingForPlayerToBecomeReadyToPlayURL:
+                return .failure(.waitingToBecomeReadyToPlay)
+            case .readyToPlay(var readyToPlay):
+                guard !readyToPlay.isPlaying else { return .failure(.playing) }
+                readyToPlay.isPlaying = true
+                state = .readyToPlay(readyToPlay)
+                perform(.player(.play))
+            }
+        case .playPauseButton(.userDidTapPauseButton):
+            switch state {
+            case .waitingForURL:
+                return .failure(.noURL)
+            case .readyToLoadURL:
+                return .failure(.readyToLoadURL)
             case .waitingForPlayerToBecomeReadyToPlayURL(let url):
-                model = .readyToLoadURL(url)
+                state = .readyToLoadURL(url)
                 perform(.player(.loadURL(nil)))
-            case .readyToPlay(var state):
-                state.isPlaying ? perform(.player(.pause)) : perform(.player(.play))
-                state.isPlaying = !state.isPlaying
-                model = .readyToPlay(state)
+            case .readyToPlay(var readyToPlay):
+                guard readyToPlay.isPlaying else { return .failure(.notPlaying) }
+                readyToPlay.isPlaying = false
+                state = .readyToPlay(readyToPlay)
+                perform(.player(.pause))
             }
-        case .seekBack:
-            guard case .readyToPlay(var state) = model else {
-                throw Failure.notReadyToPlay
+        case .userDidTapSeekBackButton:
+            guard case .readyToPlay(var readyToPlay) = state else {
+                return .failure(.notReadyToPlay)
             }
-            state.currentTime = max(0, state.currentTime! - Model.seekInterval)
-            model = .readyToPlay(state)
-            perform(.player(.setCurrentTime(state.currentTime!)))
-        case .seekForward:
-            guard case .readyToPlay(var state) = model else {
-                throw Failure.notReadyToPlay
+            readyToPlay.currentTime = max(0, readyToPlay.currentTime! - State.seekInterval)
+            state = .readyToPlay(readyToPlay)
+            perform(.player(.setCurrentTime(readyToPlay.currentTime!)))
+        case .userDidTapSeekForwardButton:
+            guard case .readyToPlay(var readyToPlay) = state else {
+                return .failure(.notReadyToPlay)
             }
 
-            let currentTime = min(state.duration, state.currentTime! + Model.seekInterval)
-            state.currentTime = currentTime
+            let currentTime = min(readyToPlay.duration, readyToPlay.currentTime! + State.seekInterval)
+            readyToPlay.currentTime = currentTime
             perform(.player(.setCurrentTime(currentTime)))
 
-            if currentTime == state.duration && state.isPlaying {
-                state.isPlaying = false
+            if currentTime == readyToPlay.duration && readyToPlay.isPlaying {
+                readyToPlay.isPlaying = false
                 perform(.player(.pause))
             }
 
-            model = .readyToPlay(state)
+            state = .readyToPlay(readyToPlay)
         case .playerDidBecomeReadyToPlay(withDuration: let duration):
-            guard case .waitingForPlayerToBecomeReadyToPlayURL = model else {
-                throw Failure.notWaitingToBecomeReadyToPlay
+            guard case .waitingForPlayerToBecomeReadyToPlayURL = state else {
+                return .failure(.notWaitingToBecomeReadyToPlay)
             }
-            model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
+            state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
             perform(.player(.start(withDuration: duration)))
 
         case .playerDidPlayToEnd:
-            guard case .readyToPlay(var state) = model else {
-                throw Failure.notReadyToPlay
+            guard case .readyToPlay(var readyToPlay) = state else {
+                return .failure(.notReadyToPlay)
             }
-            guard state.isPlaying else {
-                throw Failure.notPlaying
+            guard readyToPlay.isPlaying else {
+                return .failure(.notPlaying)
             }
-            state.currentTime = state.duration
-            state.isPlaying = false
-            model = .readyToPlay(state)
+            readyToPlay.currentTime = readyToPlay.duration
+            readyToPlay.isPlaying = false
+            state = .readyToPlay(readyToPlay)
         case .playerDidUpdateCurrentTime(let currentTime):
-            guard case .readyToPlay(var state) = model else {
-                throw Failure.notReadyToPlay
+            guard case .readyToPlay(var readyToPlay) = state else {
+                return .failure(.notReadyToPlay)
             }
-            state.currentTime = currentTime
-            model = .readyToPlay(state)
+            readyToPlay.currentTime = currentTime
+            state = .readyToPlay(readyToPlay)
         case .playerDidFailToBecomeReady:
-            guard case .waitingForPlayerToBecomeReadyToPlayURL(let url) = model else {
-                throw Failure.notWaitingToBecomeReadyToPlay
+            guard case .waitingForPlayerToBecomeReadyToPlayURL(let url) = state else {
+                return .failure(.notWaitingToBecomeReadyToPlay)
             }
-            model = .readyToLoadURL(url)
+            state = .readyToLoadURL(url)
             perform(.showAlert(text: "Unable to load media", button: "OK"))
         }
+        return .success()
     }
 
-    public static func view(for model: Model) -> View {
-        switch model {
+    public static func view(for state: State) -> Result<View, Failure> {
+        let view: View
+        switch state {
         case .waitingForURL:
-             return View(
-                playPauseButtonMode: .play,
+            view = .init(
+                playPauseButtonEvent: .userDidTapPlayButton,
                 isPlayPauseButtonEnabled: false,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
@@ -171,8 +192,8 @@ public struct AudioBar: Elm.Module {
                 isLoadingIndicatorVisible: false
             )
         case .readyToLoadURL:
-            return View(
-                playPauseButtonMode: .play,
+            view = .init(
+                playPauseButtonEvent: .userDidTapPlayButton,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
@@ -181,8 +202,8 @@ public struct AudioBar: Elm.Module {
                 isLoadingIndicatorVisible: false
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
-            return View(
-                playPauseButtonMode: .pause,
+            view = .init(
+                playPauseButtonEvent: .userDidTapPauseButton,
                 isPlayPauseButtonEnabled: true,
                 areSeekButtonsHidden: true,
                 playbackTime: "",
@@ -190,10 +211,10 @@ public struct AudioBar: Elm.Module {
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: true
             )
-        case .readyToPlay(let state):
+        case .readyToPlay(let readyToPlay):
             var remainingTime: TimeInterval? {
-                guard let currentTime = state.currentTime else { return nil }
-                return state.duration - currentTime
+                guard let currentTime = readyToPlay.currentTime else { return nil }
+                return readyToPlay.duration - currentTime
             }
             var remainingTimeText: String {
                 guard let remainingTime = remainingTime else { return "" }
@@ -207,23 +228,24 @@ public struct AudioBar: Elm.Module {
                 return remainingTime > 0
             }
             var isSeekBackButtonEnabled: Bool {
-                guard let currentTime = state.currentTime else { return false }
+                guard let currentTime = readyToPlay.currentTime else { return false }
                 return currentTime > 0
             }
             var isSeekForwardButtonEnabled: Bool {
                 guard let remainingTime = remainingTime else { return false }
                 return remainingTime > 0
             }
-            return View(
-                playPauseButtonMode: state.isPlaying ? .pause : .play,
+            view = .init(
+                playPauseButtonEvent: readyToPlay.isPlaying ? .userDidTapPauseButton : .userDidTapPlayButton,
                 isPlayPauseButtonEnabled: isPlayPauseButtonEnabled,
                 areSeekButtonsHidden: false,
                 playbackTime: remainingTimeText,
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
-                isLoadingIndicatorVisible: state.isPlaying && state.currentTime == nil
+                isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil
             )
         }
+        return .success(view)
     }
 
 }

@@ -3,14 +3,9 @@ import AVFoundation
 import MediaPlayer
 import Elm
 
-public final class AudioBarViewController: UIViewController, Elm.Delegate {
+public final class AudioBarViewController: UIViewController, StoreDelegate {
 
-    public typealias Module = AudioBar
-
-    typealias Model = AudioBar.Model
-    typealias View = AudioBar.View
-
-    private lazy var program: Program<Module> = Module.makeProgram(delegate: self, flags: .init())
+    private lazy var store: Store<AudioBar> = AudioBar.makeStore(delegate: self, seed: .init())
     private let player = AVPlayer()
     private let volumeView = MPVolumeView()
     private let commandCenter = MPRemoteCommandCenter.shared()
@@ -24,19 +19,20 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
     @IBOutlet private var audioRouteView: UIView!
 
     @IBAction func userDidTapPlayPauseButton() {
-        program.dispatch(.togglePlay)
+        let message = store.view.playPauseButtonEvent
+        store.dispatch(.playPauseButton(message))
     }
 
     @IBAction func userDidTapSeekForwardButton() {
-        program.dispatch(.seekForward)
+        store.dispatch(.userDidTapSeekForwardButton)
     }
 
     @IBAction func userDidTapSeekBackButton() {
-        program.dispatch(.seekBack)
+        store.dispatch(.userDidTapSeekBackButton)
     }
 
     public func loadURL(url: URL?) {
-        program.dispatch(.prepareToLoad(url))
+        store.dispatch(.prepareToLoad(url))
     }
 
     public override func viewDidLoad() {
@@ -45,15 +41,15 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         volumeView.setRouteButtonImage(loadImage(withName: "AirPlay Icon"), for: .normal)
         audioRouteView.addSubview(volumeView)
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: UIFontWeightRegular)
-        player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak program] time in
+        player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak store] _ in
             guard player?.currentItem?.status == .readyToPlay else { return }
             guard let currentTime = player?.currentTime().timeInterval else { return }
-            program?.dispatch(.playerDidUpdateCurrentTime(currentTime))
+            store?.dispatch(.playerDidUpdateCurrentTime(currentTime))
         }
         commandCenter.playCommand.addTarget(self, action: #selector(userDidTapPlayPauseButton))
         commandCenter.pauseCommand.addTarget(self, action: #selector(userDidTapPlayPauseButton))
-        commandCenter.skipForwardCommand.preferredIntervals = [.init(value: Module.Model.seekInterval)]
-        commandCenter.skipBackwardCommand.preferredIntervals = [.init(value: Module.Model.seekInterval)]
+        commandCenter.skipForwardCommand.preferredIntervals = [.init(value: AudioBar.State.seekInterval)]
+        commandCenter.skipBackwardCommand.preferredIntervals = [.init(value: AudioBar.State.seekInterval)]
         commandCenter.skipForwardCommand.addTarget(self, action: #selector(userDidTapSeekForwardButton))
         commandCenter.skipBackwardCommand.addTarget(self, action: #selector(userDidTapSeekBackButton))
         nowPlayingInfoCenter.nowPlayingInfo = [:]
@@ -64,11 +60,11 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         volumeView.frame = audioRouteView.bounds
     }
 
-    public func program(_ program: Program<Module>, didUpdate view: Module.View) {
+    public func store(_ store: Store<AudioBar>, didUpdate view: AudioBar.View) {
         var playPauseButtonImage: UIImage {
-            switch view.playPauseButtonMode {
-            case .play: return loadImage(withName: "Play Button")
-            case .pause: return loadImage(withName: "Pause Button")
+            switch view.playPauseButtonEvent {
+            case .userDidTapPlayButton: return loadImage(withName: "Play Button")
+            case .userDidTapPauseButton: return loadImage(withName: "Pause Button")
             }
         }
         playPauseButton.setImage(playPauseButtonImage, for: .normal)
@@ -85,10 +81,10 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
         commandCenter.skipBackwardCommand.isEnabled = view.isSeekBackButtonEnabled
     }
 
-    public func program(_ program: Program<Module>, didEmit command: Module.Command) {
-        switch command {
-        case .player(let command):
-            switch command {
+    public func store(_ store: Store<AudioBar>, didRequest action: AudioBar.Action) {
+        switch action {
+        case .player(let action):
+            switch action {
             case .loadURL(let url):
                 if let playerItem = player.currentItem {
                     player.replaceCurrentItem(with: nil)
@@ -119,8 +115,8 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
         playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak program] _ in
-            program?.dispatch(.playerDidPlayToEnd)
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store] _ in
+            store?.dispatch(.playerDidPlayToEnd)
         }
     }
 
@@ -136,9 +132,9 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
             case .unknown:
                 break
             case .readyToPlay:
-                program.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
+                store.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
             case .failed:
-                program.dispatch(.playerDidFailToBecomeReady)
+                store.dispatch(.playerDidFailToBecomeReady)
             }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
@@ -169,5 +165,5 @@ extension CMTime {
     var timeInterval: TimeInterval {
         return CMTimeGetSeconds(self)
     }
-    
+
 }
