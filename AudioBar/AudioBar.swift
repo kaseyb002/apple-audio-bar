@@ -32,6 +32,7 @@ public struct AudioBar: Elm.Module {
     public enum Command {
         public enum Player {
             case loadURL(URL?)
+            case start(withDuration: TimeInterval)
             case play
             case pause
             case setCurrentTime(TimeInterval)
@@ -130,7 +131,7 @@ public struct AudioBar: Elm.Module {
                 throw Failure.notWaitingToBecomeReadyToPlay
             }
             model = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
-            perform(.player(.play))
+            perform(.player(.start(withDuration: duration)))
 
         case .playerDidPlayToEnd:
             guard case .readyToPlay(var state) = model else {

@@ -99,6 +99,9 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
                     beginObservingPlayerItem(playerItem)
                     player.replaceCurrentItem(with: playerItem)
                 }
+            case .start(withDuration: let duration):
+                player.play()
+                nowPlayingInfoCenter.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = duration
             case .play:
                 player.play()
             case .pause:
@@ -133,9 +136,7 @@ public final class AudioBarViewController: UIViewController, Elm.Delegate {
             case .unknown:
                 break
             case .readyToPlay:
-                let duration = playerItem.duration.timeInterval
-                program.dispatch(.playerDidBecomeReadyToPlay(withDuration: duration))
-                nowPlayingInfoCenter.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = duration
+                program.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
             case .failed:
                 program.dispatch(.playerDidFailToBecomeReady)
             }
