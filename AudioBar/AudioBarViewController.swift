@@ -39,7 +39,7 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
         volumeView.setRouteButtonImage(loadImage(withName: "AirPlay Icon"), for: .normal)
         audioRouteView.addSubview(volumeView)
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: UIFontWeightRegular)
-        player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak store] time in
+        player.addPeriodicTimeObserver(forInterval: CMTime(timeInterval: 0.1), queue: nil) { [weak player, weak store] _ in
             guard player?.currentItem?.status == .readyToPlay else { return }
             guard let currentTime = player?.currentTime().timeInterval else { return }
             store?.dispatch(.playerDidUpdateCurrentTime(currentTime))
@@ -148,5 +148,5 @@ extension CMTime {
     var timeInterval: TimeInterval {
         return CMTimeGetSeconds(self)
     }
-    
+
 }
