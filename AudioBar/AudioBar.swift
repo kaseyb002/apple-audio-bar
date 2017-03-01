@@ -36,7 +36,6 @@ public struct AudioBar: Program {
     public enum Action {
         public enum Player {
             case loadURL(URL?)
-            case start(withDuration: TimeInterval)
             case play
             case pause
             case setCurrentTime(TimeInterval)
@@ -150,7 +149,7 @@ public struct AudioBar: Program {
                 return .failure(.notWaitingToBecomeReadyToPlay)
             }
             state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
-            perform(.player(.start(withDuration: duration)))
+            perform(.player(.play))
 
         case .playerDidPlayToEnd:
             guard case .readyToPlay(var readyToPlay) = state else {

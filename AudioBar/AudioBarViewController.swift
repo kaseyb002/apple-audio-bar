@@ -90,9 +90,6 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
                     beginObservingPlayerItem(playerItem)
                     player.replaceCurrentItem(with: playerItem)
                 }
-            case .start(withDuration: let duration):
-                player.play()
-                nowPlayingInfoCenter.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = duration
             case .play:
                 player.play()
             case .pause:

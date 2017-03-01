@@ -67,7 +67,7 @@ class AudioBarTests: XCTestCase, Tests {
     func testPlayerDidBecomeReadyToPlay() {
         let update = expectUpdate(for: .playerDidBecomeReadyToPlay(withDuration: 1), state: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(update?.state, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: nil)))
-        expect(update?.action, .player(.start(withDuration: 1)))
+        expect(update?.action, .player(.play))
     }
 
     func testPlayerDidBecomeReadyToPlayUnexpectedly1() {
