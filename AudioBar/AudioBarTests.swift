@@ -311,6 +311,7 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, false)
+        expect(view?.elapsedPlaybackTime, nil)
     }
 
     func testViewWhenReadyToLoad() {
@@ -322,6 +323,7 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, false)
+        expect(view?.elapsedPlaybackTime, nil)
     }
 
     func testViewWhenWaitingForPlayer() {
@@ -333,6 +335,7 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, true)
+        expect(view?.elapsedPlaybackTime, nil)
     }
 
     func testPlaybackTime1() {
@@ -353,6 +356,26 @@ class AudioBarTests: XCTestCase, Tests {
     func testPlaybackTime4() {
         let view = expectView(for: .readyToPlay(.init(duration: 60, currentTime: 20)))
         expect(view?.playbackTime, "-0:40")
+    }
+
+    func testElapsedPlaybackTime1() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: nil)))
+        expect(view?.elapsedPlaybackTime, nil)
+    }
+
+    func testElapsedPlaybackTime2() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: 0)))
+        expect(view?.elapsedPlaybackTime, 0)
+    }
+
+    func testElapsedPlaybackTime3() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: 1)))
+        expect(view?.elapsedPlaybackTime, 1)
+    }
+
+    func testElapsedPlaybackTime4() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: 20)))
+        expect(view?.elapsedPlaybackTime, 20)
     }
 
     func testIsLoadingIndicatorVisible1() {

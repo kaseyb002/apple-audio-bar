@@ -52,6 +52,7 @@ public struct AudioBar: Program {
         let isSeekBackButtonEnabled: Bool
         let isSeekForwardButtonEnabled: Bool
         let isLoadingIndicatorVisible: Bool
+        let elapsedPlaybackTime: TimeInterval?
     }
 
     public enum Failure: Error {
@@ -188,7 +189,8 @@ public struct AudioBar: Program {
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
-                isLoadingIndicatorVisible: false
+                isLoadingIndicatorVisible: false,
+                elapsedPlaybackTime: nil
             )
         case .readyToLoadURL:
             view = .init(
@@ -198,7 +200,8 @@ public struct AudioBar: Program {
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
-                isLoadingIndicatorVisible: false
+                isLoadingIndicatorVisible: false,
+                elapsedPlaybackTime: nil
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
             view = .init(
@@ -208,7 +211,8 @@ public struct AudioBar: Program {
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
-                isLoadingIndicatorVisible: true
+                isLoadingIndicatorVisible: true,
+                elapsedPlaybackTime: nil
             )
         case .readyToPlay(let readyToPlay):
             var remainingTime: TimeInterval? {
@@ -241,7 +245,8 @@ public struct AudioBar: Program {
                 playbackTime: remainingTimeText,
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
-                isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil
+                isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
+                elapsedPlaybackTime: readyToPlay.currentTime
             )
         }
         return .success(view)
