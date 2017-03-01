@@ -54,6 +54,7 @@ public struct AudioBar: Program {
         let isLoadingIndicatorVisible: Bool
         let elapsedPlaybackTime: TimeInterval?
         let playbackDuration: TimeInterval?
+        let seekInterval: TimeInterval
     }
 
     public enum Failure: Error {
@@ -192,7 +193,8 @@ public struct AudioBar: Program {
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
                 elapsedPlaybackTime: nil,
-                playbackDuration: nil
+                playbackDuration: nil,
+                seekInterval: State.seekInterval
             )
         case .readyToLoadURL:
             view = .init(
@@ -204,7 +206,8 @@ public struct AudioBar: Program {
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
                 elapsedPlaybackTime: nil,
-                playbackDuration: nil
+                playbackDuration: nil,
+                seekInterval: State.seekInterval
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
             view = .init(
@@ -216,7 +219,8 @@ public struct AudioBar: Program {
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: true,
                 elapsedPlaybackTime: nil,
-                playbackDuration: nil
+                playbackDuration: nil,
+                seekInterval: State.seekInterval
             )
         case .readyToPlay(let readyToPlay):
             var remainingTime: TimeInterval? {
@@ -251,7 +255,8 @@ public struct AudioBar: Program {
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
                 isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
                 elapsedPlaybackTime: readyToPlay.currentTime,
-                playbackDuration: readyToPlay.duration
+                playbackDuration: readyToPlay.duration,
+                seekInterval: State.seekInterval
             )
         }
         return .success(view)
