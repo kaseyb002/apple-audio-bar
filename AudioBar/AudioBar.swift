@@ -53,6 +53,7 @@ public struct AudioBar: Program {
         let isSeekForwardButtonEnabled: Bool
         let isLoadingIndicatorVisible: Bool
         let elapsedPlaybackTime: TimeInterval?
+        let playbackDuration: TimeInterval?
     }
 
     public enum Failure: Error {
@@ -190,7 +191,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
-                elapsedPlaybackTime: nil
+                elapsedPlaybackTime: nil,
+                playbackDuration: nil
             )
         case .readyToLoadURL:
             view = .init(
@@ -201,7 +203,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
-                elapsedPlaybackTime: nil
+                elapsedPlaybackTime: nil,
+                playbackDuration: nil
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
             view = .init(
@@ -212,7 +215,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: true,
-                elapsedPlaybackTime: nil
+                elapsedPlaybackTime: nil,
+                playbackDuration: nil
             )
         case .readyToPlay(let readyToPlay):
             var remainingTime: TimeInterval? {
@@ -246,7 +250,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
                 isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
-                elapsedPlaybackTime: readyToPlay.currentTime
+                elapsedPlaybackTime: readyToPlay.currentTime,
+                playbackDuration: readyToPlay.duration
             )
         }
         return .success(view)

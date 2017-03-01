@@ -75,6 +75,7 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
         remoteCommandCenter.skipForwardCommand.isEnabled = view.isSeekForwardButtonEnabled
         remoteCommandCenter.skipBackwardCommand.isEnabled = view.isSeekBackButtonEnabled
         nowPlayingInfoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = view.elapsedPlaybackTime
+        nowPlayingInfoCenter.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = view.playbackDuration
     }
 
     public func store(_ store: Store<AudioBar>, didRequest action: AudioBar.Action) {
