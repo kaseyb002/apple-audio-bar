@@ -52,8 +52,8 @@ public struct AudioBar: Program {
         let isSeekBackButtonEnabled: Bool
         let isSeekForwardButtonEnabled: Bool
         let isLoadingIndicatorVisible: Bool
-        let elapsedPlaybackTime: TimeInterval?
-        let playbackDuration: TimeInterval?
+        let elapsedPlaybackTime: TimeInterval
+        let playbackDuration: TimeInterval
         let seekInterval: TimeInterval
     }
 
@@ -192,8 +192,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
-                elapsedPlaybackTime: nil,
-                playbackDuration: nil,
+                elapsedPlaybackTime: 0,
+                playbackDuration: 0,
                 seekInterval: State.seekInterval
             )
         case .readyToLoadURL:
@@ -205,8 +205,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
-                elapsedPlaybackTime: nil,
-                playbackDuration: nil,
+                elapsedPlaybackTime: 0,
+                playbackDuration: 0,
                 seekInterval: State.seekInterval
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
@@ -218,8 +218,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: true,
-                elapsedPlaybackTime: nil,
-                playbackDuration: nil,
+                elapsedPlaybackTime: 0,
+                playbackDuration: 0,
                 seekInterval: State.seekInterval
             )
         case .readyToPlay(let readyToPlay):
@@ -254,7 +254,7 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
                 isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
-                elapsedPlaybackTime: readyToPlay.currentTime,
+                elapsedPlaybackTime: readyToPlay.currentTime ?? 0,
                 playbackDuration: readyToPlay.duration,
                 seekInterval: State.seekInterval
             )

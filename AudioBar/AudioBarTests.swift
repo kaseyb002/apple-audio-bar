@@ -311,8 +311,8 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, false)
-        expect(view?.elapsedPlaybackTime, nil)
-        expect(view?.playbackDuration, nil)
+        expect(view?.elapsedPlaybackTime, 0)
+        expect(view?.playbackDuration, 0)
         expect(view?.seekInterval, 15)
     }
 
@@ -325,8 +325,8 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, false)
-        expect(view?.elapsedPlaybackTime, nil)
-        expect(view?.playbackDuration, nil)
+        expect(view?.elapsedPlaybackTime, 0)
+        expect(view?.playbackDuration, 0)
         expect(view?.seekInterval, 15)
     }
 
@@ -339,8 +339,8 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, true)
-        expect(view?.elapsedPlaybackTime, nil)
-        expect(view?.playbackDuration, nil)
+        expect(view?.elapsedPlaybackTime, 0)
+        expect(view?.playbackDuration, 0)
         expect(view?.seekInterval, 15)
     }
 
@@ -366,7 +366,7 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testElapsedPlaybackTime1() {
         let view = expectView(for: .readyToPlay(.init(currentTime: nil)))
-        expect(view?.elapsedPlaybackTime, nil)
+        expect(view?.elapsedPlaybackTime, 0)
     }
 
     func testElapsedPlaybackTime2() {
@@ -385,23 +385,23 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testPlaybackDuration1() {
+        let view = expectView(for: .readyToPlay(.init(duration: 0)))
+        expect(view?.playbackDuration, 0)
+    }
+
+    func testPlaybackDuration2() {
         let view = expectView(for: .readyToPlay(.init(duration: 1)))
         expect(view?.playbackDuration, 1)
     }
 
-    func testPlaybackDuration2() {
+    func testPlaybackDuration3() {
         let view = expectView(for: .readyToPlay(.init(duration: 20)))
         expect(view?.playbackDuration, 20)
     }
 
-    func testPlaybackDuration3() {
+    func testPlaybackDuration4() {
         let view = expectView(for: .readyToPlay(.init(duration: 21)))
         expect(view?.playbackDuration, 21)
-    }
-
-    func testPlaybackDuration4() {
-        let view = expectView(for: .readyToPlay(.init(duration: 60)))
-        expect(view?.playbackDuration, 60)
     }
 
     func testSeekIntervalWhenReadyToPlay() {
