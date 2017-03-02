@@ -70,8 +70,9 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
         seekForwardButton.isEnabled = view.isSeekForwardButtonEnabled
         timeLabel.text = view.playbackTime
         loadingIndicator.isHidden = !view.isLoadingIndicatorVisible
-        remoteCommandCenter.playCommand.isEnabled = view.isPlayPauseButtonEnabled
-        remoteCommandCenter.pauseCommand.isEnabled = view.isPlayPauseButtonEnabled
+        remoteCommandCenter.togglePlayPauseCommand.isEnabled = view.isPlayPauseButtonEnabled
+        remoteCommandCenter.playCommand.isEnabled = view.isPlayCommandEnabled
+        remoteCommandCenter.pauseCommand.isEnabled = view.isPauseCommandEnabled
         remoteCommandCenter.skipForwardCommand.isEnabled = view.isSeekForwardButtonEnabled
         remoteCommandCenter.skipBackwardCommand.isEnabled = view.isSeekBackButtonEnabled
         remoteCommandCenter.skipForwardCommand.preferredIntervals = [.init(value: view.seekInterval)]

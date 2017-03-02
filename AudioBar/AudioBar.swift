@@ -57,6 +57,8 @@ public struct AudioBar: Program {
         let isSeekBackButtonEnabled: Bool
         let isSeekForwardButtonEnabled: Bool
         let isLoadingIndicatorVisible: Bool
+        let isPlayCommandEnabled: Bool
+        let isPauseCommandEnabled: Bool
         let seekInterval: TimeInterval
     }
 
@@ -198,6 +200,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
+                isPlayCommandEnabled: false,
+                isPauseCommandEnabled: false,
                 seekInterval: State.seekInterval
             )
         case .readyToLoadURL:
@@ -209,6 +213,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
+                isPlayCommandEnabled: true,
+                isPauseCommandEnabled: false,
                 seekInterval: State.seekInterval
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
@@ -220,6 +226,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: true,
+                isPlayCommandEnabled: false,
+                isPauseCommandEnabled: true,
                 seekInterval: State.seekInterval
             )
         case .readyToPlay(let readyToPlay):
@@ -254,6 +262,8 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
                 isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
+                isPlayCommandEnabled: !readyToPlay.isPlaying && isPlayPauseButtonEnabled,
+                isPauseCommandEnabled: readyToPlay.isPlaying && isPlayPauseButtonEnabled,
                 seekInterval: State.seekInterval
             )
         }
