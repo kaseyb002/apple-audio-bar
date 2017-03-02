@@ -40,7 +40,12 @@ public struct AudioBar: Program {
             case pause
             case setCurrentTime(TimeInterval)
         }
+        public enum NowPlayingInfoCenter {
+            case setPlaybackDuration(TimeInterval)
+            case setElapsedPlaybackTime(TimeInterval)
+        }
         case player(Player)
+        case nowPlayingInfoCenter(NowPlayingInfoCenter)
         case showAlert(text: String, button: String)
     }
 
@@ -52,8 +57,6 @@ public struct AudioBar: Program {
         let isSeekBackButtonEnabled: Bool
         let isSeekForwardButtonEnabled: Bool
         let isLoadingIndicatorVisible: Bool
-        let elapsedPlaybackTime: TimeInterval
-        let playbackDuration: TimeInterval
         let seekInterval: TimeInterval
     }
 
@@ -131,6 +134,7 @@ public struct AudioBar: Program {
             }
             readyToPlay.currentTime = max(0, readyToPlay.currentTime! - State.seekInterval)
             state = .readyToPlay(readyToPlay)
+            perform(.nowPlayingInfoCenter(.setElapsedPlaybackTime(readyToPlay.currentTime!)))
             perform(.player(.setCurrentTime(readyToPlay.currentTime!)))
         case .userDidTapSeekForwardButton:
             guard case .readyToPlay(var readyToPlay) = state else {
@@ -139,6 +143,7 @@ public struct AudioBar: Program {
 
             let currentTime = min(readyToPlay.duration, readyToPlay.currentTime! + State.seekInterval)
             readyToPlay.currentTime = currentTime
+            perform(.nowPlayingInfoCenter(.setElapsedPlaybackTime(currentTime)))
             perform(.player(.setCurrentTime(currentTime)))
 
             if currentTime == readyToPlay.duration && readyToPlay.isPlaying {
@@ -153,6 +158,7 @@ public struct AudioBar: Program {
             }
             state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
             perform(.player(.play))
+            perform(.nowPlayingInfoCenter(.setPlaybackDuration(duration)))
 
         case .playerDidPlayToEnd:
             guard case .readyToPlay(var readyToPlay) = state else {
@@ -192,8 +198,6 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
-                elapsedPlaybackTime: 0,
-                playbackDuration: 0,
                 seekInterval: State.seekInterval
             )
         case .readyToLoadURL:
@@ -205,8 +209,6 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: false,
-                elapsedPlaybackTime: 0,
-                playbackDuration: 0,
                 seekInterval: State.seekInterval
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
@@ -218,8 +220,6 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
                 isLoadingIndicatorVisible: true,
-                elapsedPlaybackTime: 0,
-                playbackDuration: 0,
                 seekInterval: State.seekInterval
             )
         case .readyToPlay(let readyToPlay):
@@ -254,8 +254,6 @@ public struct AudioBar: Program {
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
                 isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
-                elapsedPlaybackTime: readyToPlay.currentTime ?? 0,
-                playbackDuration: readyToPlay.duration,
                 seekInterval: State.seekInterval
             )
         }
