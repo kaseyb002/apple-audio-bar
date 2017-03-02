@@ -115,17 +115,31 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
     }
 
     private func configureCommandCenterCommands() {
-        remoteCommandCenter.togglePlayPauseCommand.addTarget(self, action: #selector(userDidTapPlayPauseButton))
+        remoteCommandCenter.togglePlayPauseCommand.addTarget { [weak self, weak store] _ in
+            guard store!.view.isPlayPauseButtonEnabled else { return .commandFailed }
+            self!.userDidTapPlayPauseButton()
+            return .success
+        }
         remoteCommandCenter.playCommand.addTarget { [weak store] _ in
+            guard store!.view.isPlayCommandEnabled else { return .commandFailed }
             store!.dispatch(.playPauseButton(.userDidTapPlayButton))
             return .success
         }
         remoteCommandCenter.pauseCommand.addTarget { [weak store] _ in
+            guard store!.view.isPauseCommandEnabled else { return .commandFailed }
             store!.dispatch(.playPauseButton(.userDidTapPauseButton))
             return .success
         }
-        remoteCommandCenter.skipForwardCommand.addTarget(self, action: #selector(userDidTapSeekForwardButton))
-        remoteCommandCenter.skipBackwardCommand.addTarget(self, action: #selector(userDidTapSeekBackButton))
+        remoteCommandCenter.skipForwardCommand.addTarget { [weak store] _ in
+            guard store!.view.isSeekForwardButtonEnabled else { return .commandFailed }
+            store!.dispatch(.userDidTapSeekForwardButton)
+            return .success
+        }
+        remoteCommandCenter.skipBackwardCommand.addTarget { [weak store] _ in
+            guard store!.view.isSeekBackButtonEnabled else { return .commandFailed }
+            store!.dispatch(.userDidTapSeekBackButton)
+            return .success
+        }
     }
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
