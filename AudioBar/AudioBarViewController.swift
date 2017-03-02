@@ -100,7 +100,6 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
                 player.pause()
             case .setCurrentTime(let time):
                 player.seek(to: CMTime(timeInterval: time))
-                nowPlayingInfoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = time
             }
         case .showAlert(text: let text, button: let button):
             let alertController = UIAlertController(title: text, message: nil, preferredStyle: .alert)
@@ -110,6 +109,7 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
     }
 
     private func configureCommandCenterCommands() {
+        remoteCommandCenter.togglePlayPauseCommand.addTarget(self, action: #selector(userDidTapPlayPauseButton))
         remoteCommandCenter.playCommand.addTarget { [weak store] _ in
             store!.dispatch(.playPauseButton(.userDidTapPlayButton))
             return .success
@@ -118,14 +118,8 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
             store!.dispatch(.playPauseButton(.userDidTapPauseButton))
             return .success
         }
-        remoteCommandCenter.skipForwardCommand.addTarget { [weak store] _ in
-            store!.dispatch(.userDidTapSeekForwardButton)
-            return .success
-        }
-        remoteCommandCenter.skipBackwardCommand.addTarget { [weak store] _ in
-            store!.dispatch(.userDidTapSeekBackButton)
-            return .success
-        }
+        remoteCommandCenter.skipForwardCommand.addTarget(self, action: #selector(userDidTapSeekForwardButton))
+        remoteCommandCenter.skipBackwardCommand.addTarget(self, action: #selector(userDidTapSeekBackButton))
     }
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
