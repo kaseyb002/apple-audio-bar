@@ -37,6 +37,8 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        nowPlayingInfoCenter.nowPlayingInfo = [:]
+        configureCommandCenterCommands()
         volumeView.showsVolumeSlider = false
         volumeView.setRouteButtonImage(loadImage(withName: "AirPlay Icon"), for: .normal)
         audioRouteView.addSubview(volumeView)
@@ -46,8 +48,6 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
             guard let currentTime = player?.currentTime().timeInterval else { return }
             store?.dispatch(.playerDidUpdateCurrentTime(currentTime))
         }
-        configureCommandCenterCommands()
-        nowPlayingInfoCenter.nowPlayingInfo = [:]
     }
 
     public override func viewDidLayoutSubviews() {
@@ -77,8 +77,8 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
         remoteCommandCenter.skipBackwardCommand.isEnabled = view.isSeekBackButtonEnabled
         remoteCommandCenter.skipForwardCommand.preferredIntervals = [.init(value: view.seekInterval)]
         remoteCommandCenter.skipBackwardCommand.preferredIntervals = [.init(value: view.seekInterval)]
-        nowPlayingInfoCenter.nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = view.playbackDuration
-        nowPlayingInfoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = view.elapsedPlaybackTime
+        nowPlayingInfoCenter.setPlaybackDuration(view.playbackDuration)
+        nowPlayingInfoCenter.setElapsedPlaybackTime(view.elapsedPlaybackTime)
     }
 
     public func store(_ store: Store<AudioBar>, didRequest action: AudioBar.Action) {
