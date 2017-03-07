@@ -380,18 +380,8 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testPlaybackDuration2() {
-        let view = expectView(for: .readyToPlay(.init(duration: 20)))
-        expect(view?.playbackDuration, 20)
-    }
-
-    func testPlaybackDuration3() {
-        let view = expectView(for: .readyToPlay(.init(duration: 21)))
-        expect(view?.playbackDuration, 21)
-    }
-
-    func testPlaybackDuration4() {
-        let view = expectView(for: .readyToPlay(.init(duration: 60)))
-        expect(view?.playbackDuration, 60)
+        let view = expectView(for: .readyToPlay(.init(duration: 2)))
+        expect(view?.playbackDuration, 2)
     }
 
     func testElapsedPlaybackTime1() {
@@ -400,18 +390,13 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testElapsedPlaybackTime2() {
-        let view = expectView(for: .readyToPlay(.init(currentTime: 0)))
-        expect(view?.elapsedPlaybackTime, 0)
-    }
-
-    func testElapsedPlaybackTime3() {
         let view = expectView(for: .readyToPlay(.init(currentTime: 1)))
         expect(view?.elapsedPlaybackTime, 1)
     }
 
-    func testElapsedPlaybackTime4() {
-        let view = expectView(for: .readyToPlay(.init(currentTime: 20)))
-        expect(view?.elapsedPlaybackTime, 20)
+    func testElapsedPlaybackTime3() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: 2)))
+        expect(view?.elapsedPlaybackTime, 2)
     }
 
     func testSeekIntervalWhenReadyToPlay() {
@@ -419,21 +404,33 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.seekInterval, 15)
     }
 
-    func testPlayAndPauseCommandsEnabled1() {
+    func testIsPlayCommandEnabled1() {
         let view = expectView(for: .readyToPlay(.init(isPlaying: true)))
         expect(view?.isPlayCommandEnabled, false)
-        expect(view?.isPauseCommandEnabled, true)
     }
 
-    func testPlayAndPauseCommandsEnabled2() {
-        let view = expectView(for: .readyToPlay(.init(isPlaying: false)))
+    func testIsPlayCommandEnabled2() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: false, duration: 1, currentTime: 0)))
         expect(view?.isPlayCommandEnabled, true)
+    }
+
+    func testIsPlayCommandEnabled3() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: false, duration: 1, currentTime: 1)))
+        expect(view?.isPlayCommandEnabled, false)
+    }
+
+    func testIsPauseCommandEnabled1() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: false)))
         expect(view?.isPauseCommandEnabled, false)
     }
 
-    func testPlayAndPauseCommandsEnabled3() {
-        let view = expectView(for: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
-        expect(view?.isPlayCommandEnabled, false)
+    func testIsPauseCommandEnabled2() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: 0)))
+        expect(view?.isPauseCommandEnabled, true)
+    }
+
+    func testIsPauseCommandEnabled3() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: 1)))
         expect(view?.isPauseCommandEnabled, false)
     }
 
