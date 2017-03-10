@@ -21,23 +21,23 @@ class AudioBarTests: XCTestCase, Tests {
     // MARK: Update
 
     func testPrepareToLoad1() {
-        let update = expectUpdate(for: .prepareToLoad(URL.foo), state: .waitingForURL)
+        let update = expectUpdate(for: .prepareToLoad(.foo), state: .waitingForURL)
         expect(update?.state, .readyToLoadURL(URL.foo))
     }
 
     func testPrepareToLoad2() {
-        let update = expectUpdate(for: .prepareToLoad(URL.foo), state: .readyToLoadURL(URL.bar))
-        expect(update?.state, .readyToLoadURL(URL.foo))
+        let update = expectUpdate(for: .prepareToLoad(.foo), state: .readyToLoadURL(.bar))
+        expect(update?.state, .readyToLoadURL(.foo))
     }
 
     func testPrepareToLoad3() {
-        let update = expectUpdate(for: .prepareToLoad(URL.foo), state: .waitingForPlayerToBecomeReadyToPlayURL(URL.bar))
-        expect(update?.state, .readyToLoadURL(URL.foo))
+        let update = expectUpdate(for: .prepareToLoad(.foo), state: .waitingForPlayerToBecomeReadyToPlayURL(.bar))
+        expect(update?.state, .readyToLoadURL(.foo))
         expect(update?.action, .player(.loadURL(nil)))
     }
 
     func testPrepareToLoad4() {
-        let update = expectUpdate(for: .prepareToLoad(URL.foo), state: .readyToPlay(.init()))
+        let update = expectUpdate(for: .prepareToLoad(.foo), state: .readyToPlay(.init()))
         expect(update?.state, .readyToLoadURL(URL.foo))
         expect(update?.action, .player(.loadURL(nil)))
     }
@@ -48,12 +48,12 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testPrepareToLoadNil2() {
-        let update = expectUpdate(for: .prepareToLoad(nil), state: .readyToLoadURL(URL.foo))
+        let update = expectUpdate(for: .prepareToLoad(nil), state: .readyToLoadURL(.foo))
         expect(update?.state, .waitingForURL)
     }
 
     func testPrepareToLoadNil3() {
-        let update = expectUpdate(for: .prepareToLoad(nil), state: .waitingForPlayerToBecomeReadyToPlayURL(URL.foo))
+        let update = expectUpdate(for: .prepareToLoad(nil), state: .waitingForPlayerToBecomeReadyToPlayURL(.foo))
         expect(update?.state, .waitingForURL)
         expect(update?.action, .player(.loadURL(nil)))
     }
@@ -158,14 +158,16 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testUserDidTapSeekBackButton1() {
         let update = expectUpdate(for: .userDidTapSeekBackButton, state: .readyToPlay(.init(duration: 60, currentTime: 60)))
-        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: 60 - AudioBar.State.seekInterval)))
-        expect(update?.action, .player(.setCurrentTime(60 - AudioBar.State.seekInterval)))
+        let expectedTime = 60 - AudioBar.State.seekInterval
+        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: expectedTime)))
+        expect(update?.action, .player(.setCurrentTime(expectedTime)))
     }
 
     func testUserDidTapSeekBackButton2() {
         let update = expectUpdate(for: .userDidTapSeekBackButton, state: .readyToPlay(.init(duration: 60, currentTime: 15)))
-        expect(update?.action, .player(.setCurrentTime(15 - AudioBar.State.seekInterval)))
-        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: 15 - AudioBar.State.seekInterval)))
+        let expectedTime = 15 - AudioBar.State.seekInterval
+        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: expectedTime)))
+        expect(update?.action, .player(.setCurrentTime(expectedTime)))
     }
 
     func testUserDidTapSeekBackButtonNearBeginning1() {
@@ -197,14 +199,16 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testUserDidTapSeekForwardButton1() {
         let update = expectUpdate(for: .userDidTapSeekForwardButton, state: .readyToPlay(.init(duration: 60, currentTime: 0)))
-        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: 0 + AudioBar.State.seekInterval)))
-        expect(update?.action, .player(.setCurrentTime(0 + AudioBar.State.seekInterval)))
+        let expectedTime = 0 + AudioBar.State.seekInterval
+        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: expectedTime)))
+        expect(update?.action, .player(.setCurrentTime(expectedTime)))
     }
 
     func testUserDidTapSeekForwardButton2() {
         let update = expectUpdate(for: .userDidTapSeekForwardButton, state: .readyToPlay(.init(duration: 60, currentTime: 1)))
-        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: 1 + AudioBar.State.seekInterval)))
-        expect(update?.action, .player(.setCurrentTime(1 + AudioBar.State.seekInterval)))
+        let expectedTime = 1 + AudioBar.State.seekInterval
+        expect(update?.state, .readyToPlay(.init(duration: 60, currentTime: expectedTime)))
+        expect(update?.action, .player(.setCurrentTime(expectedTime)))
     }
 
     func testUserDidTapSeekForwardButtonNearEndWhenPlaying1() {
@@ -311,6 +315,11 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, false)
+        expect(view?.isPlayCommandEnabled, false)
+        expect(view?.isPauseCommandEnabled, false)
+        expect(view?.seekInterval, 15)
+        expect(view?.playbackDuration, 0)
+        expect(view?.elapsedPlaybackTime, 0)
     }
 
     func testViewWhenReadyToLoad() {
@@ -318,21 +327,31 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.playPauseButtonEvent, .userDidTapPlayButton)
         expect(view?.isPlayPauseButtonEnabled, true)
         expect(view?.areSeekButtonsHidden, true)
+        expect(view?.isPlayCommandEnabled, true)
+        expect(view?.isPauseCommandEnabled, false)
         expect(view?.playbackTime, "")
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, false)
+        expect(view?.seekInterval, 15)
+        expect(view?.playbackDuration, 0)
+        expect(view?.elapsedPlaybackTime, 0)
     }
 
     func testViewWhenWaitingForPlayer() {
         let view = expectView(for: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
         expect(view?.playPauseButtonEvent, .userDidTapPauseButton)
         expect(view?.isPlayPauseButtonEnabled, true)
+        expect(view?.isPlayCommandEnabled, false)
+        expect(view?.isPauseCommandEnabled, true)
         expect(view?.areSeekButtonsHidden, true)
         expect(view?.playbackTime, "")
         expect(view?.isSeekBackButtonEnabled, false)
         expect(view?.isSeekForwardButtonEnabled, false)
         expect(view?.isLoadingIndicatorVisible, true)
+        expect(view?.seekInterval, 15)
+        expect(view?.playbackDuration, 0)
+        expect(view?.elapsedPlaybackTime, 0)
     }
 
     func testPlaybackTime1() {
@@ -353,6 +372,66 @@ class AudioBarTests: XCTestCase, Tests {
     func testPlaybackTime4() {
         let view = expectView(for: .readyToPlay(.init(duration: 60, currentTime: 20)))
         expect(view?.playbackTime, "-0:40")
+    }
+
+    func testPlaybackDuration1() {
+        let view = expectView(for: .readyToPlay(.init(duration: 1)))
+        expect(view?.playbackDuration, 1)
+    }
+
+    func testPlaybackDuration2() {
+        let view = expectView(for: .readyToPlay(.init(duration: 2)))
+        expect(view?.playbackDuration, 2)
+    }
+
+    func testElapsedPlaybackTime1() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: nil)))
+        expect(view?.elapsedPlaybackTime, 0)
+    }
+
+    func testElapsedPlaybackTime2() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: 1)))
+        expect(view?.elapsedPlaybackTime, 1)
+    }
+
+    func testElapsedPlaybackTime3() {
+        let view = expectView(for: .readyToPlay(.init(currentTime: 2)))
+        expect(view?.elapsedPlaybackTime, 2)
+    }
+
+    func testSeekIntervalWhenReadyToPlay() {
+        let view = expectView(for: .readyToPlay(.init()))
+        expect(view?.seekInterval, 15)
+    }
+
+    func testIsPlayCommandEnabled1() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: true)))
+        expect(view?.isPlayCommandEnabled, false)
+    }
+
+    func testIsPlayCommandEnabled2() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: false, duration: 1, currentTime: 0)))
+        expect(view?.isPlayCommandEnabled, true)
+    }
+
+    func testIsPlayCommandEnabled3() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: false, duration: 1, currentTime: 1)))
+        expect(view?.isPlayCommandEnabled, false)
+    }
+
+    func testIsPauseCommandEnabled1() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: false)))
+        expect(view?.isPauseCommandEnabled, false)
+    }
+
+    func testIsPauseCommandEnabled2() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: 0)))
+        expect(view?.isPauseCommandEnabled, true)
+    }
+
+    func testIsPauseCommandEnabled3() {
+        let view = expectView(for: .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: 1)))
+        expect(view?.isPauseCommandEnabled, false)
     }
 
     func testIsLoadingIndicatorVisible1() {

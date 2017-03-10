@@ -52,6 +52,11 @@ public struct AudioBar: Program {
         let isSeekBackButtonEnabled: Bool
         let isSeekForwardButtonEnabled: Bool
         let isLoadingIndicatorVisible: Bool
+        let isPlayCommandEnabled: Bool
+        let isPauseCommandEnabled: Bool
+        let seekInterval: TimeInterval
+        let playbackDuration: TimeInterval
+        let elapsedPlaybackTime: TimeInterval
     }
 
     public enum Failure: Error {
@@ -188,7 +193,12 @@ public struct AudioBar: Program {
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
-                isLoadingIndicatorVisible: false
+                isLoadingIndicatorVisible: false,
+                isPlayCommandEnabled: false,
+                isPauseCommandEnabled: false,
+                seekInterval: State.seekInterval,
+                playbackDuration: 0,
+                elapsedPlaybackTime: 0
             )
         case .readyToLoadURL:
             view = .init(
@@ -198,7 +208,12 @@ public struct AudioBar: Program {
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
-                isLoadingIndicatorVisible: false
+                isLoadingIndicatorVisible: false,
+                isPlayCommandEnabled: true,
+                isPauseCommandEnabled: false,
+                seekInterval: State.seekInterval,
+                playbackDuration: 0,
+                elapsedPlaybackTime: 0
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
             view = .init(
@@ -208,7 +223,12 @@ public struct AudioBar: Program {
                 playbackTime: "",
                 isSeekBackButtonEnabled: false,
                 isSeekForwardButtonEnabled: false,
-                isLoadingIndicatorVisible: true
+                isLoadingIndicatorVisible: true,
+                isPlayCommandEnabled: false,
+                isPauseCommandEnabled: true,
+                seekInterval: State.seekInterval,
+                playbackDuration: 0,
+                elapsedPlaybackTime: 0
             )
         case .readyToPlay(let readyToPlay):
             var remainingTime: TimeInterval? {
@@ -241,7 +261,12 @@ public struct AudioBar: Program {
                 playbackTime: remainingTimeText,
                 isSeekBackButtonEnabled: isSeekBackButtonEnabled,
                 isSeekForwardButtonEnabled: isSeekForwardButtonEnabled,
-                isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil
+                isLoadingIndicatorVisible: readyToPlay.isPlaying && readyToPlay.currentTime == nil,
+                isPlayCommandEnabled: !readyToPlay.isPlaying && isPlayPauseButtonEnabled,
+                isPauseCommandEnabled: readyToPlay.isPlaying && isPlayPauseButtonEnabled,
+                seekInterval: State.seekInterval,
+                playbackDuration: readyToPlay.duration,
+                elapsedPlaybackTime: readyToPlay.currentTime ?? 0
             )
         }
         return .success(view)
