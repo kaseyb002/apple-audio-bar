@@ -65,8 +65,8 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testPlayerDidBecomeReadyToPlay() {
-        let update = expectUpdate(for: .playerDidBecomeReadyToPlay(withDuration: 1), state: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
-        expect(update?.state, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: nil)))
+        let update = expectUpdate(for: .playerDidBecomeReadyToPlay(withDuration: 1, and: AudioTags()), state: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
+        expect(update?.state, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: nil, audioTags: AudioTags())))
         expect(update?.action, .player(.play))
     }
 
@@ -320,6 +320,9 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.seekInterval, 15)
         expect(view?.playbackDuration, 0)
         expect(view?.elapsedPlaybackTime, 0)
+        expect(view?.trackName, nil)
+        expect(view?.artistName, nil)
+        expect(view?.albumName, nil)
     }
 
     func testViewWhenReadyToLoad() {
@@ -336,6 +339,9 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.seekInterval, 15)
         expect(view?.playbackDuration, 0)
         expect(view?.elapsedPlaybackTime, 0)
+        expect(view?.trackName, nil)
+        expect(view?.artistName, nil)
+        expect(view?.albumName, nil)
     }
 
     func testViewWhenWaitingForPlayer() {
@@ -352,6 +358,9 @@ class AudioBarTests: XCTestCase, Tests {
         expect(view?.seekInterval, 15)
         expect(view?.playbackDuration, 0)
         expect(view?.elapsedPlaybackTime, 0)
+        expect(view?.trackName, nil)
+        expect(view?.artistName, nil)
+        expect(view?.albumName, nil)
     }
 
     func testPlaybackTime1() {
@@ -432,6 +441,61 @@ class AudioBarTests: XCTestCase, Tests {
     func testIsPauseCommandEnabled3() {
         let view = expectView(for: .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: 1)))
         expect(view?.isPauseCommandEnabled, false)
+    }
+
+    func testTrackName1() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(title: nil))))
+        expect(view?.trackName, nil)
+    }
+
+    func testTrackName2() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(title: "1"))))
+        expect(view?.trackName, "1")
+    }
+
+    func testTrackName3() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(title: "2"))))
+        expect(view?.trackName, "2")
+    }
+
+    func testArtistName1() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artistName: nil))))
+        expect(view?.artistName, nil)
+    }
+
+    func testArtistName2() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artistName: "3"))))
+        expect(view?.artistName, "3")
+    }
+
+    func testArtistName3() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artistName: "4"))))
+        expect(view?.artistName, "4")
+    }
+
+    func testAlbumName1() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(albumName: nil))))
+        expect(view?.albumName, nil)
+    }
+
+    func testAlbumName2() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(albumName: "5"))))
+        expect(view?.albumName, "5")
+    }
+
+    func testAlbumName3() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(albumName: "6"))))
+        expect(view?.albumName, "6")
+    }
+
+    func testArtworkData1() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artworkData: nil))))
+        expect(view?.artworkData, nil)
+    }
+
+    func testArtworkData2() {
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artworkData: Data()))))
+        expect(view?.artworkData, Data())
     }
 
     func testIsLoadingIndicatorVisible1() {
@@ -526,11 +590,27 @@ class AudioBarTests: XCTestCase, Tests {
 
 }
 
+extension AudioBar.Event {
+    public static func playerDidBecomeReadyToPlay(withDuration duration: TimeInterval) -> AudioBar.Event {
+        return .playerDidBecomeReadyToPlay(withDuration: duration, and: AudioTags())
+    }
+}
+
 extension AudioBar.State.ReadyToPlay {
-    init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil) {
+    init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil, audioTags: AudioTags = AudioTags()) {
         self.isPlaying = isPlaying
         self.duration = duration
         self.currentTime = currentTime
+        self.audioTags = audioTags
+    }
+}
+
+extension AudioTags {
+    init(title: String? = nil, artistName: String? = nil, albumName: String? = nil, artworkData: Data? = nil) {
+        self.title = title
+        self.artistName = artistName
+        self.albumName = albumName
+        self.artworkData = artworkData
     }
 }
 
