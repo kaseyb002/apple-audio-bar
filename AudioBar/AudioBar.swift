@@ -14,7 +14,7 @@ public struct AudioBar: Program {
         case playPauseButton(PlayPauseButton)
         case userDidTapSeekBackButton
         case userDidTapSeekForwardButton
-        case playerDidBecomeReadyToPlay(withDuration: TimeInterval)
+        case playerDidBecomeReadyToPlay(withDuration: TimeInterval, and: AudioTags)
         case playerDidFailToBecomeReady
         case playerDidUpdateCurrentTime(TimeInterval)
         case playerDidPlayToEnd
@@ -25,6 +25,7 @@ public struct AudioBar: Program {
             var isPlaying: Bool
             var duration: TimeInterval
             var currentTime: TimeInterval?
+            let tags: AudioTags
         }
         case waitingForURL
         case readyToLoadURL(URL)
@@ -57,6 +58,10 @@ public struct AudioBar: Program {
         let seekInterval: TimeInterval
         let playbackDuration: TimeInterval
         let elapsedPlaybackTime: TimeInterval
+        let trackName: String?
+        let artistName: String?
+        let albumName: String?
+        let artworkData: Data?
     }
 
     public enum Failure: Error {
@@ -149,11 +154,11 @@ public struct AudioBar: Program {
             }
 
             state = .readyToPlay(readyToPlay)
-        case .playerDidBecomeReadyToPlay(withDuration: let duration):
+        case .playerDidBecomeReadyToPlay(withDuration: let duration, and: let tags):
             guard case .waitingForPlayerToBecomeReadyToPlayURL = state else {
                 return .failure(.notWaitingToBecomeReadyToPlay)
             }
-            state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil))
+            state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil, tags: tags))
             perform(.player(.play))
 
         case .playerDidPlayToEnd:
@@ -198,7 +203,11 @@ public struct AudioBar: Program {
                 isPauseCommandEnabled: false,
                 seekInterval: State.seekInterval,
                 playbackDuration: 0,
-                elapsedPlaybackTime: 0
+                elapsedPlaybackTime: 0,
+                trackName: nil,
+                artistName: nil,
+                albumName: nil,
+                artworkData: nil
             )
         case .readyToLoadURL:
             view = .init(
@@ -213,7 +222,11 @@ public struct AudioBar: Program {
                 isPauseCommandEnabled: false,
                 seekInterval: State.seekInterval,
                 playbackDuration: 0,
-                elapsedPlaybackTime: 0
+                elapsedPlaybackTime: 0,
+                trackName: nil,
+                artistName: nil,
+                albumName: nil,
+                artworkData: nil
             )
         case .waitingForPlayerToBecomeReadyToPlayURL:
             view = .init(
@@ -228,7 +241,11 @@ public struct AudioBar: Program {
                 isPauseCommandEnabled: true,
                 seekInterval: State.seekInterval,
                 playbackDuration: 0,
-                elapsedPlaybackTime: 0
+                elapsedPlaybackTime: 0,
+                trackName: nil,
+                artistName: nil,
+                albumName: nil,
+                artworkData: nil
             )
         case .readyToPlay(let readyToPlay):
             var remainingTime: TimeInterval? {
@@ -266,7 +283,11 @@ public struct AudioBar: Program {
                 isPauseCommandEnabled: readyToPlay.isPlaying && isPlayPauseButtonEnabled,
                 seekInterval: State.seekInterval,
                 playbackDuration: readyToPlay.duration,
-                elapsedPlaybackTime: readyToPlay.currentTime ?? 0
+                elapsedPlaybackTime: readyToPlay.currentTime ?? 0,
+                trackName: readyToPlay.tags.title,
+                artistName: readyToPlay.tags.artistName,
+                albumName: readyToPlay.tags.albumName,
+                artworkData: readyToPlay.tags.artworkData
             )
         }
         return .success(view)
