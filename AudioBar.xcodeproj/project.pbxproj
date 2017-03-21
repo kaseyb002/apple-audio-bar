@@ -17,8 +17,7 @@
 		91C186411E03177A006ECAD8 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
 		91C186461E031A4D006ECAD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91C186451E031A4D006ECAD8 /* Assets.xcassets */; };
 		91C655B11E1BB0D0008D1F21 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
-		B69692BB1E6F107F0041C13D /* MPNowPlayingInfoCenter+PlaybackDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69692BA1E6F107F0041C13D /* MPNowPlayingInfoCenter+PlaybackDuration.swift */; };
-		B6FE57CE1E6DD02700872AA6 /* MPNowPlayingInfoCenter+ElapsedPlaybackTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE57CD1E6DD02700872AA6 /* MPNowPlayingInfoCenter+ElapsedPlaybackTime.swift */; };
+		B69430781E819FF800A6E830 /* AudioTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69430771E819FF800A6E830 /* AudioTags.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +43,7 @@
 		91C1561C1E6F2C6800FA2740 /* CMTime+TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMTime+TimeInterval.swift"; sourceTree = "<group>"; };
 		91C186401E03177A006ECAD8 /* Elm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Elm.framework; path = Carthage/Build/iOS/Elm.framework; sourceTree = "<group>"; };
 		91C186451E031A4D006ECAD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B69692BA1E6F107F0041C13D /* MPNowPlayingInfoCenter+PlaybackDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPNowPlayingInfoCenter+PlaybackDuration.swift"; sourceTree = "<group>"; };
-		B6FE57CD1E6DD02700872AA6 /* MPNowPlayingInfoCenter+ElapsedPlaybackTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPNowPlayingInfoCenter+ElapsedPlaybackTime.swift"; sourceTree = "<group>"; };
+		B69430771E819FF800A6E830 /* AudioTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTags.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +101,7 @@
 				91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */,
 				91930F701E0315BC006A0091 /* AudioBar.swift */,
 				916289ED1E1E93960004D27E /* AudioBarTests.swift */,
-				B69692BA1E6F107F0041C13D /* MPNowPlayingInfoCenter+PlaybackDuration.swift */,
-				B6FE57CD1E6DD02700872AA6 /* MPNowPlayingInfoCenter+ElapsedPlaybackTime.swift */,
+				B69430771E819FF800A6E830 /* AudioTags.swift */,
 				91C1561C1E6F2C6800FA2740 /* CMTime+TimeInterval.swift */,
 				91C186451E031A4D006ECAD8 /* Assets.xcassets */,
 				91930F381E03158F006A0091 /* Info.plist */,
@@ -248,11 +245,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6FE57CE1E6DD02700872AA6 /* MPNowPlayingInfoCenter+ElapsedPlaybackTime.swift in Sources */,
 				91930F731E0315BC006A0091 /* AudioBar.swift in Sources */,
-				B69692BB1E6F107F0041C13D /* MPNowPlayingInfoCenter+PlaybackDuration.swift in Sources */,
 				91C1561D1E6F2C6800FA2740 /* CMTime+TimeInterval.swift in Sources */,
 				91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */,
+				B69430781E819FF800A6E830 /* AudioTags.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

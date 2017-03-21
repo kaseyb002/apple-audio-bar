@@ -37,7 +37,6 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        nowPlayingInfoCenter.nowPlayingInfo = [:]
         configureCommandCenterCommands()
         volumeView.showsVolumeSlider = false
         volumeView.setRouteButtonImage(loadImage(withName: "AirPlay Icon"), for: .normal)
@@ -77,8 +76,22 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
         remoteCommandCenter.skipBackwardCommand.isEnabled = view.isSeekBackButtonEnabled
         remoteCommandCenter.skipForwardCommand.preferredIntervals = [.init(value: view.seekInterval)]
         remoteCommandCenter.skipBackwardCommand.preferredIntervals = [.init(value: view.seekInterval)]
-        nowPlayingInfoCenter.setPlaybackDuration(view.playbackDuration)
-        nowPlayingInfoCenter.setElapsedPlaybackTime(view.elapsedPlaybackTime)
+        var nowPlayingInfo: [String: Any] = [:]
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = view.playbackDuration
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = view.elapsedPlaybackTime
+        if let trackName = view.trackName {
+            nowPlayingInfo[MPMediaItemPropertyTitle] = trackName
+        }
+        if let artistName = view.artistName {
+            nowPlayingInfo[MPMediaItemPropertyArtist] = artistName
+        }
+        if let albumName = view.albumName {
+            nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = albumName
+        }
+        if let artworkData = view.artworkData, let artwork = UIImage(data: artworkData) {
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: artwork)
+        }
+        nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
     }
 
     public func store(_ store: Store<AudioBar>, didRequest action: AudioBar.Action) {
@@ -156,7 +169,7 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
             case .unknown:
                 break
             case .readyToPlay:
-                store.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval))
+                store.dispatch(.playerDidBecomeReadyToPlay(withDuration: playerItem.duration.timeInterval, and: .init(commonMetadata: playerItem.asset.commonMetadata)))
             case .failed:
                 store.dispatch(.playerDidFailToBecomeReady)
             }
