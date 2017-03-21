@@ -25,7 +25,7 @@ public struct AudioBar: Program {
             var isPlaying: Bool
             var duration: TimeInterval
             var currentTime: TimeInterval?
-            let tags: AudioTags
+            let audioTags: AudioTags
         }
         case waitingForURL
         case readyToLoadURL(URL)
@@ -154,11 +154,11 @@ public struct AudioBar: Program {
             }
 
             state = .readyToPlay(readyToPlay)
-        case .playerDidBecomeReadyToPlay(withDuration: let duration, and: let tags):
+        case .playerDidBecomeReadyToPlay(withDuration: let duration, and: let audioTags):
             guard case .waitingForPlayerToBecomeReadyToPlayURL = state else {
                 return .failure(.notWaitingToBecomeReadyToPlay)
             }
-            state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil, tags: tags))
+            state = .readyToPlay(.init(isPlaying: true, duration: duration, currentTime: nil, audioTags: audioTags))
             perform(.player(.play))
 
         case .playerDidPlayToEnd:
@@ -284,10 +284,10 @@ public struct AudioBar: Program {
                 seekInterval: State.seekInterval,
                 playbackDuration: readyToPlay.duration,
                 elapsedPlaybackTime: readyToPlay.currentTime ?? 0,
-                trackName: readyToPlay.tags.title,
-                artistName: readyToPlay.tags.artistName,
-                albumName: readyToPlay.tags.albumName,
-                artworkData: readyToPlay.tags.artworkData
+                trackName: readyToPlay.audioTags.title,
+                artistName: readyToPlay.audioTags.artistName,
+                albumName: readyToPlay.audioTags.albumName,
+                artworkData: readyToPlay.audioTags.artworkData
             )
         }
         return .success(view)

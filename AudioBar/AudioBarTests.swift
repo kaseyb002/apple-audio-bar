@@ -66,7 +66,7 @@ class AudioBarTests: XCTestCase, Tests {
 
     func testPlayerDidBecomeReadyToPlay() {
         let update = expectUpdate(for: .playerDidBecomeReadyToPlay(withDuration: 1, and: AudioTags()), state: .waitingForPlayerToBecomeReadyToPlayURL(.arbitrary))
-        expect(update?.state, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: nil, tags: AudioTags())))
+        expect(update?.state, .readyToPlay(.init(isPlaying: true, duration: 1, currentTime: nil, audioTags: AudioTags())))
         expect(update?.action, .player(.play))
     }
 
@@ -444,57 +444,57 @@ class AudioBarTests: XCTestCase, Tests {
     }
 
     func testTrackName1() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(title: nil))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(title: nil))))
         expect(view?.trackName, nil)
     }
 
     func testTrackName2() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(title: "1"))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(title: "1"))))
         expect(view?.trackName, "1")
     }
 
     func testTrackName3() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(title: "2"))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(title: "2"))))
         expect(view?.trackName, "2")
     }
 
     func testArtistName1() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(artistName: nil))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artistName: nil))))
         expect(view?.artistName, nil)
     }
 
     func testArtistName2() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(artistName: "3"))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artistName: "3"))))
         expect(view?.artistName, "3")
     }
 
     func testArtistName3() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(artistName: "4"))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artistName: "4"))))
         expect(view?.artistName, "4")
     }
 
     func testAlbumName1() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(albumName: nil))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(albumName: nil))))
         expect(view?.albumName, nil)
     }
 
     func testAlbumName2() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(albumName: "5"))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(albumName: "5"))))
         expect(view?.albumName, "5")
     }
 
     func testAlbumName3() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(albumName: "6"))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(albumName: "6"))))
         expect(view?.albumName, "6")
     }
 
     func testArtworkData1() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(artworkData: nil))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artworkData: nil))))
         expect(view?.artworkData, nil)
     }
 
     func testArtworkData2() {
-        let view = expectView(for: .readyToPlay(.init(tags: .init(artworkData: Data()))))
+        let view = expectView(for: .readyToPlay(.init(audioTags: .init(artworkData: Data()))))
         expect(view?.artworkData, Data())
     }
 
@@ -597,11 +597,11 @@ extension AudioBar.Event {
 }
 
 extension AudioBar.State.ReadyToPlay {
-    init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil, tags: AudioTags = AudioTags()) {
+    init(isPlaying: Bool = false, duration: TimeInterval = 60, currentTime: TimeInterval? = nil, audioTags: AudioTags = AudioTags()) {
         self.isPlaying = isPlaying
         self.duration = duration
         self.currentTime = currentTime
-        self.tags = tags
+        self.audioTags = audioTags
     }
 }
 
