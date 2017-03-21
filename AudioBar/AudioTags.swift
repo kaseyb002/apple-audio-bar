@@ -6,7 +6,6 @@ public struct AudioTags {
     var artistName: String?
     var albumName: String?
     var artworkData: Data?
-    var creationDate: Date?
 
     init(commonMetadata: [AVMetadataItem]) {
         for item in commonMetadata {
@@ -20,8 +19,6 @@ public struct AudioTags {
                 albumName = item.stringValue
             case AVMetadataCommonKeyArtwork:
                 artworkData = item.dataValue
-            case AVMetadataCommonKeyCreationDate:
-                creationDate = item.dateValue
             default:
                 break
             }
