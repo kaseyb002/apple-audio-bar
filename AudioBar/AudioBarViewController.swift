@@ -152,7 +152,7 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
         playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store] _ in
+        _ = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store] _ in
             store?.dispatch(.playerDidPlayToEnd)
         }
     }
