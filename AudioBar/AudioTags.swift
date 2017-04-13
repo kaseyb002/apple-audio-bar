@@ -2,27 +2,25 @@ import AVFoundation
 
 public struct AudioTags {
 
-    var title: String?
-    var artistName: String?
-    var albumName: String?
-    var artworkData: Data?
+    let title: String?
+    let artistName: String?
+    let albumName: String?
+    let artworkData: Data?
 
     init(commonMetadata: [AVMetadataItem]) {
-        for item in commonMetadata {
-            guard let key = item.commonKey else { continue }
-            switch key {
-            case AVMetadataCommonKeyTitle:
-                title = item.stringValue
-            case AVMetadataCommonKeyArtist:
-                artistName = item.stringValue
-            case AVMetadataCommonKeyAlbumName:
-                albumName = item.stringValue
-            case AVMetadataCommonKeyArtwork:
-                artworkData = item.dataValue
-            default:
-                break
+
+        func metadataItem(forKey key: String) -> AVMetadataItem? {
+            for item in commonMetadata where item.commonKey == key {
+                return item
             }
+            return nil
         }
+
+        title = metadataItem(forKey: AVMetadataCommonKeyTitle)?.stringValue
+        artistName = metadataItem(forKey: AVMetadataCommonKeyArtist)?.stringValue
+        albumName = metadataItem(forKey: AVMetadataCommonKeyAlbumName)?.stringValue
+        artworkData = metadataItem(forKey: AVMetadataCommonKeyArtwork)?.dataValue
+
     }
 
 }
