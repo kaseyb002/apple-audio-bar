@@ -12,7 +12,6 @@
 		915B2E751E9EB64E00665B73 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915B2E711E9EB64E00665B73 /* Store.swift */; };
 		915B2E761E9EB64E00665B73 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915B2E721E9EB64E00665B73 /* Tests.swift */; };
 		915B2E771E9EB64E00665B73 /* Utilitities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915B2E731E9EB64E00665B73 /* Utilitities.swift */; };
-		915B2E781E9EB9D000665B73 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915B2E681E9EB63F00665B73 /* Elm.framework */; };
 		915B2E791E9EB9D100665B73 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915B2E681E9EB63F00665B73 /* Elm.framework */; };
 		916289EE1E1E93970004D27E /* AudioBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916289ED1E1E93960004D27E /* AudioBarTests.swift */; };
 		91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91930F341E03158F006A0091 /* AudioBar.framework */; };
@@ -21,10 +20,9 @@
 		91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */; };
 		91930F731E0315BC006A0091 /* AudioBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91930F701E0315BC006A0091 /* AudioBar.swift */; };
 		91C1561D1E6F2C6800FA2740 /* CMTime+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1561C1E6F2C6800FA2740 /* CMTime+TimeInterval.swift */; };
-		91C186411E03177A006ECAD8 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
 		91C186461E031A4D006ECAD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91C186451E031A4D006ECAD8 /* Assets.xcassets */; };
-		91C655B11E1BB0D0008D1F21 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C186401E03177A006ECAD8 /* Elm.framework */; };
 		B69430781E819FF800A6E830 /* AudioTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69430771E819FF800A6E830 /* AudioTags.swift */; };
+		B6A33BF11EA10BB80045D2C2 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915B2E681E9EB63F00665B73 /* Elm.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +53,6 @@
 		91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarViewController.swift; sourceTree = "<group>"; };
 		91930F701E0315BC006A0091 /* AudioBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBar.swift; sourceTree = "<group>"; };
 		91C1561C1E6F2C6800FA2740 /* CMTime+TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMTime+TimeInterval.swift"; sourceTree = "<group>"; };
-		91C186401E03177A006ECAD8 /* Elm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Elm.framework; path = Carthage/Build/iOS/Elm.framework; sourceTree = "<group>"; };
 		91C186451E031A4D006ECAD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B69430771E819FF800A6E830 /* AudioTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTags.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,8 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91C186411E03177A006ECAD8 /* Elm.framework in Frameworks */,
-				915B2E781E9EB9D000665B73 /* Elm.framework in Frameworks */,
+				B6A33BF11EA10BB80045D2C2 /* Elm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +79,6 @@
 			files = (
 				91930F3E1E03158F006A0091 /* AudioBar.framework in Frameworks */,
 				915B2E791E9EB9D100665B73 /* Elm.framework in Frameworks */,
-				91C655B11E1BB0D0008D1F21 /* Elm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,21 +98,12 @@
 			path = Elm;
 			sourceTree = "<group>";
 		};
-		916289DC1E1C49610004D27E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				91C186401E03177A006ECAD8 /* Elm.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		91930F2A1E03158F006A0091 = {
 			isa = PBXGroup;
 			children = (
 				91930F361E03158F006A0091 /* AudioBar */,
 				915B2E691E9EB63F00665B73 /* Elm */,
 				91930F351E03158F006A0091 /* Products */,
-				916289DC1E1C49610004D27E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
