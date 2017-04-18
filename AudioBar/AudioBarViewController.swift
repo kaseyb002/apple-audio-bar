@@ -37,6 +37,10 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
         store.dispatch(.prepareToLoad(url))
     }
 
+    public func play() {
+        store.dispatch(.playPauseButton(.userDidTapPlayButton))
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         configureCommandCenterCommands()
