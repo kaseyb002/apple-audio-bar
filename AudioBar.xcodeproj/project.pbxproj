@@ -23,6 +23,7 @@
 		91C186461E031A4D006ECAD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91C186451E031A4D006ECAD8 /* Assets.xcassets */; };
 		B69430781E819FF800A6E830 /* AudioTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69430771E819FF800A6E830 /* AudioTags.swift */; };
 		B6A33BF11EA10BB80045D2C2 /* Elm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915B2E681E9EB63F00665B73 /* Elm.framework */; };
+		B6A33BF61EA698080045D2C2 /* AudioBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A33BF51EA698080045D2C2 /* AudioBarDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		91C1561C1E6F2C6800FA2740 /* CMTime+TimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMTime+TimeInterval.swift"; sourceTree = "<group>"; };
 		91C186451E031A4D006ECAD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B69430771E819FF800A6E830 /* AudioTags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTags.swift; sourceTree = "<group>"; };
+		B6A33BF51EA698080045D2C2 /* AudioBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBarDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				91930F371E03158F006A0091 /* AudioBar.h */,
 				91930F6E1E0315BC006A0091 /* AudioBar.storyboard */,
 				91930F6F1E0315BC006A0091 /* AudioBarViewController.swift */,
+				B6A33BF51EA698080045D2C2 /* AudioBarDelegate.swift */,
 				91930F701E0315BC006A0091 /* AudioBar.swift */,
 				916289ED1E1E93960004D27E /* AudioBarTests.swift */,
 				B69430771E819FF800A6E830 /* AudioTags.swift */,
@@ -321,6 +324,7 @@
 			files = (
 				91930F731E0315BC006A0091 /* AudioBar.swift in Sources */,
 				91C1561D1E6F2C6800FA2740 /* CMTime+TimeInterval.swift in Sources */,
+				B6A33BF61EA698080045D2C2 /* AudioBarDelegate.swift in Sources */,
 				91930F721E0315BC006A0091 /* AudioBarViewController.swift in Sources */,
 				B69430781E819FF800A6E830 /* AudioTags.swift in Sources */,
 			);

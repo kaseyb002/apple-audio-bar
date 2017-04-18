@@ -18,6 +18,8 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
     @IBOutlet private var timeLabel: UILabel!
     @IBOutlet private var audioRouteView: UIView!
 
+    public weak var delegate: AudioBarDelegate?
+
     @IBAction func userDidTapPlayPauseButton() {
         let message = store.view.playPauseButtonEvent
         store.dispatch(.playPauseButton(message))
@@ -152,8 +154,9 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
         playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        _ = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store] _ in
+        _ = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store, weak delegate] _ in
             store?.dispatch(.playerDidPlayToEnd)
+            delegate?.audioBarDidPlayToEnd()
         }
     }
 
