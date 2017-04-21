@@ -121,6 +121,8 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
             case .setCurrentTime(let time):
                 player.seek(to: CMTime(timeInterval: time))
             }
+        case .callDelegatePlayerDidPlayToEnd:
+            delegate?.audioBarDidPlayToEnd()
         case .showAlert(text: let text, button: let button):
             let alertController = UIAlertController(title: text, message: nil, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: button, style: .default, handler: nil))
@@ -158,9 +160,8 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
 
     private func beginObservingPlayerItem(_ playerItem: AVPlayerItem) {
         playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        _ = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store, weak delegate] _ in
+        _ = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: nil) { [weak store] _ in
             store?.dispatch(.playerDidPlayToEnd)
-            delegate?.audioBarDidPlayToEnd()
         }
     }
 
