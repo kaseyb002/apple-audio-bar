@@ -42,6 +42,7 @@ public struct AudioBar: Program {
             case setCurrentTime(TimeInterval)
         }
         case player(Player)
+        case playerDidPlayToEnd
         case showAlert(text: String, button: String)
     }
 
@@ -148,9 +149,12 @@ public struct AudioBar: Program {
             readyToPlay.currentTime = currentTime
             perform(.player(.setCurrentTime(currentTime)))
 
-            if currentTime == readyToPlay.duration && readyToPlay.isPlaying {
-                readyToPlay.isPlaying = false
-                perform(.player(.pause))
+            if currentTime == readyToPlay.duration {
+                if readyToPlay.isPlaying {
+                    readyToPlay.isPlaying = false
+                    perform(.player(.pause))
+                }
+                perform(.playerDidPlayToEnd)
             }
 
             state = .readyToPlay(readyToPlay)
@@ -171,6 +175,7 @@ public struct AudioBar: Program {
             readyToPlay.currentTime = readyToPlay.duration
             readyToPlay.isPlaying = false
             state = .readyToPlay(readyToPlay)
+            perform(.playerDidPlayToEnd)
         case .playerDidUpdateCurrentTime(let currentTime):
             guard case .readyToPlay(var readyToPlay) = state else {
                 return .failure(.notReadyToPlay)

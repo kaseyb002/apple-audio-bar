@@ -134,6 +134,7 @@ class AudioBarTests: XCTestCase, Tests {
     func testPlayerDidPlayToEnd() {
         let update = expectUpdate(for: .playerDidPlayToEnd, state: .readyToPlay(.init(isPlaying: true, duration: 60, currentTime: 0)))
         expect(update?.state, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
+        expect(update?.action, .playerDidPlayToEnd)
     }
 
     func testPlayerDidPlayToEndUnexpectedly1() {
@@ -216,6 +217,7 @@ class AudioBarTests: XCTestCase, Tests {
         expect(update?.state, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
         expect(update?.actions[0], .player(.setCurrentTime(60)))
         expect(update?.actions[1], .player(.pause))
+        expect(update?.actions[2], .playerDidPlayToEnd)
     }
 
     func testUserDidTapSeekForwardButtonNearEndWhenPlaying2() {
@@ -223,16 +225,19 @@ class AudioBarTests: XCTestCase, Tests {
         expect(update?.state, .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 60)))
         expect(update?.actions[0], .player(.setCurrentTime(60)))
         expect(update?.actions[1], .player(.pause))
+        expect(update?.actions[2], .playerDidPlayToEnd)
     }
 
     func testUserDidTapSeekForwardButtonNearEndWhenPaused1() {
         let update = expectUpdate(for: .userDidTapSeekForwardButton, state: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 59)))
-        expect(update?.action, .player(.setCurrentTime(60)))
+        expect(update?.actions[0], .player(.setCurrentTime(60)))
+        expect(update?.actions[1], .playerDidPlayToEnd)
     }
 
     func testUserDidTapSeekForwardButtonNearEndWhenPaused2() {
         let update = expectUpdate(for: .userDidTapSeekForwardButton, state: .readyToPlay(.init(isPlaying: false, duration: 60, currentTime: 58)))
-        expect(update?.action, .player(.setCurrentTime(60)))
+        expect(update?.actions[0], .player(.setCurrentTime(60)))
+        expect(update?.actions[1], .playerDidPlayToEnd)
     }
 
     func testUserDidTapSeekForwardButtonUnexpectedly1() {
