@@ -121,7 +121,7 @@ public final class AudioBarViewController: UIViewController, StoreDelegate {
             case .setCurrentTime(let time):
                 player.seek(to: CMTime(timeInterval: time))
             }
-        case .playerDidPlayToEnd:
+        case .callDelegatePlayerDidPlayToEnd:
             delegate?.audioBarDidPlayToEnd()
         case .showAlert(text: let text, button: let button):
             let alertController = UIAlertController(title: text, message: nil, preferredStyle: .alert)
